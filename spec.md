@@ -46,7 +46,8 @@ User software:
 Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet using a website on a desktop. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized LNUrl.
 
 LNUrl would look like this: 
-```https://service.com/api?q=<unique identifier to authorize user request>&max=<max amount withdrawable>&action=withdrawFunds
+```
+https://service.com/api?q=<unique identifier to authorize user request>&max=<max amount withdrawable>&action=withdrawFunds
 ```
 
 User software:
