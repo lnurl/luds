@@ -17,7 +17,7 @@ LNUrl can be presented either directly or be embedded in Lightning invoice if re
 # Example usage scenarios
 
 ## Incoming payment channel request  
-Ssuppose user has a balance on a certain service which he wishes to turn into an incoming channel and service supports such functionality. This would require many parameters so resulting QR may be overly dense and cause scanning issues. Other than that, when using a mobile wallet user has to make sure that a connection to target LN node is established from mobile client before an incoming channel is requested.
+Suppose user has a balance on a certain service which he wishes to turn into an incoming channel and service supports such functionality. This would require many parameters so resulting QR may be overly dense and cause scanning issues. Other than that, when using a mobile wallet user has to make sure that a connection to target LN node is established from mobile client before an incoming channel is requested.
 
 LNUrl would look like this: 
 ```
