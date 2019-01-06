@@ -30,7 +30,7 @@ User software:
 3. Gets Json response of form: 
 ```
 {
-	uri: String, // Remote node addres of form node_key@ip_address:port_number
+	uri: String, // Remote node address of form node_key@ip_address:port_number
 	callback: String, // a second-level url which would initiate an OpenChannel message from target LN node
 	k1: String, // a second-level secret to authorize user request 
 	capacity: Long,
