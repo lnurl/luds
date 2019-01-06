@@ -7,6 +7,10 @@ would be bech32-encoded as:
 
 > lnurl1dp68gurn8ghj7um9wfmxjcm99e3k7mf0v9cxj0m385ekvcenxc6r2c35xvukxefcv5mkvv34x5ekzd3ev56nyd3hxqurzepexejxxepnxscrvwfnv9nxzcn9xq6xyefhvgcxxcmyxymnserxyeskxarfdahr6mmsv4hyx6rpdehx2mqvucphd
 
+A QR encoded LNUrl example:
+
+![A QR encoded LNUrl example](https://i.imgur.com/2WwUzAJ.jpg)
+
 LNUrl can be presented either directly or be embedded in Lightning invoice if respected LNUrl usage scenario can be gracefully degraded to just using an invoice. When embedded in Lightning invoice a letter `l` is used as tag identifier with decoding rules identical to Description tag `d`. Once decoded user software should make sure an LNUrlTag indeed contains an `https` query string.
 
 
