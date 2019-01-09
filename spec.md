@@ -41,7 +41,8 @@ User software:
 ```
 4. Opens a Lightning socket connection to a target node using `uri` field.
 5. Issues an HTTPS GET request using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
-6. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
+6. Receives a `{"status":"OK"}` Json response.
+7. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
 
 
 ## 2. Withdrawing funds from a service
@@ -64,4 +65,5 @@ User software:
 min(max amount withdrawable from service, local estimation of how much can be routed into wallet)
 ```
 5. Issues an HTTPS GET request using `<callback>?k1=<k1>&pr=<Lightning invoice with user defined amount>`
-6. Awaits for incoming payment.
+6. Receives a `{"status":"OK"}` Json response.
+7. Awaits for incoming payment.
