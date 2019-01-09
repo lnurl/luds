@@ -18,7 +18,7 @@ Once decoded user software should make sure an `LNUrlTag` indeed contains an `ht
 
 # Example usage scenarios
 
-## Incoming payment channel request  
+## 1. Incoming payment channel request  
 Suppose user has a balance on a certain service which he wishes to turn into an incoming channel and service supports such functionality. This would require many parameters so resulting QR may be overly dense and cause scanning issues. Other than that, when using a mobile wallet user has to make sure that a connection to target LN node is established from mobile client before an incoming channel is requested.
 
 User software:
@@ -44,7 +44,7 @@ User software:
 6. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
 
 
-## Withdrawing funds
+## 2. Withdrawing funds
 Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet using a website on a desktop. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `lnurl`.
 
 User software:
