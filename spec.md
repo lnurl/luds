@@ -1,28 +1,25 @@
-LNUrl is a bech32-encoded HTTPS query string which is supposed to help payer interact with payee and thus simplify a number of standard scenarios.
+`lnurl` is a bech32-encoded HTTPS query string which is supposed to help payer interact with payee and thus simplify a number of standard scenarios.
 
-LNUrl has a special `action` query parameter so user software can determine what it is about and an `lnurl` prefix in encoded form, this example query string: 
-> https://service.com/api?q=3fc3645b439ce8e7f2553a69e5267081d96dcd340693afabe04be7b0ccd178df&action=openChannel 
+This example `lnurl`: 
+> https://service.com/api?q=3fc3645b439ce8e7f2553a69e5267081d96dcd340693afabe04be7b0ccd178df
 
 would be bech32-encoded as:
 
-> lnurl1dp68gurn8ghj7um9wfmxjcm99e3k7mf0v9cxj0m385ekvcenxc6r2c35xvukxefcv5mkvv34x5ekzd3ev56nyd3hxqurzepexejxxepnxscrvwfnv9nxzcn9xq6xyefhvgcxxcmyxymnserxyeskxarfdahr6mmsv4hyx6rpdehx2mqvucphd
+> LNURL1DP68GURN8GHJ7UM9WFMXJCM99E3K7MF0V9CXJ0M385EKVCENXC6R2C35XVUKXEFCV5MKVV34X5EKZD3EV56NYD3HXQURZEPEXEJXXEPNXSCRVWFNV9NXZCN9XQ6XYEFHVGCXXCMYXYMNSERXFQ5FNS
 
-A QR encoded LNUrl example:
+A QR encoded form:
 
-![A QR encoded LNUrl example](https://i.imgur.com/2WwUzAJ.jpg)
+![A QR encoded LNUrl example](https://i.imgur.com/HbB7U1K.png)
 
-LNUrl can be presented either directly or be embedded in Lightning invoice if respected LNUrl usage scenario can be gracefully degraded to just using an invoice. When embedded in Lightning invoice a letter `l` is used as tag identifier with decoding rules identical to Description tag `d`. Once decoded user software should make sure an LNUrlTag indeed contains an `https` query string.
+`lnurl` can be presented either directly or be embedded in Lightning invoice if respected `lnurl` usage scenario can be gracefully degraded to just using an invoice. When embedded in Lightning invoice a letter `l` is used as tag identifier with decoding rules identical to Description tag `d`. A `lightning:` prefix may be used how it's currently used in Lightning invoices.
+
+Once decoded user software should make sure an `LNUrlTag` indeed contains an `https` query string, then it should make an HTTP GET request which must return a Json object containing a on obligatory `tag` field, this way user software would know what this `lnurl` is about. 
 
 
 # Example usage scenarios
 
 ## Incoming payment channel request  
 Suppose user has a balance on a certain service which he wishes to turn into an incoming channel and service supports such functionality. This would require many parameters so resulting QR may be overly dense and cause scanning issues. Other than that, when using a mobile wallet user has to make sure that a connection to target LN node is established from mobile client before an incoming channel is requested.
-
-LNUrl would look like this: 
-```
-https://service.com/api?q=<unique identifier to authorize user request>&action=openChannel
-```
 
 User software:
 1. Scans a QR code and decodes a query string.
@@ -38,30 +35,33 @@ User software:
 	cltvExpiryDelta: Int, 
 	htlcMinimumMsat: Long, 
 	feeBaseMsat: Long, 
-	feeProportionalMillionths: Long
+	feeProportionalMillionths: Long,
+	tag: "channelRequest" // Now user software knows what to do next...
 }
 ```
 4. Opens a Lightning socket connection to a target node using `uri` field.
-5. Issues an HTTP GET request using `$callback?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
+5. Issues an HTTP GET request using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
 6. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
 
 
 ## Withdrawing funds
-Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet using a website on a desktop. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized LNUrl.
-
-LNUrl would look like this: 
-```
-https://service.com/api?q=<unique identifier to authorize user request>&max=<max amount withdrawable>&action=withdrawFunds
-```
+Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet using a website on a desktop. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `lnurl`.
 
 User software:
 1. Scans a QR code and decodes a query string.
-2. Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
+2. Makes an HTTP GET request to a service.
+3. Gets Json response of form: 
 ```
-min(max amount withdrawable from LNUrl, local estimation of how much can be routed into wallet)
+{
+	callback: String, // a second-level url which would accept a withdrawal Lightning invoice as query parameter
+	k1: String, // a second-level secret to authorize user request 
+	max: MilliSatoshi, // max withdrawable amount for a given user on a given service
+	tag: "withdrawRequest" // Now user software knows what to do next...
+}
 ```
-3. Creates a Lightning invoice with user provided sum, attaches it to decoded LNURL and makes an HTTP GET request of the form: 
+4. Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
 ```
-https://service.com/api?q=<unique identifier to authorize user request>&max=<max amount withdrawable>&action=withdrawFunds&pr=<bech32-encoded invoice>
+min(max amount withdrawable from service, local estimation of how much can be routed into wallet)
 ```
-4. Awaits for incoming payment.
+5. Issues an HTTP GET request using `<callback>?k1=<k1>&pr=<Lightning invoice with user defined amount>`
+6. Awaits for incoming payment.
