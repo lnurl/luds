@@ -44,7 +44,7 @@ User software:
 6. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
 
 
-## 2. Withdrawing funds
+## 2. Withdrawing funds from a service
 Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet using a website on a desktop. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `lnurl`.
 
 User software:
