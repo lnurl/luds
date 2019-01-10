@@ -67,3 +67,31 @@ min(max amount withdrawable from service, local estimation of how much can be ro
 5. Issues an HTTPS GET request using `<callback>?k1=<k1>&pr=<Lightning invoice with user defined amount>`
 6. Receives a `{"status":"OK"}` Json response.
 7. Awaits for incoming payment.
+
+
+## 3. Linkable payments
+What exists currently is a Proof-of-Payment which is a payment preimage but no such thing as Proof-of-Payer. The following scheme may be used by a service to link multiple payments as belonging to a single payer without compromising payer's identity. Related `lnurl` may be embedded in a Lightning invoice if payment without linking is feasible or may be presented directly.
+
+Linking is achieved by payer providing a `linkingId` which is obtained by `hmacSha256(payer secret, payee service domain name)` ahead of payment. Domain name is chosen here (rather than, say, payee LN node ID) because it's human readable and can be used to generate different `linkingId`s for many domains served by a single LN node. `payer secret` is an EC private key derived from user wallet seed using `m/138'/0` path. 
+
+When presented with linkable payment QR user software:
+1. Scans a QR code and decodes a query string or extracts it from payment request.
+2. Makes an HTTPS GET request to a service.
+3. Gets Json response of form: 
+```
+{
+	callback: String, // a second-level url which would accept a linkingId
+	k1: String, // a second-level secret to authorize user request 
+	reason: String, // an up to 72 characters explanation of why service needs linking
+	pr: String, // Lightning invoice to be paid after linkingId is provided by payer
+	tag: "linkablePayment" // Now user software knows what to do next...
+}
+```
+4. Displays a "Linkable payment" dialog which must include the following elements:
+	- Domain name extracted from `callback` field of Json response.
+	- `reason` field from Json response.
+	- payment amount.
+	- an ability to opt out into ususal payment if `lnurl` was embedded into Lightning invoice.
+5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&linkid=<hex(hmacSha256(payer secret, payee service domain name))>`
+6. Receives a `{"status":"OK"}` Json response.
+7. Fulfills a Lightning invoice from `pr` field of Json response.
