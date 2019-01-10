@@ -74,7 +74,7 @@ min(max amount withdrawable from service, local estimation of how much can be ro
 ## 3. Linkable payments
 What exists currently is a Proof-of-Payment which is a payment preimage but no such thing as Proof-of-Payer. The following scheme may be used by a service to link multiple payments as belonging to a single payer without compromising payer's identity. Related `lnurl` may be embedded in a Lightning invoice if payment without linking is feasible or may be presented directly.
 
-Linking is achieved by payer providing a `linkingId` which is obtained by `hmacSha256(payer secret, payee service domain name)` ahead of payment. Domain name is chosen here (rather than, say, payee LN node ID) because it's human readable and can be used to generate different `linkingId`s for many domains served by a single LN node. `payer secret` is an EC private key derived from user wallet seed using `m/138'/0` path. 
+Linking is achieved by payer providing a `linkingId` which is obtained by `hmacSha256(payer secret, payee domain name)` ahead of payment. Domain name is chosen here (rather than, say, payee LN node ID) because it's human readable and can be used to generate different `linkingId`s for many domains served by a single LN node. `payer secret` is an EC private key derived from user wallet seed using `m/138'/0` path. 
 
 When presented with a linkable payment QR user software:
 1. Scans a QR code and decodes a query string or extracts it from payment request.
