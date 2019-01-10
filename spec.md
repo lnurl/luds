@@ -91,7 +91,7 @@ When presented with linkable payment QR user software:
 	- Domain name extracted from `callback` field of Json response.
 	- `reason` field from Json response.
 	- payment amount.
-	- an ability to opt out into ususal payment if `lnurl` was embedded into Lightning invoice.
+	- an ability to opt out into usual payment if `lnurl` was embedded into Lightning invoice.
 5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&linkid=<hex(hmacSha256(payer secret, payee service domain name))>`
 6. Receives a `{"status":"OK"}` Json response.
 7. Fulfills a Lightning invoice from `pr` field of Json response.
