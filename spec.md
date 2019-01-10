@@ -104,4 +104,4 @@ When presented with a linkable payment QR user software:
 When presented with a login QR user software:
 1. Scans a QR code and decodes a query string: login `lnurl` must contain a `tag` query parameter with value set to `login` which means no HTTPS GET should be made yet.
 2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
-3. Once accepted user software issues an HTTPS GET request using `<lnurl>&id=<hex(hmacSha256(payer secret, login domain name))>` which results in a successful service login. Secret derivation is the same as in a previous case.
+3. Once accepted user software issues an HTTPS GET request using `<lnurl>&id=<hex(hmacSha256(payer secret, login domain name))>` which results in a successful service login. Secret derivation is the same as in a previous use case.
