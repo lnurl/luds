@@ -13,7 +13,9 @@ A QR encoded form:
 
 `lnurl` can be presented either directly or be embedded in Lightning invoice if respected `lnurl` usage scenario can be gracefully degraded to just using an invoice. When embedded in Lightning invoice `lnurl` is not bech32-encoded and a letter `l` is used as tag identifier with decoding rules identical to Description tag `d`. When presented directly a `lightning:` prefix may be used how it's currently used in Lightning invoices.
 
-Once decoded user software should make sure an `LNUrlTag` indeed contains an `https` query string, then it should make an HTTPS GET request which must return a Json object containing a on obligatory `tag` field, this way user software would know what this `lnurl` is about. 
+Once `lnurl` is decoded:
+- if `tag` query parameter is present then this `lnurl` has a special meaning, further actions will be based on `tag` value.
+- otherwise an HTTPS GET request should be issued which must return a Json object containing a on obligatory `tag` field, this way user software would know what this `lnurl` is about. 
 
 
 # Example usage scenarios
