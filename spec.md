@@ -94,7 +94,7 @@ When presented with a linkable payment QR user software:
 	- `reason` field from Json response.
 	- Payment amount.
 	- An ability to opt out into usual payment if `lnurl` was embedded into Lightning invoice.
-5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&id=<hex(hmacSha256(payer secret, payee service domain name))>`
+5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&id=<hex(hmacSha256(payer secret, payee domain name))>`
 6. Receives a `{"status":"OK"}` Json response.
 7. Fulfills a Lightning invoice from `pr` field of Json response.
 
@@ -104,4 +104,4 @@ When presented with a linkable payment QR user software:
 When presented with a login QR user software:
 1. Scans a QR code and decodes a query string: login `lnurl` must contain a `tag` query parameter with value set to `login` which means no HTTPS GET should be made yet.
 2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
-3. Once accepted user software issues an HTTPS GET request using `<lnurl>&id=<hex(hmacSha256(payer secret, payee service domain name))>` which results in a successful service login. Secret derivation is the same as in a previous case.
+3. Once accepted user software issues an HTTPS GET request using `<lnurl>&id=<hex(hmacSha256(payer secret, login domain name))>` which results in a successful service login. Secret derivation is the same as in a previous case.
