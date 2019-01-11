@@ -71,6 +71,8 @@ min(max amount withdrawable from service, local estimation of how much can be ro
 6. Receives a `{"status":"OK"}` Json response.
 7. Awaits for incoming payment.
 
+Security note: service must hide withdrawal QR code once `lnurl` endpoint has been called and must generate a new ephemeral `lnurl` is user wants to initiate a new withdrawal.
+
 
 ## 3. Linkable payments
 What exists currently is a Proof-of-Payment which is a payment preimage but no such thing as Proof-of-Payer. The following scheme may be used by a service to link multiple payments as belonging to a single payer without compromising payer's identity. Related `lnurl` may be embedded in a Lightning invoice if payment without linking is feasible or may be presented directly.
