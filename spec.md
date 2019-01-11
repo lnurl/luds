@@ -83,7 +83,6 @@ User software:
 1. Scans a QR code and extracts `lnurl` from payment request: it must contain a `tag` query parameter with value set to `link` which means no HTTPS GET should be made yet.
 2. Displays a "Linkable payment" dialog which must include the following additional elements:
 	- Domain name extracted from `lnurl` query string.
-	- `reason` query parameter value extracted from `lnurl`, if it exists.
 	- An ability to opt out into usual payment.
 3. Once accepted user software issues an HTTPS GET request using `<lnurl>&id=<hex(hmacSha256(payer secret, payee domain name))>`
 4. Receives a `{"status":"OK"}` Json response.
