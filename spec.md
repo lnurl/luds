@@ -58,7 +58,7 @@ User software:
 {
 	callback: String, // a second-level url which would accept a withdrawal Lightning invoice as query parameter
 	k1: String, // a second-level secret to authorize user request 
-	max: MilliSatoshi, // max withdrawable amount for a given user on a given service
+	maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on a given service
 	defaultDescription: String, // A default withdrawal invoice description
 	tag: "withdrawRequest" // Now user software knows what to do next...
 }
@@ -75,36 +75,25 @@ Security note: service must hide withdrawal QR code once `lnurl` endpoint has be
 
 
 ## 3. Linkable payments
-What exists currently is a Proof-of-Payment which is a payment preimage but no such thing as Proof-of-Payer. The following scheme may be used by a service to link multiple payments as belonging to a single payer without compromising payer's identity. Related `lnurl` may be embedded in a Lightning invoice if payment without linking is feasible or may be presented directly.
+What exists currently is a Proof-of-Payment which is a payment preimage but no such thing as Proof-of-Payer. The following scheme may be used by a service to link multiple payments as belonging to a single payer without compromising payer's identity. Related `lnurl` must be embedded in a Lightning invoice.
 
 Linking is achieved by payer providing a `linkingId` which is obtained by `hmacSha256(payer secret, payee domain name)` ahead of payment. Domain name is chosen here (rather than, say, payee LN node ID) because it's human readable and can be used to generate different `linkingId`s for many domains served by a single LN node. `payer secret` is an EC private key derived from user wallet seed using `m/138'/0` path. 
 
-When presented with a linkable payment QR user software:
-1. Scans a QR code and decodes a query string or extracts it from payment request.
-2. Makes an HTTPS GET request to a service.
-3. Gets Json response of form: 
-```
-{
-	callback: String, // a second-level url which would accept a linkingId
-	k1: String, // a second-level secret to authorize user request 
-	reason: String, // an up to 72 characters explanation of why service needs linking
-	pr: String, // Lightning invoice to be paid after linkingId is provided by payer
-	tag: "linkablePayment" // Now user software knows what to do next...
-}
-```
-4. Displays a "Linkable payment" dialog which must include the following elements:
-	- Domain name extracted from `callback` field of Json response.
-	- `reason` field from Json response.
-	- Payment amount.
+User software:
+1. Scans a QR code and extracts `lnurl` from payment request: it must contain a `tag` query parameter with value set to `link` which means no HTTPS GET should be made yet.
+2. Displays a "Linkable payment" dialog which must include the following additional elements:
+	- Domain name extracted from `lnurl` query string.
+	- `reason` query parameter value extracted from `lnurl`, if it exists.
 	- An ability to opt out into usual payment if `lnurl` was embedded into Lightning invoice.
-5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&id=<hex(hmacSha256(payer secret, payee domain name))>`
-6. Receives a `{"status":"OK"}` Json response.
-7. Fulfills a Lightning invoice from `pr` field of Json response.
+3. Once accepted user software issues an HTTPS GET request using `<lnurl>&id=<hex(hmacSha256(payer secret, payee domain name))>`
+4. Receives a `{"status":"OK"}` Json response.
+5. Fulfills a Lightning invoice from `pr` field of Json response.
+
 
 ## 4. Log in with Bitcoin Wallet
 `linkingId` described in a previous use case can also be used to login user to a service.
 
-When presented with a login QR user software:
-1. Scans a QR code and decodes a query string: login `lnurl` must contain a `tag` query parameter with value set to `login` which means no HTTPS GET should be made yet.
+User software:
+1. Scans a QR code and decodes a query string: it must contain a `tag` query parameter with value set to `login` which means no HTTPS GET should be made yet.
 2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
 3. Once accepted user software issues an HTTPS GET request using `<lnurl>&id=<hex(hmacSha256(payer secret, login domain name))>` which results in a successful service login. Secret derivation is the same as in a previous use case.
