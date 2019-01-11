@@ -71,7 +71,7 @@ min(max amount withdrawable from service, local estimation of how much can be ro
 6. Receives a `{"status":"OK"}` Json response.
 7. Awaits for incoming payment.
 
-Security note: service must hide withdrawal QR code once `lnurl` endpoint has been called and must generate a new ephemeral `lnurl` is user wants to initiate a new withdrawal.
+Security note: service must hide withdrawal QR code once `lnurl` endpoint has been called and must generate a new ephemeral `lnurl` if user wants to initiate a new withdrawal.
 
 
 ## 3. Linkable payments
