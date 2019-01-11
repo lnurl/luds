@@ -60,7 +60,6 @@ User software:
 	k1: String, // a second-level secret to authorize user request 
 	max: MilliSatoshi, // max withdrawable amount for a given user on a given service
 	defaultDescription: String, // A default withdrawal invoice description
-	unixTimeoutSec: Long, // Timeout after which this lnurl is no longer valid
 	tag: "withdrawRequest" // Now user software knows what to do next...
 }
 ```
