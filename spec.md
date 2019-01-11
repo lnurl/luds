@@ -71,7 +71,7 @@ min(max amount withdrawable from service, local estimation of how much can be ro
 6. Receives a `{"status":"OK"}` Json response.
 7. Awaits for incoming payment.
 
-Security note: service must hide withdrawal QR code once `lnurl` endpoint has been called and must generate a new ephemeral `lnurl` if user wants to initiate a new withdrawal.
+Security note: wothdrawal `lnurl` should be ephemeral and regenerated from scratch for each new withdrawal request.
 
 
 ## 3. Linkable payments
@@ -86,7 +86,7 @@ User software:
 	- An ability to opt out into usual payment.
 3. Once accepted user software issues an HTTPS GET request using `<lnurl>&id=<hex(hmacSha256(payer secret, payee domain name))>`
 4. Receives a `{"status":"OK"}` Json response.
-5. Fulfills a Lightning invoice from `pr` field of Json response.
+5. Fulfills a scanned Lightning invoice.
 
 
 ## 4. Log in with Bitcoin Wallet
