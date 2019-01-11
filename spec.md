@@ -84,7 +84,7 @@ User software:
 2. Displays a "Linkable payment" dialog which must include the following additional elements:
 	- Domain name extracted from `lnurl` query string.
 	- `reason` query parameter value extracted from `lnurl`, if it exists.
-	- An ability to opt out into usual payment if `lnurl` was embedded into Lightning invoice.
+	- An ability to opt out into usual payment.
 3. Once accepted user software issues an HTTPS GET request using `<lnurl>&id=<hex(hmacSha256(payer secret, payee domain name))>`
 4. Receives a `{"status":"OK"}` Json response.
 5. Fulfills a Lightning invoice from `pr` field of Json response.
