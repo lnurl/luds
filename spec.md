@@ -71,7 +71,7 @@ min(max amount withdrawable from service, local estimation of how much can be ro
 6. Receives a `{"status":"OK"}` Json response.
 7. Awaits for incoming payment.
 
-Security note: wothdrawal `lnurl` should be ephemeral and regenerated from scratch for each new withdrawal request.
+Security note: withdrawal `lnurl` should be ephemeral and re-generated from scratch for each new withdrawal request.
 
 
 ## 3. Linkable payments
