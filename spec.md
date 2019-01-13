@@ -101,7 +101,7 @@ User software:
 
 
 ## 4. Log in with Bitcoin Wallet
-`linkingKey` described in a previous use case can also be used to login user to a service by signing a challenge.
+`linkingKey` described in a previous use case can also be used to login user to a service or authorise sensitive actions (such as withdrawal) by signing a challenge.
 
 User software:
 1. Scans a QR code and decodes a query string: it must contain a `tag` query parameter with value set to `login` which means no HTTPS GET should be made yet. Additionally a `c` (challenge) query parameter must be present whose value is going to be signed by user's `linkingKey`.
