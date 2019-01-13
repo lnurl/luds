@@ -101,9 +101,9 @@ User software:
 
 
 ## 4. Log in with Bitcoin Wallet
-`linkingId` described in a previous use case can also be used to login user to a service.
+`linkingKey` described in a previous use case can also be used to login user to a service by signing a challenge.
 
 User software:
-1. Scans a QR code and decodes a query string: it must contain a `tag` query parameter with value set to `login` which means no HTTPS GET should be made yet.
+1. Scans a QR code and decodes a query string: it must contain a `tag` query parameter with value set to `login` which means no HTTPS GET should be made yet. Additionally a `c` (challenge) query parameter must be present whose value is going to be signed by user's `linkingKey`.
 2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
-3. Once accepted user software issues an HTTPS GET request using `<lnurl>&id=<hex(hmacSha256(payer secret, login domain name))>` which results in a successful service login. Secret derivation is the same as in a previous use case.
+3. Once accepted user software issues an HTTPS GET request using `<lnurl>&key=<hex(linkingKey)>&sig=<hex(sign(<challenge>, linkingPrivKey))>` which results in a successful service login.
