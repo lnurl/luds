@@ -27,7 +27,7 @@ User software:
 1. Scans a QR code and decodes a query string.
 2. Makes an HTTPS GET request to a service.
 3. Gets Json response of form: 
-```
+```json
 {
 	uri: String, // Remote node address of form node_key@ip_address:port_number
 	callback: String, // a second-level url which would initiate an OpenChannel message from target LN node
