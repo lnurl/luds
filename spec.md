@@ -77,14 +77,25 @@ Security note: withdrawal `lnurl` should be ephemeral and re-generated from scra
 ## 3. Linkable payments
 What exists currently is a Proof-of-Payment which is a payment preimage but no such thing as Proof-of-Payer. The following scheme may be used by a service to link multiple payments as belonging to a single payer without compromising payer's identity. Related `lnurl` must be embedded in a Lightning invoice.
 
-Linking is achieved by payer providing a `linkingId` which is obtained by `hmacSha256(payer secret, payee domain name)` ahead of payment. Domain name is chosen here (rather than, say, payee LN node ID) because it's human readable and can be used to generate different `linkingId`s for many domains served by a single LN node. `payer secret` is an EC private key derived from user wallet seed using `m/138'/0` path. 
+Linking is achieved by payer providing a `linkingKey` ahead of payment. Key derivation is as follows:
+1. There exists a private `hashingKey` which is derived by user wallet using `m/138'/0` path.
+2. Service domain name is extracted from `lnurl` and then hashed using `hmacSha256(hashingKey, service domain name)`.
+3. First 8 bytes are taken from resulting hash and then turned into a `Long` which is in turn used to derive a service-specific `linkingKey` using `m/138'/0/<long value>` path, a Scala example:
+```Scala
+import scala.math.BigInt
+import fr.acinq.bitcoin.DeterministicWallet._
+
+val prefix = hmacSha256(hashingKey, serviceDomainName).take(8)
+val linkingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) :: 0L :: BigInt(prefix).toLong :: Nil)
+val linkingKey = linkingPrivKey.publicKey
+```
 
 User software:
 1. Scans a QR code and extracts `lnurl` from payment request: it must contain a `tag` query parameter with value set to `link` which means no HTTPS GET should be made yet.
 2. Displays a "Linkable payment" dialog which must include the following additional elements:
 	- Domain name extracted from `lnurl` query string.
 	- An ability to opt out into usual payment.
-3. Once accepted user software issues an HTTPS GET request using `<lnurl>&id=<hex(hmacSha256(payer secret, payee domain name))>`
+3. Once accepted user software issues an HTTPS GET request using `<lnurl>&key=<hex(linkingKey)>`
 4. Receives a `{"status":"OK"}` Json response.
 5. Fulfills a scanned Lightning invoice.
 
