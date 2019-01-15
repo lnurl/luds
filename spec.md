@@ -104,7 +104,9 @@ User software:
 `linkingKey` described in a previous use case can also be used to login user to a service or authorise sensitive actions (such as withdrawal) by signing a challenge.
 
 User software:
-1. Scans a QR code and decodes a query string: it must contain a `tag` query parameter with value set to `login` which means no HTTPS GET should be made yet. Additionally a `c` (challenge) query parameter must be present whose value is random 32 bytes of data encoded in a hex format going to be signed by user's `linkingKey`.
+1. Scans a QR code and decodes a query string which must contain the following query parameters:
+	- `tag` with value set to `login` which means no HTTPS GET should be made yet.
+	- `c` (challenge) with value set to random 32 bytes of hex encoded data which is going to be signed by user's `linkingKey`.
 2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
 3. Once accepted user software issues an HTTPS GET request using `<lnurl>&key=<hex(linkingKey)>&sig=<hex(sign(<challenge>, linkingPrivKey))>` which results in a successful service login.
 
