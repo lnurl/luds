@@ -73,6 +73,8 @@ min(max amount withdrawable from service, local estimation of how much can be ro
 
 Security note: withdrawal `lnurl` should be ephemeral and re-generated from scratch for each new withdrawal request.
 
+An example server-side code which processes such withdrawal requests: https://gist.github.com/CarlosRoldanx/1754e0ad07b9e2d7a7da8ed8b6673964
+
 
 ## 3. Linkable payments
 What exists currently is a Proof-of-Payment which is a payment preimage but no such thing as Proof-of-Payer. The following scheme may be used by a service to link multiple payments as belonging to a single payer without compromising payer's identity. Related `lnurl` must be embedded in a Lightning invoice.
