@@ -68,8 +68,8 @@ User software:
 min(max amount withdrawable from service, local estimation of how much can be routed into wallet)
 ```
 5. Issues an HTTPS GET request using `<callback>?k1=<k1>&pr=<Lightning invoice with user defined amount>`
-6. Receives a `{"status":"OK"}` Json response.
-7. Awaits for incoming payment.
+6. Receives a `{"status":"OK"}` / `{"status":"ERROR", "reason":"error details..."}` Json response.
+7. Awaits for incoming payment if response was successful.
 
 Security note: withdrawal `lnurl` should be ephemeral and re-generated from scratch for each new withdrawal request.
 
