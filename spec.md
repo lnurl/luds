@@ -96,7 +96,7 @@ User software:
 1. Scans a QR code and extracts `lnurl` from payment request: it must contain a `tag` query parameter with value set to `link` which means no HTTPS GET should be made yet.
 2. Displays a "Linkable payment" dialog which must include the following additional elements:
 	- Domain name extracted from `lnurl` query string.
-	- An ability to opt out into usual payment.
+	- An ability to opt out into usual payment. This entails that service which offers linkable payments must be prepared for some users opting out, there has to be a way to still handle such situations correctly.
 3. Once accepted user software issues an HTTPS GET request using `<lnurl>&key=<hex(linkingKey)>`
 4. Receives a `{"status":"OK"}` / `{"status":"ERROR", "reason":"error details..."}` Json response.
 5. Fulfills a scanned Lightning invoice.
