@@ -43,7 +43,7 @@ User software:
 ```
 4. Opens a Lightning socket connection to a target node using `uri` field.
 5. Issues an HTTPS GET request using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
-6. Receives a `{"status":"OK"}` Json response.
+6. Receives a `{"status":"OK"}` / `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
 
 
@@ -98,7 +98,7 @@ User software:
 	- Domain name extracted from `lnurl` query string.
 	- An ability to opt out into usual payment.
 3. Once accepted user software issues an HTTPS GET request using `<lnurl>&key=<hex(linkingKey)>`
-4. Receives a `{"status":"OK"}` Json response.
+4. Receives a `{"status":"OK"}` / `{"status":"ERROR", "reason":"error details..."}` Json response.
 5. Fulfills a scanned Lightning invoice.
 
 
