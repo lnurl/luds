@@ -11,7 +11,7 @@ A QR encoded form:
 
 ![A QR encoded LNUrl example](https://i.imgur.com/HbB7U1K.png)
 
-`lnurl` can be presented either directly or be embedded in Lightning invoice if respected `lnurl` usage scenario can be gracefully degraded to just using an invoice. When embedded in Lightning invoice `lnurl` is not bech32-encoded and a letter `l` is used as tag identifier with decoding rules identical to Description tag `d`. When presented directly a `lightning:` prefix may be used similar to how it's currently used with Lightning invoices.
+`lnurl` can be presented either directly or be embedded in Lightning invoice if respected `lnurl` usage scenario can be gracefully degraded to just using an invoice. When embedded in Lightning invoice `lnurl` is not bech32-encoded and a letter `v` is used as tag identifier with decoding rules identical to Description tag `d`. When presented directly a `lightning:` prefix may be used similar to how it's currently used with Lightning invoices.
 
 Once `lnurl` is decoded:
 - If `tag` query parameter is present then this `lnurl` has a special meaning, further actions will be based on `tag` parameter value.
