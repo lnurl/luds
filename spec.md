@@ -73,7 +73,7 @@ min(max amount withdrawable from service, local estimation of how much can be ro
 
 Security note: withdrawal `lnurl` should be ephemeral and re-generated from scratch for each new withdrawal request.
 
-An example server-side code which processes such withdrawal requests: https://gist.github.com/CarlosRoldanx/85048e46db618c697e1e9a9f8b49426b
+An example server-side code which processes such withdrawal requests: https://gist.github.com/whiteyhat/85048e46db618c697e1e9a9f8b49426b
 
 
 ## 3. Linkable payments
