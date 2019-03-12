@@ -33,11 +33,7 @@ User software:
 	callback: String, // a second-level url which would initiate an OpenChannel message from target LN node
 	k1: String, // a second-level secret to authorize user request 
 	capacity: Long,
-	push: Long, 
-	cltvExpiryDelta: Int, 
-	htlcMinimumMsat: Long, 
-	feeBaseMsat: Long, 
-	feeProportionalMillionths: Long,
+	push: Long,
 	tag: "channelRequest" // Now user software knows what to do next...
 }
 ```
