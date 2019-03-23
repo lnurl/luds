@@ -115,21 +115,21 @@ would be bech32-encoded as:
 
 > LNURL1DP68GURN8GHJ7UM9WFMXJCM99E3K7MFLW3SKW0TVDANKJM3XVV7NZDFCV4SNGVTXXC6NXEPKXS6RWC3HVCUXXCFE8QCRXD3N8YUR2EPSVYUKZDTZXUEXGDP3VF3RSC3HVC6NZVFEVVMKXVES8PSNXDEJVVDT40VT
 
-## 5. ~~Atomic~~ Multipath Payments
-AMP has two interesting properties: (1) atomicity and (2) the fact that a single payment gets broken into a bunch of small ones, this latter property is especially useful because once divided a large payment has better delivery chances while atomicity is oftentimes not required. An example would be a situation where some trader sends funds to his exchange account. In case of AMP either all parts arrive or none does, but said trader would be fine if any part reaches an exchange account at all, even if the rest fails. 
+## 5. Multipart Payments
+AMP has two interesting properties: (1) atomicity and (2) the fact that a single payment gets broken into a bunch of smaller ones, this latter property is especially useful because once divided a large payment has better delivery chances while atomicity is oftentimes not required. An example would be a situation where some trader sends funds to his exchange account: in case of AMP either all parts arrive or none does, but said trader would be fine if any part reaches an exchange account at all, even if the rest of sub-payments fail. 
 
 Therefore it's worth separating those two properties and enable payments which are multipart but not atomic. This can be achieved by using a special `lnurl` embedded in a Lightning invoice.
 
 User software:
 1. Scans a QR code and extracts `lnurl` from payment request: it must contain a `tag` query parameter with value set to `multipart`.
-2. Displays an original payment request to user while issuing an HTTPS GET request to a service using a provided `lnurl`.
+2. Displays an original payment request to user while issuing an HTTPS GET request to a service using extracted `lnurl`.
 3. Gets Json response of form: 
 ```
 {
 	paymentId: String, // A special identifier used by payee which is the same for all provided `requests`
-	requests: [serialized payment request without amount, ...]
+	requests: [serialized payment request without amount: String, ...]
 }
 ```
 4. Once user provides a final amount to be sent wallet optionally spreads it across multiple provided payment requests.
-5. Wallet sends each payment sequentially after a previous one has succedded: this further increases delivery chances since routing channels would be handling one sub-payment at a time and eliminates a possibility of multiple stuck or failed payments.
-6. If one of sub-payments fails the whole procedure halts and further sub-payments are not tried. This entails that multipart payments should only be used in situations when partial delivery is acceptable, user should be asked to explicitly authorise this procedure and it should be attempted at all if wallet considers a payment amount to be large (i.e. exceeding largest channel capacity) or if previous sending attempts have failed.
+5. Wallet sends each payment sequentially after a previous one has succedded: this further increases delivery chances since routing channels would be handling one sub-payment at a time. This approach also eliminates a possibility of multiple stuck or failed payments.
+6. If one of sub-payments fails then whole procedure halts and further sub-payments are not tried. This entails that multipart payments should only be used in situations when partial delivery is acceptable, user should be asked to explicitly authorise this procedure and it should only be attempted at all if wallet considers a payment amount to be large (i.e. exceeding largest channel capacity) or if previous sending attempts have failed.
