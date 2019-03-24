@@ -127,7 +127,8 @@ User software:
 ```
 {
 	paymentId: String, // A special identifier used by payee which is the same for all provided `requests`
-	requests: [serialized payment request without amount: String, ...]
+	requests: [serialized payment request without amount: String, ...],
+	tag: "multipartPayment" // Now user software knows what to do next...
 }
 ```
 4. Once user provides a final amount to be sent wallet optionally spreads it across multiple provided payment requests.
