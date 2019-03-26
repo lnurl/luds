@@ -122,7 +122,7 @@ Therefore it's worth separating those two properties and enable payments which a
 
 User software:
 1. Scans a QR code and extracts `lnurl` from payment request: it must contain a `tag` query parameter with value set to `multipart`.
-2. Displays an original payment request to user while issuing an HTTPS GET request to a service using extracted `lnurl`.
+2. Displays an original payment request to user while issuing an HTTPS GET request to a service using `<lnurl>&parts=<number of additional payment requests to return>`.
 3. Gets Json response of form: 
 ```
 {
