@@ -122,7 +122,7 @@ Therefore it's worth separating those two properties and enable payments which a
 
 User software:
 1. Scans a QR code and extracts `lnurl` from payment request: it must contain a `tag` query parameter with value set to `multipart`.
-2. Displays an original payment request to user while issuing an HTTPS GET request to a service using extracted `lnurl` right away, or alternatively sends payment in one piece and offers user to make a multipart payment later if it fails.
+2. At first attempts to fulfill an original payment request in one piece and offers user to make a multipart payment later if it fails.
 3. Gets the following Json where `requests` is a list of additional invoices, it must contain more than one invoice, all of them must be amountless and contain unique payment hashes: 
 ```
 {
