@@ -130,7 +130,7 @@ User software:
 	// These additional payment requests have special requirements:
 	// 1. All of them must be issued by the name LN node who issued an original invoice with multipart lnurl.
 	// 2. Each of these invoices must have a unique payment hash.
-	// 3. Each of these invoices must contain a reference to `paymentId` in its description tag.
+	// 3. Each of these invoices as well as original one must contain a reference to `paymentId` in their description tags.
 	// 4. None of these invoices is allowed to contain a definite amount.
 	// 5. None of these invoices is allowed to contain an embedded `lnurl` of any kind.
 	// 6. Total number of additional invoices must be greater than 1.
