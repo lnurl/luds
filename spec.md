@@ -128,12 +128,11 @@ User software:
 	paymentId: String, // A special identifier used by payee to track all provided additional `requests`
 	requests: [String, ...], // A list of additional payment requests in serialized form
 	// These additional payment requests have special requirements:
-	// 1. All of them must be issued by the name LN node who issued an original invoice with multipart lnurl.
-	// 2. Each of these invoices must have a unique payment hash.
-	// 3. Each of these invoices as well as original one must contain a reference to `paymentId` in their description tags.
-	// 4. None of these invoices is allowed to contain a definite amount.
-	// 5. None of these invoices is allowed to contain an embedded `lnurl` of any kind.
-	// 6. Total number of additional invoices must be greater than 1.
+	// 1. Each of these invoices must have a unique payment hash.
+	// 2. Each of these invoices as well as original one must contain a reference to `paymentId` in their description tags, invoices themselves may be issued by different recipient nodes to increase their success chances.
+	// 3. None of these invoices is allowed to contain a definite amount.
+	// 4. None of these invoices is allowed to contain an embedded `lnurl` of any kind.
+	// 5. Total number of additional invoices must be greater than 1.
 	tag: "multipartPayment" // Now user software knows what to do next...
 }
 ```
