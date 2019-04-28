@@ -11,8 +11,6 @@ A QR encoded form:
 
 ![A QR encoded LNUrl example](https://i.imgur.com/HbB7U1K.png)
 
-`lnurl` can be presented either directly or be embedded in Lightning invoice if respected `lnurl` usage scenario can be gracefully degraded to just using an invoice. When embedded in Lightning invoice `lnurl` is not bech32-encoded and a letter `v` is used as tag identifier with decoding rules identical to Description tag `d`. When presented directly a `lightning:` prefix may be used similar to how it's currently used with Lightning invoices.
-
 Once `lnurl` is decoded:
 - If `tag` query parameter is present then this `lnurl` has a special meaning, further actions will be based on `tag` parameter value.
 - Otherwise an HTTPS GET request should be issued which must return a Json object containing a `tag` field, further actions will be based on `tag` field value.
@@ -72,13 +70,14 @@ Security note: withdrawal `lnurl` should be ephemeral and re-generated from scra
 An example server-side code which processes such withdrawal requests: https://gist.github.com/whiteyhat/85048e46db618c697e1e9a9f8b49426b
 
 
-## 3. Linkable payments
-What exists currently is a Proof-of-Payment which is a payment preimage but no such thing as Proof-of-Payer. The following scheme may be used by a service to link multiple payments as belonging to a single payer without compromising payer's identity. Related `lnurl` must be embedded in a Lightning invoice.
+## 3. Log in with Bitcoin Wallet
+A special `linkingKey` can be used to login user to a service or authorise sensitive actions (such as withdrawal) by signing a challenge, without compromising user identity.
 
-Linking is achieved by payer providing a `linkingKey` ahead of payment. Key derivation is as follows:
+`linkingKey` derivation is as follows:
 1. There exists a private `hashingKey` which is derived by user wallet using `m/138'/0` path.
 2. Service domain name is extracted from `lnurl` and then hashed using `hmacSha256(hashingKey, service domain name)`.
 3. First 8 bytes are taken from resulting hash and then turned into a `Long` which is in turn used to derive a service-specific `linkingKey` using `m/138'/0/<long value>` path, a Scala example:
+
 ```Scala
 import scala.math.BigInt
 import fr.acinq.bitcoin.DeterministicWallet._
@@ -87,19 +86,6 @@ val prefix = hmacSha256(hashingKey, serviceDomainName).take(8)
 val linkingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) :: 0L :: BigInt(prefix).toLong :: Nil)
 val linkingKey = linkingPrivKey.publicKey
 ```
-
-User software:
-1. Scans a QR code and extracts `lnurl` from payment request: it must contain a `tag` query parameter with value set to `link` which means no HTTPS GET should be made yet.
-2. Displays a "Linkable payment" dialog which must include the following additional elements:
-	- Domain name extracted from `lnurl` query string.
-	- An ability to opt out into usual payment. This entails that service which offers linkable payments must be prepared for some users opting out, there has to be a way to still handle such situations correctly.
-3. Once accepted user software issues an HTTPS GET request using `<lnurl>&key=<hex(linkingKey)>`
-4. Receives a `{"status":"OK"}` / `{"status":"ERROR", "reason":"error details..."}` Json response.
-5. Fulfills a scanned Lightning invoice.
-
-
-## 4. Log in with Bitcoin Wallet
-`linkingKey` described in a previous use case can also be used to login user to a service or authorise sensitive actions (such as withdrawal) by signing a challenge.
 
 User software:
 1. Scans a QR code and decodes a query string which must contain the following query parameters:
@@ -114,28 +100,3 @@ This example login `lnurl`:
 would be bech32-encoded as:
 
 > LNURL1DP68GURN8GHJ7UM9WFMXJCM99E3K7MFLW3SKW0TVDANKJM3XVV7NZDFCV4SNGVTXXC6NXEPKXS6RWC3HVCUXXCFE8QCRXD3N8YUR2EPSVYUKZDTZXUEXGDP3VF3RSC3HVC6NZVFEVVMKXVES8PSNXDEJVVDT40VT
-
-## 5. Multipart Payments
-These are similar to AMP except that they are intentionally not atomic. Related `lnurl` should be embedded inside of payment requests to ensure compatibility with non-supporting wallets.
-
-
-User software:
-1. Scans a QR code and extracts `lnurl` from payment request: it must contain a `tag` query parameter with value set to `multipart` which means no HTTPS GET should be made yet.
-2. Offers user to make a multipart payment if original payment amount is so big it can't be handled by any single local channel or if original payment has been tried a number of times but failed to be sent in one piece.
-3. Once accepted, makes an HTTPS call using extracted `lnurl` and gets the following Json response: 
-```
-{
-	paymentId: String, // A special identifier used by payee to track all provided additional `requests`
-	requests: [String, ...], // A list of additional payment requests in serialized form
-	// These additional payment requests have special requirements:
-	// 1. Each of these invoices must have a unique payment hash.
-	// 2. Each of these invoices as well as original one must contain a reference to `paymentId` in their description tags, invoices themselves may be issued by different recipient nodes to increase their success chances.
-	// 3. None of these invoices is allowed to contain a definite amount.
-	// 4. None of these invoices is allowed to contain an embedded `lnurl` of any kind.
-	// 5. Total number of additional invoices must be greater than 1.
-	tag: "multipartPayment" // Now user software knows what to do next...
-}
-```
-4. Once user provides a final amount to be sent wallet spreads it across multiple provided payment requests.
-5. Wallet sends each payment sequentially after a previous one has succedded: this further increases delivery chances since routing channels would be handling one sub-payment at a time. This approach also eliminates a possibility of multiple stuck or failed payments.
-6. If one of sub-payments fails after multiple retries then a whole procedure halts and further sub-payments are not tried. This entails that multipart payments should only be used in situations when partial delivery is acceptable.
