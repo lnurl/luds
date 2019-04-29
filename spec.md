@@ -1,13 +1,12 @@
-`lnurl` is a bech32-encoded HTTPS query string which is supposed to help payer interact with payee and thus simplify a number of standard scenarios such as requesting incoming channels, withdrawing funds, doing atomic swaps etc.
+`lnurl` is a bech32-encoded HTTPS query string which is supposed to help payer interact with payee and thus simplify a number of standard scenarios such as requesting incoming channels, withdrawing funds, logging in etc.
 
-This example `lnurl`: 
+An example `lnurl`: 
 > https://service.com/api?q=3fc3645b439ce8e7f2553a69e5267081d96dcd340693afabe04be7b0ccd178df
 
 would be bech32-encoded as:
-
 > LNURL1DP68GURN8GHJ7UM9WFMXJCM99E3K7MF0V9CXJ0M385EKVCENXC6R2C35XVUKXEFCV5MKVV34X5EKZD3EV56NYD3HXQURZEPEXEJXXEPNXSCRVWFNV9NXZCN9XQ6XYEFHVGCXXCMYXYMNSERXFQ5FNS
 
-A QR encoded form:
+and presented as the following QR:
 
 ![A QR encoded LNUrl example](https://i.imgur.com/HbB7U1K.png)
 
@@ -41,8 +40,37 @@ User software:
 7. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
 
 
-## 2. Withdrawing funds from a service
-Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet using a website on a desktop. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `lnurl`.
+## 2. Log in with Bitcoin Wallet
+A special `linkingKey` can be used to login user to a service or authorise sensitive actions. This preferrably should be done without compromising user identity so plain LN node key can not be used here. Instead of asking for user credentials a service could display a "login" QR code which contains a specialized `lnurl`.
+
+Once "login" QR code is scanned `linkingKey` derivation in user's wallet happens as follows:
+1. There exists a private `hashingKey` which is derived by user wallet using `m/138'/0` path.
+2. Service domain name is extracted from login `lnurl` and then hashed using `hmacSha256(hashingKey, service domain name)`.
+3. First 8 bytes are taken from resulting hash and then turned into a `Long` which is in turn used to derive a service-specific `linkingKey` using `m/138'/0/<long value>` path, a Scala example:
+
+```Scala
+import scala.math.BigInt
+import fr.acinq.bitcoin.DeterministicWallet._
+
+val hashingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) :: 0L :: Nil)
+
+val prefix = hmacSha256(hashingPrivKey, serviceDomainName).take(8)
+
+val linkingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) :: 0L :: BigInt(prefix).toLong :: Nil)
+
+val linkingKey = linkingPrivKey.publicKey
+```
+
+User software:
+1. Scans a QR code and decodes a query string which must contain the following query parameters:
+	- `tag` with value set to `login` which means no HTTPS GET should be made yet.
+	- `k1` (challenge) which is going to be signed by user's `linkingPrivKey`.
+2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
+3. Once accepted user software issues an HTTPS GET request using `<lnurl>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` which results in a successful login once signature is verified by service. `linkingKey` should be used as user identifier in this case.
+
+
+## 3. Withdrawing funds from a service
+Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet while using a desktop website. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `lnurl`.
 
 User software:
 1. Scans a QR code and decodes a query string.
@@ -51,7 +79,7 @@ User software:
 ```
 {
 	callback: String, // a second-level url which would accept a withdrawal Lightning invoice as query parameter
-	k1: String, // a second-level secret to authorize user request 
+	k1: String, // (challenge) which is going to be signed by user's `linkingKey`
 	maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on a given service
 	defaultDescription: String, // A default withdrawal invoice description
 	tag: "withdrawRequest" // Now user software knows what to do next...
@@ -61,42 +89,8 @@ User software:
 ```
 min(max amount withdrawable from service, local estimation of how much can be routed into wallet)
 ```
-5. Issues an HTTPS GET request using `<callback>?k1=<k1>&pr=<Lightning invoice with user defined amount>`
+5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&pr=<Lightning invoice with user defined amount>`
 6. Receives a `{"status":"OK"}` / `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. Awaits for incoming payment if response was successful.
 
-Security note: withdrawal `lnurl` should be ephemeral and re-generated from scratch for each new withdrawal request.
-
-An example server-side code which processes such withdrawal requests: https://gist.github.com/whiteyhat/85048e46db618c697e1e9a9f8b49426b
-
-
-## 3. Log in with Bitcoin Wallet
-A special `linkingKey` can be used to login user to a service or authorise sensitive actions (such as withdrawal) by signing a challenge, without compromising user identity.
-
-`linkingKey` derivation is as follows:
-1. There exists a private `hashingKey` which is derived by user wallet using `m/138'/0` path.
-2. Service domain name is extracted from `lnurl` and then hashed using `hmacSha256(hashingKey, service domain name)`.
-3. First 8 bytes are taken from resulting hash and then turned into a `Long` which is in turn used to derive a service-specific `linkingKey` using `m/138'/0/<long value>` path, a Scala example:
-
-```Scala
-import scala.math.BigInt
-import fr.acinq.bitcoin.DeterministicWallet._
-
-val prefix = hmacSha256(hashingKey, serviceDomainName).take(8)
-val linkingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) :: 0L :: BigInt(prefix).toLong :: Nil)
-val linkingKey = linkingPrivKey.publicKey
-```
-
-User software:
-1. Scans a QR code and decodes a query string which must contain the following query parameters:
-	- `tag` with value set to `login` which means no HTTPS GET should be made yet.
-	- `c` (challenge) with value set to random 32 bytes of hex encoded data which is going to be signed by user's `linkingKey`.
-2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
-3. Once accepted user software issues an HTTPS GET request using `<lnurl>&key=<hex(linkingKey)>&sig=<hex(sign(<challenge>, linkingPrivKey))>` which results in a successful service login.
-
-This example login `lnurl`: 
-> https://service.com?tag=login&c=158ea41f653d6447b7f8ca980363985d0a9a5b72d41bb8b7f5119c7c308a372c
-
-would be bech32-encoded as:
-
-> LNURL1DP68GURN8GHJ7UM9WFMXJCM99E3K7MFLW3SKW0TVDANKJM3XVV7NZDFCV4SNGVTXXC6NXEPKXS6RWC3HVCUXXCFE8QCRXD3N8YUR2EPSVYUKZDTZXUEXGDP3VF3RSC3HVC6NZVFEVVMKXVES8PSNXDEJVVDT40VT
+Note that in this case only `sig` is present in withdrawal request while `linkingKey` itself is not included. It is assumed that user has already been logged into a service prior to issuing a withdrawal request so related `linkingKey` can be obtained by service internally. In case if a given service does not support login then `sig` should just be ignored by service and withdrawal should be sent to whoever can provide a valid `k1` secret.
