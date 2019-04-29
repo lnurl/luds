@@ -89,7 +89,7 @@ User software:
 ```
 min(max amount withdrawable from service, local estimation of how much can be routed into wallet)
 ```
-5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&pr=<[lightning invoice, ...]>&amount=<total user specified amount in MilliSatoshi>`. Note that user may send multiple invoices in a single request and service should fulfill them up to `amount`.
+5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&pr=<lightning invoice, ...>&amount=<total user specified amount in MilliSatoshi>`. Note that user may send multiple invoices in a single request and service should fulfill them up to `amount`.
 6. Receives a `{"status":"OK"}` / `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. Awaits for incoming payment if response was successful.
 
