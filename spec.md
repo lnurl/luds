@@ -79,7 +79,7 @@ User software:
 ```
 {
 	callback: String, // a second-level url which would accept a withdrawal Lightning invoice as query parameter
-	k1: String, // (challenge) which is going to be signed by user's `linkingKey`
+	k1: String, // (challenge) which is going to be signed by user's `linkingPrivKey`
 	maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on a given service
 	defaultDescription: String, // A default withdrawal invoice description
 	tag: "withdrawRequest" // Now user software knows what to do next...
@@ -89,7 +89,7 @@ User software:
 ```
 min(max amount withdrawable from service, local estimation of how much can be routed into wallet)
 ```
-5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&pr=<Lightning invoice with user defined amount>`
+5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&pr=<[Lightning invoice with user defined amount, ...]>`. Note that user may send multiple invoices in a single request.
 6. Receives a `{"status":"OK"}` / `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. Awaits for incoming payment if response was successful.
 
