@@ -64,7 +64,7 @@ val linkingKey = linkingPrivKey.publicKey
 User software:
 1. Scans a QR code and decodes a query string which must contain the following query parameters:
 	- `tag` with value set to `login` which means no HTTPS GET should be made yet.
-	- `k1` (challenge) which is going to be signed by user's `linkingPrivKey`.
+	- `k1` (32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`.
 2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
 3. Once accepted user software issues an HTTPS GET request using `<lnurl>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` which results in a successful login once signature is verified by service. `linkingKey` should be used as user identifier in this case.
 
@@ -79,7 +79,7 @@ User software:
 ```
 {
 	callback: String, // a second-level url which would accept a withdrawal Lightning invoice as query parameter
-	k1: String, // (challenge) which is going to be signed by user's `linkingPrivKey`
+	k1: String, // (32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`
 	maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on a given service
 	defaultDescription: String, // A default withdrawal invoice description
 	tag: "withdrawRequest" // Now user software knows what to do next...
