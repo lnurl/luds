@@ -33,10 +33,14 @@ User software:
 	push: Long,
 	tag: "channelRequest" // Now user software knows what to do next...
 }
+
+or
+
+{"status":"ERROR", "reason":"error details..."}
 ```
 4. Opens a Lightning socket connection to a target node using `uri` field.
 5. Issues an HTTPS GET request using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
-6. Receives a `{"status":"OK"}` / `{"status":"ERROR", "reason":"error details..."}` Json response.
+6. Receives a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
 
 
@@ -84,6 +88,10 @@ User software:
 	defaultDescription: String, // A default withdrawal invoice description
 	tag: "withdrawRequest" // Now user software knows what to do next...
 }
+
+or
+
+{"status":"ERROR", "reason":"error details..."}
 ```
 4. Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
 ```
