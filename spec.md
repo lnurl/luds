@@ -98,7 +98,7 @@ or
 min(max amount withdrawable from service, local estimation of how much can be routed into wallet)
 ```
 5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&pr=<lightning invoice, ...>`. Note that user may send multiple invoices with a splitted total amount in a single request.
-6. Receives a `{"status":"OK"}` / `{"status":"ERROR", "reason":"error details..."}` Json response.
+6. Receives a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. Awaits for incoming payment if response was successful.
 
 Note that in this case only `sig` is present in withdrawal request while `linkingKey` itself is not included. It is assumed that user has already been logged into a service prior to issuing a withdrawal request so related `linkingKey` can be obtained by service internally. In case if a given service does not support login then `sig` should just be ignored by service and withdrawal should be sent to whoever can provide a valid `k1` secret.
