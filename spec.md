@@ -14,6 +14,10 @@ Once `lnurl` is decoded:
 - If `tag` query parameter is present then this `lnurl` has a special meaning, further actions will be based on `tag` parameter value.
 - Otherwise an HTTPS GET request should be issued which must return a Json object containing a `tag` field, further actions will be based on `tag` field value.
 
+# Fallback scheme
+
+`lnurl` can be used as fallback inside of other URI schemes, with the key 'lightning' and the value equal to the bech32-encoding, an example: `https://service.com/giftcard/redeem?id=123&lightning=lnurl1...`
+
 
 # Example usage scenarios
 
@@ -86,6 +90,7 @@ User software:
 	k1: String, // (32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`
 	maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on a given service
 	defaultDescription: String, // A default withdrawal invoice description
+	amountIsFixed: Boolean // If set to true then user can strictly withdraw 'maxWithdrawable' amount, defaults to false if 'amountIsFixed' field is not present
 	tag: "withdrawRequest" // Now user software knows what to do next...
 }
 
