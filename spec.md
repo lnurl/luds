@@ -90,7 +90,7 @@ User software:
 	k1: String, // (32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`
 	maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on a given service
 	defaultDescription: String, // A default withdrawal invoice description
-	amountIsFixed: Boolean // If set to true then user can strictly withdraw 'maxWithdrawable' amount, defaults to false if 'amountIsFixed' field is not present
+	minWithdrawable: MilliSatoshi // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
 	tag: "withdrawRequest" // Now user software knows what to do next...
 }
 
@@ -100,7 +100,9 @@ or
 ```
 4. Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
 ```
-min(max amount withdrawable from service, local estimation of how much can be routed into wallet)
+max can receive = min(max amount withdrawable from service, local estimation of how much can be routed into wallet)
+
+min can receive = max(minWithdrawable, local minimal value allowed by wallet)
 ```
 5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&pr=<lightning invoice, ...>`. Note that user may send multiple invoices with a splitted total amount in a single request.
 6. Receives a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
