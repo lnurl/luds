@@ -100,7 +100,7 @@ or
 ```
 4. Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
 ```
-max can receive = min(max amount withdrawable from service, local estimation of how much can be routed into wallet)
+max can receive = min(maxWithdrawable, local estimation of how much can be routed into wallet)
 
 min can receive = max(minWithdrawable, local minimal value allowed by wallet)
 ```
