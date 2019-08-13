@@ -19,9 +19,11 @@ Once `lnurl` is decoded:
 `lnurl` can be used as fallback inside of other URI schemes, with the key 'lightning' and the value equal to the bech32-encoding, an example: `https://service.com/giftcard/redeem?id=123&lightning=lnurl1...`
 
 
-# Example usage scenarios
+# Sub protocols
 
-## 1. Incoming payment channel request  
+## 1. lnurl-channel
+### Incoming payment channel request  
+
 Suppose user has a balance on a certain service which he wishes to turn into an incoming channel and service supports such functionality. This would require many parameters so resulting QR may be overly dense and cause scanning issues. Other than that, when using a mobile wallet user has to make sure that a connection to target LN node is established from mobile client before an incoming channel is requested.
 
 User software:
@@ -46,7 +48,9 @@ or
 7. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
 
 
-## 2. Log in with Bitcoin Wallet
+## 2. lnurl-login
+### Log in with Bitcoin Wallet
+
 A special `linkingKey` can be used to login user to a service or authorise sensitive actions. This preferrably should be done without compromising user identity so plain LN node key can not be used here. Instead of asking for user credentials a service could display a "login" QR code which contains a specialized `lnurl`.
 
 Once "login" QR code is scanned `linkingKey` derivation in user's wallet happens as follows:
@@ -75,7 +79,9 @@ User software:
 3. Once accepted user software issues an HTTPS GET request using `<lnurl>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` which results in a successful login once signature is verified by service. `linkingKey` should be used as user identifier in this case.
 
 
-## 3. Withdrawing funds from a service
+## 3. lnurl-withdraw
+### Withdrawing funds from a service
+
 Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet while using a desktop website. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `lnurl`.
 
 User software:
