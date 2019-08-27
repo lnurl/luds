@@ -76,7 +76,7 @@ User software:
 	- `tag` with value set to `login` which means no HTTPS GET should be made yet.
 	- `k1` (hex encoded 32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`.
 2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
-3. Once accepted user software issues an HTTPS GET request using `<lnurl>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` which results in a successful login once signature is verified by service. `linkingKey` should be used as user identifier in this case.
+3. Once accepted user software issues an HTTPS GET request using `<lnurl>?sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` which results in a successful login with `{"status":"OK"}` sent back to wallet once signature is verified by service. `linkingKey` should be used as user identifier in this case.
 
 
 ## 3. lnurl-withdraw
