@@ -28,6 +28,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 
 User software:
 1. Scans a QR code and decodes a query string.
+	- `tag` with value set to `channelRequest`
 2. Makes an HTTPS GET request to a service.
 3. Gets Json response of form: 
 ```
@@ -86,6 +87,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 
 User software:
 1. Scans a QR code and decodes a query string.
+	- `tag` with value set to `withdrawRequest`
 2. Makes an HTTPS GET request to a service.
 3. Gets Json response of form: 
 ```
