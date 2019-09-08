@@ -157,7 +157,8 @@ or
 {"status":"ERROR", "reason":"error details..."}
 ```
 4. Verifies that `h` tag of provided invoice is a hash of whole `metadata` Json field.
-5. Displays a send dialog where user can specify an exact sum to be sent which would be bounded by: 
+5. If service provided some routes: verifies that each route ends at `nodeId` from provided invoice, also verifies signature in every provided `ChannelUpdate`.
+6. Displays a send dialog where user can specify an exact sum to be sent which would be bounded by: 
 ```
 max can send = min(maxSendable, local estimation of how much can be sent from wallet)
 
@@ -166,4 +167,4 @@ min can send = max(minSendable, local minimal value allowed by wallet)
 Additionally, a send dialog must include:
 - Domain name extracted from `lnurl` query string.
 - A way to see full metadata in `text` format.
-6. Once accepted by user an invoice must be paid.
+7. Once accepted by user an invoice must be paid.
