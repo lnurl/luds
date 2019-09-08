@@ -124,16 +124,9 @@ User software:
 ```
 {
 	maxSendable: MilliSatoshi, // max amount a service is willing to receive
-	minSendable: MilliSatoshi // min amount a service is willing to receive, can not be less than 1 or more than `maxSendable`
-	metadata:
-	[
-		{
-			tag: "text", // the only supported type for now, must always be present
-			content: String
-		},
-		... // more objects for future types
-	],
-	pr: String // bech32-serialized lightning invoice with `h` tag set to hash of a whole `metadata` field above
+	minSendable: MilliSatoshi, // min amount a service is willing to receive, can not be less than 1 or more than `maxSendable`
+	metadata: String, // hex-encoded metadata second-level json
+	pr: String, // bech32-serialized lightning invoice with `h` tag set to hash of a whole `metadata` field above
 	routes: 
 	{
 		<payer specified nodeId #1>:
@@ -141,7 +134,7 @@ User software:
 			[
 				{
 					nodeId: String,
-					channelUpdate: ChannelUpdate // hex-encoded serialized ChannelUpdate gossip message
+					channelUpdate: String // hex-encoded serialized ChannelUpdate gossip message
 				},
 				... // next hop
 			],
@@ -155,9 +148,19 @@ User software:
 or
 
 {"status":"ERROR", "reason":"error details..."}
+```  
+where `metadata` hex must be decoded to the following json:
 ```
-4. Verifies that `h` tag of provided invoice is a hash of whole `metadata` Json field.
-5. If service provided some routes: verifies that each route ends at `nodeId` from provided invoice, also verifies signature in every provided `ChannelUpdate`.
+[
+	{
+		tag: "text", // the only supported type for now, must always be present
+		content: String
+	},
+	... // more objects for future types
+]
+```
+4. Verifies that `h` tag of provided invoice is a hash of `metadata` hex string.
+5. If service has provided some routes: verifies that each route ends at `nodeId` from provided invoice, also verifies signature in every provided `ChannelUpdate`.
 6. Displays a send dialog where user can specify an exact sum to be sent which would be bounded by: 
 ```
 max can send = min(maxSendable, local estimation of how much can be sent from wallet)
