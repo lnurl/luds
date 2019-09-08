@@ -113,3 +113,56 @@ min can receive = max(minWithdrawable, local minimal value allowed by wallet)
 7. Awaits for incoming payment if response was successful.
 
 Note that in this case only `sig` is present in withdrawal request while `linkingKey` itself is not included. It is assumed that user has already been logged into a service prior to issuing a withdrawal request so related `linkingKey` can be obtained by service internally. In case if a given service does not support login then `sig` should just be ignored by service and withdrawal should be sent to whoever can provide a valid `k1` secret.
+
+## 1. lnurl-pay
+### Pay to static QR/NFC/link
+
+User software:
+1. Scans a QR code and decodes a query string which must contain a `tag` query parameter with value set to `pay`.
+2. Makes an HTTPS GET request to a service, may append a `fromnodes` query parameter with value set to comma separated `nodeId` if payer wishes a service to provide payment routes which start from specified LN `nodeId`s.
+3. Gets Json response of form: 
+```
+{
+	maxSendable: MilliSatoshi, // max amount a service is willing to receive
+	minSendable: MilliSatoshi // min amount a service is willing to receive, can not be less than 1 or more than `maxSendable`
+	metadata:
+	[
+		{
+			tag: "text", // the only supported type for now, must always be present
+			content: String
+		},
+		... // more objects for future types
+	],
+	pr: String // bech32-serialized lightning invoice with `h` tag set to hash of a whole `metadata` field above
+	routes: 
+	{
+		<payer specified nodeId #1>:
+		[
+			[
+				{
+					nodeId: String,
+					channelUpdate: ChannelUpdate // hex-encoded serialized ChannelUpdate gossip message
+				},
+				... // next hop
+			],
+			... // second route for nodeId #1
+		],
+		... // payer specified nodeId #2 and so on
+	},
+	tag: "sendRequest" // Now user software knows what to do next...
+}
+
+or
+
+{"status":"ERROR", "reason":"error details..."}
+```
+4. Displays a send dialog where user can specify an exact sum to be sent which would be bounded by: 
+```
+max can send = min(maxSendable, local estimation of how much can be sent from wallet)
+
+min can send = max(minSendable, local minimal value allowed by wallet)
+```
+Additionally, a send dialog must include:
+- Domain name extracted from `lnurl` query string.
+- A way to see full metadata in `text` format.
+5. Once accepted by user an invoice must be paid.
