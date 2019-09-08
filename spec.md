@@ -114,7 +114,7 @@ min can receive = max(minWithdrawable, local minimal value allowed by wallet)
 
 Note that in this case only `sig` is present in withdrawal request while `linkingKey` itself is not included. It is assumed that user has already been logged into a service prior to issuing a withdrawal request so related `linkingKey` can be obtained by service internally. In case if a given service does not support login then `sig` should just be ignored by service and withdrawal should be sent to whoever can provide a valid `k1` secret.
 
-## 1. lnurl-pay
+## 4. lnurl-pay
 ### Pay to static QR/NFC/link
 
 User software:
