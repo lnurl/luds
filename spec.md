@@ -128,20 +128,16 @@ User software:
 	metadata: String, // hex-encoded metadata second-level json
 	pr: String, // bech32-serialized lightning invoice with `h` tag set to hash of a whole `metadata` field above
 	routes: 
-	{
-		<payer specified nodeId #1>:
+	[
 		[
-			[
-				{
-					nodeId: String,
-					channelUpdate: String // hex-encoded serialized ChannelUpdate gossip message
-				},
-				... // next hop
-			],
-			... // second route for nodeId #1
+			{
+				nodeId: String,
+				channelUpdate: String // hex-encoded serialized ChannelUpdate gossip message
+			},
+			... // next hop
 		],
-		... // payer specified nodeId #2 and so on
-	},
+		... // second route for nodeId #1
+	],
 	tag: "sendRequest" // Now user software knows what to do next...
 }
 
