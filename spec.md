@@ -125,7 +125,7 @@ User software:
 {
 	maxSendable: MilliSatoshi, // max amount a service is willing to receive
 	minSendable: MilliSatoshi, // min amount a service is willing to receive, can not be less than 1 or more than `maxSendable`
-	metadata: String, // hex-encoded metadata second-level json
+	metadata: String, // base64-encoded metadata second-level json
 	pr: String, // bech32-serialized lightning invoice with `h` tag set to hash of a whole `metadata` field above
 	routes: 
 	[
@@ -145,17 +145,17 @@ or
 
 {"status":"ERROR", "reason":"error details..."}
 ```  
-where `metadata` hex must be decoded to the following json:
+where `metadata` base64 must be decoded to the following json:
 ```
 [
 	{
-		tag: "text", // the only supported type for now, must always be present
+		mime: "text/plain", // the only supported type for now, must always be present
 		content: String
 	},
 	... // more objects for future types
 ]
 ```
-4. Verifies that `h` tag of provided invoice is a hash of `metadata` hex string.
+4. Verifies that `h` tag of provided invoice is a hash of `metadata` base64 string.
 5. If service has provided some routes: verifies signature for every provided `ChannelUpdate`.
 6. Displays a send dialog where user can specify an exact sum to be sent which would be bounded by: 
 ```
@@ -165,5 +165,5 @@ min can send = max(minSendable, local minimal value allowed by wallet)
 ```
 Additionally, a send dialog must include:
 - Domain name extracted from `lnurl` query string.
-- A way to see full metadata in `text` format.
+- A way to see full metadata in `text/plain` format.
 7. Once accepted by user an invoice must be paid.
