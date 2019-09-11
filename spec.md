@@ -138,7 +138,7 @@ User software:
 		],
 		... // next route
 	],
-	tag: "sendRequest" // Now user software knows what to do next...
+	tag: "payRequest" // Now user software knows what to do next...
 }
 
 or
