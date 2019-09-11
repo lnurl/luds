@@ -136,7 +136,7 @@ User software:
 			},
 			... // next hop
 		],
-		... // second route for nodeId #1
+		... // next route
 	],
 	tag: "sendRequest" // Now user software knows what to do next...
 }
