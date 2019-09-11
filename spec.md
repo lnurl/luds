@@ -156,7 +156,7 @@ where `metadata` hex must be decoded to the following json:
 ]
 ```
 4. Verifies that `h` tag of provided invoice is a hash of `metadata` hex string.
-5. If service has provided some routes: verifies that each route ends at `nodeId` from provided invoice, also verifies signature in every provided `ChannelUpdate`.
+5. If service has provided some routes: verifies signature for every provided `ChannelUpdate`.
 6. Displays a send dialog where user can specify an exact sum to be sent which would be bounded by: 
 ```
 max can send = min(maxSendable, local estimation of how much can be sent from wallet)
