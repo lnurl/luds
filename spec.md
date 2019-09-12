@@ -125,7 +125,7 @@ User software:
 {
 	maxSendable: MilliSatoshi, // max amount a service is willing to receive
 	minSendable: MilliSatoshi, // min amount a service is willing to receive, can not be less than 1 or more than `maxSendable`
-	metadata: String, // base64-encoded metadata second-level json
+	metadata: String, // base64-encoded second-level metadata json, Base 64 alphabet as defined by http://tools.ietf.org/html/rfc4648#section-4 RF4648 section 4. Whitespace is ignored.
 	pr: String, // bech32-serialized lightning invoice with `h` tag set to hash of a whole `metadata` field above
 	routes: 
 	[
