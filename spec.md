@@ -148,10 +148,10 @@ or
 where `metadata` base64 must be decoded to the following json:
 ```
 [
-	{
-		mime: "text/plain", // the only supported type for now, must always be present
-		content: String
-	},
+	[
+		"text/plain", // mime-type, "text/plain" is the only supported type for now, must always be present
+		content // actual metadata content
+	],
 	... // more objects for future types
 ]
 ```
