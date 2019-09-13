@@ -27,7 +27,7 @@ Once `lnurl` is decoded:
 Suppose user has a balance on a certain service which he wishes to turn into an incoming channel and service supports such functionality. This would require many parameters so resulting QR may be overly dense and cause scanning issues. Other than that, when using a mobile wallet user has to make sure that a connection to target LN node is established from mobile client before an incoming channel is requested.
 
 User software:
-1. Scans a QR code and decodes a query string.
+1. Scans a QR code and decodes an URL.
 2. Makes an HTTPS GET request to a service.
 3. Gets Json response of form: 
 ```
@@ -72,7 +72,7 @@ val linkingKey = linkingPrivKey.publicKey
 ```
 
 User software:
-1. Scans a QR code and decodes a query string which must contain the following query parameters:
+1. Scans a QR code and decodes an URL which must contain the following query parameters:
 	- `tag` with value set to `login` which means no HTTPS GET should be made yet.
 	- `k1` (hex encoded 32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`.
 2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
@@ -85,7 +85,7 @@ User software:
 Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet while using a desktop website. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `lnurl`.
 
 User software:
-1. Scans a QR code and decodes a query string.
+1. Scans a QR code and decodes an URL.
 2. Makes an HTTPS GET request to a service.
 3. Gets Json response of form: 
 ```
@@ -118,7 +118,7 @@ Note that in this case only `sig` is present in withdrawal request while `linkin
 ### Pay to static QR/NFC/link
 
 User software:
-1. Scans a QR code and decodes a query string which must contain a `tag` query parameter with value set to `pay`.
+1. Scans a QR code and decodes an URL which must contain a `tag` query parameter with value set to `pay`.
 2. Makes an HTTPS GET request to a service, may append a `fromnodes` query parameter with value set to comma separated `nodeId` if payer wishes a service to provide payment routes which start from specified LN `nodeId`s.
 3. Gets Json response of form: 
 ```
