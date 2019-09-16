@@ -91,7 +91,7 @@ User software:
 ```
 {
 	callback: String, // a second-level url which would accept a withdrawal Lightning invoice as query parameter
-	k1: String, // (hex encoded 32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`
+	k1: String, // an ephemeral secret which would allow user to withdraw funds
 	maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on a given service
 	defaultDescription: String, // A default withdrawal invoice description
 	minWithdrawable: MilliSatoshi // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
