@@ -48,8 +48,8 @@ or
 7. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
 
 
-## 2. lnurl-login
-### Log in with Bitcoin Wallet
+## 2. lnurl-auth
+### Authorization with Bitcoin Wallet
 
 A special `linkingKey` can be used to login user to a service or authorise sensitive actions. This preferrably should be done without compromising user identity so plain LN node key can not be used here. Instead of asking for user credentials a service could display a "login" QR code which contains a specialized `lnurl`.
 
@@ -108,11 +108,11 @@ max can receive = min(maxWithdrawable, local estimation of how much can be route
 
 min can receive = max(minWithdrawable, local minimal value allowed by wallet)
 ```
-5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&pr=<lightning invoice, ...>`. Note that user may send multiple invoices with a splitted total amount in a single request.
+5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&pr=<lightning invoice, ...>`. Note that user may send multiple invoices with a splitted total amount in a single request.
 6. Receives a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. Awaits for incoming payment if response was successful.
 
-Note that in this case only `sig` is present in withdrawal request while `linkingKey` itself is not included. It is assumed that user has already been logged into a service prior to issuing a withdrawal request so related `linkingKey` can be obtained by service internally. In case if a given service does not support login then `sig` should just be ignored by service and withdrawal should be sent to whoever can provide a valid `k1` secret.
+Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (lnurl-auth, email link etc.) before displaying a withdraw QR.
 
 ## 4. lnurl-pay
 ### Pay to static QR/NFC/link
