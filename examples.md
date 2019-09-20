@@ -5,7 +5,7 @@
 ### LNBIG
 https://lnbig.com/
 
-![LNBIG](media/lnbig.png)
+![LNBIG](media/examples/lnbig.png)
 
 
 ## lnurl-withdraw
@@ -13,4 +13,4 @@ https://lnbig.com/
 ### Lightning Gifts
 https://lightning.gifts
 
-![Lightning Gifts](media/lightningGifts.png)
+![Lightning Gifts](media/examples/lightningGifts.png)
