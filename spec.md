@@ -18,6 +18,20 @@ Once `lnurl` is decoded:
 
 `lnurl` can be used as fallback inside of other URI schemes, with the key 'lightning' and the value equal to the bech32-encoding, an example: `https://service.com/giftcard/redeem?id=123&lightning=lnurl1...`
 
+# Decoding examples
+
+In Scala:
+```scala
+import fr.acinq.bitcoin.Bech32
+val bech32lnurl: String = "LNURL1DP68GURN8GHJ7UM9WFMXJCM99E3K7MF0V9CXJ0M385EKVCENXC6R2C35XVUKXEFCV5MKVV34X5EKZD3EV56NYD3HXQURZEPEXEJXXEPNXSCRVWFNV9NXZCN9XQ6XYEFHVGCXXCMYXYMNSERXFQ5FNS"
+  
+val (hrp, dataPart) = Bech32.decode(bech32lnurl)
+  
+val requestByteArray = Bech32.five2eight(dataPart)
+  
+new String(requestByteArray, "UTF-8") // https://service.com/api?q=3fc3645b439ce8e7f2553a69e5267081d96dcd340693afabe04be7b0ccd178df
+```
+
 
 # Sub protocols
 
