@@ -61,6 +61,28 @@ or
 6. Receives a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
 
+## 1.1 lnurl-hosted-channel
+### Hosted channel request
+
+User software:
+1. Scans a QR code and decodes an URL.
+2. Makes an HTTPS GET request to a service.
+3. Gets Json response of form: 
+```
+{
+	uri: String, // Remote node address of form node_key@ip_address:port_number
+	k1: String, // a second-level hex encoded secret byte array to be used by wallet in `InvokeHostedChannel` message, may be random if Host has no use for it
+	tag: "hostedChannelRequest" // Now user software knows what to do next...
+}
+
+or
+
+{"status":"ERROR", "reason":"error details..."}
+```
+4. Opens a Lightning socket connection to a target node using `uri` field.
+5. Once connected sends an `InvokeHostedChannel` message using `k1` converted to byte array.
+6. The rest is handled by hosted channel protocol.
+
 
 ## 2. lnurl-auth
 ### Authorization with Bitcoin Wallet
