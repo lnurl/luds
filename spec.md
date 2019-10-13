@@ -72,6 +72,7 @@ User software:
 {
 	uri: String, // Remote node address of form node_key@ip_address:port_number
 	k1: String, // a second-level hex encoded secret byte array to be used by wallet in `InvokeHostedChannel` message, may be random if Host has no use for it
+	alias: String, // Optional remote node alias
 	tag: "hostedChannelRequest" // Now user software knows what to do next...
 }
 
