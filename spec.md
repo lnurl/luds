@@ -151,7 +151,7 @@ min can receive = max(minWithdrawable, local minimal value allowed by wallet)
 
 Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (lnurl-auth, email link etc.) before displaying a withdraw QR.
 
-## 4. lnurl-pay
+## 4. lnurl-pay (UNFINISHED, DO NOT IMPLEMENT YET)
 ### Pay to static QR/NFC/link
 
 User software:
