@@ -40,7 +40,7 @@ new String(requestByteArray, "UTF-8") // https://service.com/api?q=3fc3645b439ce
 
 Suppose user has a balance on a certain service which he wishes to turn into an incoming channel and service supports such functionality. This would require many parameters so resulting QR may be overly dense and cause scanning issues. Other than that, when using a mobile wallet user has to make sure that a connection to target LN node is established from mobile client before an incoming channel is requested.
 
-User software:
+**User software flow:**
 1. Scans a QR code and decodes an URL.
 2. Makes an HTTPS GET request to a service.
 3. Gets Json response of form: 
@@ -64,7 +64,7 @@ or
 ## 1.1 lnurl-hosted-channel
 ### Hosted channel request
 
-User software:
+**User software flow:**
 1. Scans a QR code and decodes an URL.
 2. Makes an HTTPS GET request to a service.
 3. Gets Json response of form: 
@@ -90,6 +90,10 @@ or
 
 A special `linkingKey` can be used to login user to a service or authorise sensitive actions. This preferrably should be done without compromising user identity so plain LN node key can not be used here. Instead of asking for user credentials a service could display a "login" QR code which contains a specialized `lnurl`.
 
+**Server-side signature verification:**
+Once service receives a call at the specified `lnurl-auth` handler, it should take `k1`, `key` and a DER-encoded `sig` and verify the signature using `secp256k1`, storing somehow `key` as the user identifier, either in a session, database or however it sees fit.
+
+**Key derivation for Bitcoin wallets:**
 Once "login" QR code is scanned `linkingKey` derivation in user's wallet happens as follows:
 1. There exists a private `hashingKey` which is derived by user wallet using `m/138'/0` path.
 2. Service domain name is extracted from login `lnurl` and then hashed using `hmacSha256(hashingKey, service domain name)`.
@@ -100,20 +104,17 @@ import scala.math.BigInt
 import fr.acinq.bitcoin.DeterministicWallet._
 
 val hashingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) :: 0L :: Nil)
-
 val prefix = hmacSha256(hashingPrivKey, serviceDomainName).take(8)
-
 val linkingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) :: 0L :: BigInt(prefix).toLong :: Nil)
-
 val linkingKey = linkingPrivKey.publicKey
 ```
 
-User software:
+**User software flow:**
 1. Scans a QR code and decodes an URL which must contain the following query parameters:
 	- `tag` with value set to `login` which means no HTTPS GET should be made yet.
 	- `k1` (hex encoded 32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`.
 2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
-3. Once accepted user software issues an HTTPS GET request using `<lnurl>?sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` which results in a successful login with `{"status":"OK"}` sent back to wallet once signature is verified by service. `linkingKey` should be used as user identifier in this case.
+3. Once accepted user software signs `k1` on `secp256k1` using `linkingPrivKey` and DER-encodes the signature, issuing an HTTPS GET request using `<lnurl_hostname_and_path>?<lnurl_existing_query_parameters>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` which results in a successful login with `{"status":"OK"}` sent back to wallet once signature is verified by service. `linkingKey` should be used as user identifier in this case.
 
 
 ## 3. lnurl-withdraw
@@ -121,7 +122,7 @@ User software:
 
 Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet while using a desktop website. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `lnurl`.
 
-User software:
+**User software flow:**
 1. Scans a QR code and decodes an URL.
 2. Makes an HTTPS GET request to a service.
 3. Gets Json response of form: 
@@ -142,7 +143,6 @@ or
 4. Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
 ```
 max can receive = min(maxWithdrawable, local estimation of how much can be routed into wallet)
-
 min can receive = max(minWithdrawable, local minimal value allowed by wallet)
 ```
 5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&pr=<lightning invoice, ...>`. Note that user may send multiple invoices with a splitted total amount in a single request.
