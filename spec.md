@@ -208,7 +208,7 @@ Additionally, a payment dialog must include:
 			... // next hop
 		],
 		... // next route
-	] // optional array with payment routes
+	] // array with payment routes, should be left empty if no routes are to be provided
 }
 
 or
@@ -218,7 +218,7 @@ or
 
 7. Verifies that `h` tag in provided invoice is a hash of `metadata` string converted to byte array in UTF-8 encoding. 
 8. Verifies that amount in provided invoice equals an amount previosuly specified by user.
-9. If routes are present: verifies signature for every provided `ChannelUpdate`, may use these routes if fee levels are acceptable.
+9. If routes array is not empty: verifies signature for every provided `ChannelUpdate`, may use these routes if fee levels are acceptable.
 10. Fulfills an invoice, no additional user confirmation is required at this point.
 
 ### Note on metadata for server-side:
