@@ -151,19 +151,53 @@ min can receive = max(minWithdrawable, local minimal value allowed by wallet)
 
 Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (lnurl-auth, email link etc.) before displaying a withdraw QR.
 
-## 4. lnurl-pay (UNFINISHED, DO NOT IMPLEMENT YET)
+## 4. lnurl-pay
 ### Pay to static QR/NFC/link
 
-User software:
-1. Scans a QR code and decodes an URL which must contain a `tag` query parameter with value set to `pay`.
-2. Makes an HTTPS GET request to a service, may append a `fromnodes` query parameter with value set to comma separated `nodeId` if payer wishes a service to provide payment routes which start from specified LN `nodeId`s.
-3. Gets Json response of form: 
+**User software flow:**
+
+1. Scans a QR code and decodes an URL.
+2. Makes an HTTPS GET request to a service.
+3. Gets Json response of form:
 ```
 {
+	callback: String, // a second-level url which will accept the pay request query parameters
 	maxSendable: MilliSatoshi, // max amount a service is willing to receive
 	minSendable: MilliSatoshi, // min amount a service is willing to receive, can not be less than 1 or more than `maxSendable`
-	metadata: String, // base64-encoded second-level metadata json, Base 64 alphabet as defined by http://tools.ietf.org/html/rfc4648#section-4 RF4648 section 4. Whitespace is ignored.
-	pr: String, // bech32-serialized lightning invoice with `h` tag set to hash of a whole `metadata` field above
+	metadata: String, // metadata json which must be presented as raw string here, this is required to pass signature verification at a later step
+	tag: "payRequest" // Now user software knows what to do next...
+}
+
+or
+
+{"status":"ERROR", "reason":"error details..."}
+```
+where `metadata` string must contain the following json:
+```
+[
+	[
+		"text/plain", // mime-type, "text/plain" is the only supported type for now, must always be present
+		content // actual metadata content
+	],
+	... // more objects for future types
+]
+```
+
+4. Displays a payment dialog where user can specify an exact sum to be sent which would be bounded by:
+```
+max can send = min(maxSendable, local estimation of how much can be sent from wallet)
+
+min can send = max(minSendable, local minimal value allowed by wallet)
+```
+Additionally, a payment dialog must include:
+- Domain name extracted from `lnurl` query string.
+- A way to see full metadata in `text/plain` format.
+
+5. Issues an HTTPS GET request using `<callback>?amount=<milliSatoshi>&fromnodes=<nodeId1,nodeId2,...>` where `amount` is user specified sum in MilliSatoshi and `fromnodes` is an optional parameter with value set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from specified LN `nodeId`s.
+6. Gets a JSON response of form:
+```
+{
+	pr: String, // bech32-serialized lightning invoice with `h` tag set to `sha256(utf8ByteArray(metadata))`
 	routes: 
 	[
 		[
@@ -174,33 +208,15 @@ User software:
 			... // next hop
 		],
 		... // next route
-	],
-	tag: "payRequest" // Now user software knows what to do next...
+	] // optional array with payment routes
 }
 
 or
 
 {"status":"ERROR", "reason":"error details..."}
-```  
-where `metadata` base64 must be decoded to the following json:
 ```
-[
-	[
-		"text/plain", // mime-type, "text/plain" is the only supported type for now, must always be present
-		content // actual metadata content
-	],
-	... // more objects for future types
-]
-```
-4. Verifies that `h` tag of provided invoice is a hash of `metadata` base64 string.
-5. If service has provided some routes: verifies signature for every provided `ChannelUpdate`.
-6. Displays a send dialog where user can specify an exact sum to be sent which would be bounded by: 
-```
-max can send = min(maxSendable, local estimation of how much can be sent from wallet)
 
-min can send = max(minSendable, local minimal value allowed by wallet)
-```
-Additionally, a send dialog must include:
-- Domain name extracted from `lnurl` query string.
-- A way to see full metadata in `text/plain` format.
-7. Once accepted by user an invoice must be paid.
+7. Verifies that `h` tag in provided invoice is a hash of `metadata` string converted to byte array in UTF-8 encoding. 
+8. Verifies that amount in provided invoice equals an amount previosuly specified by user.
+9. If routes are present: verifies signature for every provided `ChannelUpdate`, may use these routes if fee levels are acceptable.
+10. Fulfills an invoice, no additional user confirmation is required at this point.
