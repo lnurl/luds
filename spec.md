@@ -154,18 +154,45 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 ## 4. lnurl-pay (UNFINISHED, DO NOT IMPLEMENT YET)
 ### Pay to static QR/NFC/link
 
-User software:
-1. Scans a QR code and decodes an URL which must contain a `tag` query parameter with value set to `pay`.
-2. Makes an HTTPS GET request to a service, may append a `fromnodes` query parameter with value set to comma separated `nodeId` if payer wishes a service to provide payment routes which start from specified LN `nodeId`s.
-3. Gets Json response of form: 
+**User software flow:**
+1. Scans a QR code and decodes an URL.
+3. Gets JSON response of form: 
 ```
 {
+	callback: String, // a second-level url which will accept the pay request query parameters
 	maxSendable: MilliSatoshi, // max amount a service is willing to receive
 	minSendable: MilliSatoshi, // min amount a service is willing to receive, can not be less than 1 or more than `maxSendable`
-	metadata: String, // base64-encoded second-level metadata json, Base 64 alphabet as defined by http://tools.ietf.org/html/rfc4648#section-4 RF4648 section 4. Whitespace is ignored.
-	pr: String, // bech32-serialized lightning invoice with `h` tag set to hash of a whole `metadata` field above
-	routes: 
+	metadata:
 	[
+		[
+			"text/plain", // mime-type, "text/plain" is the only supported type for now, must always be present
+			content // actual metadata content
+		],
+		... // more type-values for future types
+	],
+	tag: "payOffer" // Now user software knows what to do next...
+}
+
+or
+
+{"status":"ERROR", "reason":"error details..."}
+```  
+
+4. Displays a send dialog where user can specify an exact sum to be sent which would be bounded by (is `minSendable == maxSendsable` just shows the amount but doesn't allow it to be edited): 
+```
+max can send = min(maxSendable, local estimation of how much can be sent from wallet)
+min can send = max(minSendable, local minimal value allowed by wallet)
+```
+Additionally, a send dialog must include:
+- Domain name extracted from `lnurl` query string.
+- A way to see full metadata in `text` format.
+
+5. Makes an HTTPS GET request to a service containing `amt`, the amount in MilliSatoshi the user has chosen in the previous screen. May also append a `fromnodes` query parameter with value set to comma separated `nodeId` if payer wishes a service to provide payment routes which start from specified LN `nodeId`s.
+6. Gets a JSON response of form:
+```
+{
+	pr: String, // bech32-serialized lightning invoice with `h` tag set to hash of a whole `metadata` field above
+	routes: [
 		[
 			{
 				nodeId: String,
@@ -182,25 +209,7 @@ or
 
 {"status":"ERROR", "reason":"error details..."}
 ```  
-where `metadata` base64 must be decoded to the following json:
-```
-[
-	[
-		"text/plain", // mime-type, "text/plain" is the only supported type for now, must always be present
-		content // actual metadata content
-	],
-	... // more objects for future types
-]
-```
-4. Verifies that `h` tag of provided invoice is a hash of `metadata` base64 string.
-5. If service has provided some routes: verifies signature for every provided `ChannelUpdate`.
-6. Displays a send dialog where user can specify an exact sum to be sent which would be bounded by: 
-```
-max can send = min(maxSendable, local estimation of how much can be sent from wallet)
 
-min can send = max(minSendable, local minimal value allowed by wallet)
-```
-Additionally, a send dialog must include:
-- Domain name extracted from `lnurl` query string.
-- A way to see full metadata in `text/plain` format.
-7. Once accepted by user an invoice must be paid.
+7. Verifies that `h` tag of provided invoice is a hash of `metadata`JSON as an UTF-8 string (with no whitespaces between tags) and if the invoice amount equals the amount chosen/accepted by the user in the previous screen.
+8. If service has provided some routes: verifies signature for every provided `ChannelUpdate`.
+9. Pays the invoice without asking the user.
