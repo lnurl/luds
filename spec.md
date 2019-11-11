@@ -220,3 +220,13 @@ or
 8. Verifies that amount in provided invoice equals an amount previosuly specified by user.
 9. If routes are present: verifies signature for every provided `ChannelUpdate`, may use these routes if fee levels are acceptable.
 10. Fulfills an invoice, no additional user confirmation is required at this point.
+
+### Note on metadata for server-side:
+
+**When client makes a first call**
+1. Construct a metadata object, turn it into Json and then into string.
+2. Include that string as is in `metadata` field in first response json.  
+
+**When client makes a second call**
+1. Make a hash as follows: `sha256(utf8ByteArray(metadata_string))`.
+2. Generate a payment request using an obtained hash.
