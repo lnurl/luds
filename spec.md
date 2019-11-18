@@ -122,111 +122,143 @@ val linkingKey = linkingPrivKey.publicKey
 
 Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet while using a desktop website. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `lnurl`.
 
-**User software flow:**
-1. Scans a QR code and decodes an URL.
-2. Makes an HTTPS GET request to a service.
-3. Gets Json response of form: 
-```
-{
-	callback: String, // a second-level url which would accept a withdrawal Lightning invoice as query parameter
-	k1: String, // an ephemeral secret which would allow user to withdraw funds
-	maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on a given service
-	defaultDescription: String, // A default withdrawal invoice description
-	minWithdrawable: MilliSatoshi // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
-	tag: "withdrawRequest" // Now user software knows what to do next...
-}
+**Wallet-to-server interaction flow:**
 
-or
-
-{"status":"ERROR", "reason":"error details..."}
-```
-4. Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
-```
-max can receive = min(maxWithdrawable, local estimation of how much can be routed into wallet)
-min can receive = max(minWithdrawable, local minimal value allowed by wallet)
-```
-5. Once accepted user software issues an HTTPS GET request using `<callback>?k1=<k1>&pr=<lightning invoice, ...>`. Note that user may send multiple invoices with a splitted total amount in a single request.
-6. Receives a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
-7. Awaits for incoming payment if response was successful.
+1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
+2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
+3. `LN WALLET` gets Json response from `LN SERVICE` of form:
+	
+	```
+	{
+		callback: String, // the url which LN SERVICE would accept a withdrawal Lightning invoice as query parameter
+		k1: String, // an ephemeral secret which would allow user to withdraw funds
+		maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on LN SERVICE
+		defaultDescription: String, // A default withdrawal invoice description
+		minWithdrawable: MilliSatoshi // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
+		tag: "withdrawRequest" // type of LNURL
+	}
+	```
+	or
+	
+	```
+	{"status":"ERROR", "reason":"error details..."}
+	```
+4. `LN WALLET` Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
+	
+	```
+	max can receive = min(maxWithdrawable, local estimation of how much can be routed into wallet)
+	min can receive = max(minWithdrawable, local minimal value allowed by wallet)
+	```
+5. Once accepted by the user, `LN WALLET` sends an HTTPS GET to `LN SERVICE` in the form of 
+	
+	```
+	<callback>?k1=<k1>&pr=<lightning invoice, ...>
+	```
+	
+	Note that user may send multiple invoices with a splitted total amount in a single request.
+6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
+7. `LN WALLET` awaits for incoming payment if response was successful.
 
 Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (lnurl-auth, email link etc.) before displaying a withdraw QR.
 
 ## 4. lnurl-pay
 ### Pay to static QR/NFC/link
 
-**User software flow:**
+**Wallet-to-server interaction flow:**
 
-1. Scans a QR code and decodes an URL.
-2. Makes an HTTPS GET request to a service.
-3. Gets Json response of form:
-```
-{
-	callback: String, // a second-level url which will accept the pay request query parameters
-	maxSendable: MilliSatoshi, // max amount a service is willing to receive
-	minSendable: MilliSatoshi, // min amount a service is willing to receive, can not be less than 1 or more than `maxSendable`
-	metadata: String, // metadata json which must be presented as raw string here, this is required to pass signature verification at a later step
-	tag: "payRequest" // Now user software knows what to do next...
-}
+1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
+2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
+3. `LN WALLET` gets Json response from `LN SERVICE` of form:
+    
+    ```
+    {
+        callback: String, // the url from LN SERVICE which will accept the pay request parameters
+        maxSendable: MilliSatoshi, // max amount LN SERVICE is willing to receive
+        minSendable: MilliSatoshi, // min amount LN SERVICE is willing to receive, can not be less than 1 or more than `maxSendable`
+        metadata: String, // metadata json which must be presented as raw string here, this is required to pass signature verification at a later step
+        tag: "payRequest" // type of LNURL
+    }
+    ```
+    or
+    
+    ```
+    {"status":"ERROR", "reason":"error details..."}
+    ```
+    
+    `metadata` must contain the following json:
+    
+    ```
+    [
+        [
+            "text/plain", // mime-type, "text/plain" is the only supported type for now, must always be present
+            content // actual metadata content
+        ],
+        ... // more objects for future types
+    ]
+    ```
+    
+    and be sent as a string:
+    
+    ```
+    '[["text/plain", "lorem ipsum blah blah"]]'
+    ```
 
-or
+4. `LN WALLET` displays a payment dialog where user can specify an exact sum to be sent which would be bounded by:
 
-{"status":"ERROR", "reason":"error details..."}
-```
-where `metadata` string must contain the following json:
-```
-[
-	[
-		"text/plain", // mime-type, "text/plain" is the only supported type for now, must always be present
-		content // actual metadata content
-	],
-	... // more objects for future types
-]
-```
+	```
+	max can send = min(maxSendable, local estimation of how much can be sent from wallet)
+	
+	min can send = max(minSendable, local minimal value allowed by wallet)
+	```
+	Additionally, a payment dialog must include:
+	- Domain name extracted from `lnurl` query string.
+	- A way to view the metadata sent of `text/plain` format.
 
-4. Displays a payment dialog where user can specify an exact sum to be sent which would be bounded by:
-```
-max can send = min(maxSendable, local estimation of how much can be sent from wallet)
-
-min can send = max(minSendable, local minimal value allowed by wallet)
-```
-Additionally, a payment dialog must include:
-- Domain name extracted from `lnurl` query string.
-- A way to see full metadata in `text/plain` format.
-
-5. Issues an HTTPS GET request using `<callback>?amount=<milliSatoshi>&fromnodes=<nodeId1,nodeId2,...>` where `amount` is user specified sum in MilliSatoshi and `fromnodes` is an optional parameter with value set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from specified LN `nodeId`s.
-6. Gets a JSON response of form:
-```
-{
-	pr: String, // bech32-serialized lightning invoice with `h` tag set to `sha256(utf8ByteArray(metadata))`
-	routes: 
-	[
+5. `LN WALLET` makes a HTTPS GET request using 
+	
+	```
+	<callback>?amount=<milliSatoshi>&fromnodes=<nodeId1,nodeId2,...>
+	```
+	where `amount` is user specified sum in MilliSatoshi and `fromnodes` is an optional parameter with value 	set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from 	specified LN `nodeId`s.
+6. `LN Service` takes the GET request and returns JSON response of form:
+	
+	```
+	{
+		pr: String, // bech32-serialized lightning invoice with h tag set to sha256(utf8ByteArray(metadata))
+		routes: 
 		[
-			{
-				nodeId: String,
-				channelUpdate: String // hex-encoded serialized ChannelUpdate gossip message
-			},
-			... // next hop
-		],
-		... // next route
-	] // array with payment routes, should be left empty if no routes are to be provided
-}
+			[
+				{
+					nodeId: String,
+					channelUpdate: String // hex-encoded serialized ChannelUpdate gossip message
+				},
+				... // next hop
+			],
+			... // next route
+		] // array with payment routes, should be left empty if no routes are to be provided
+	}
+	```
+	
+	or
+	
+	```
+	{"status":"ERROR", "reason":"error details..."}
+	```
+	[More information about the h tag](https://github.com/lightningnetwork/lightning-rfc/blob/master/11-payment-encoding.md#tagged-fields)
 
-or
-
-{"status":"ERROR", "reason":"error details..."}
-```
-
-7. Verifies that `h` tag in provided invoice is a hash of `metadata` string converted to byte array in UTF-8 encoding. 
-8. Verifies that amount in provided invoice equals an amount previosuly specified by user.
+7. `LN WALLET` Verifies that `h` tag in provided invoice is a hash of `metadata` string converted to byte array in UTF-8 encoding. 
+8. `LN WALLET` Verifies that amount in provided invoice equals an amount previously specified by user.
 9. If routes array is not empty: verifies signature for every provided `ChannelUpdate`, may use these routes if fee levels are acceptable.
-10. Fulfills an invoice, no additional user confirmation is required at this point.
+10. `LN WALLET` pays the invoice, no additional user confirmation is required at this point.
 
-### Note on metadata for server-side:
+### Note on metadata for server-side LNURL-PAY:
 
 **When client makes a first call**
+
 1. Construct a metadata object, turn it into json, then into string, and then escape a string.
 2. Include that escaped string as is in `metadata` field in first response json.  
 
 **When client makes a second call**
+
 1. Make a hash as follows: `sha256(utf8ByteArray(escaped_metadata_string))`.
 2. Generate a payment request using an obtained hash.
