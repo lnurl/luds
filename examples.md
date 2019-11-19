@@ -1,6 +1,6 @@
 # Examples
 
-## lnurl-channel
+## LNURL-channel
 
 ### LNBIG
 https://lnbig.com/
@@ -8,7 +8,7 @@ https://lnbig.com/
 ![LNBIG](media/examples/lnbig.png)
 
 
-## lnurl-withdraw
+## LNURL-withdraw
 
 ### Lightning Gifts
 https://lightning.gifts
