@@ -1,6 +1,13 @@
-`lnurl` is a bech32-encoded HTTPS query string which is supposed to help payer interact with payee and thus simplify a number of standard scenarios such as requesting incoming channels, withdrawing funds, logging in etc.
+# LNURL: Lightning Network UX protocol   
 
-An example `lnurl`: 
+`LNURL` is a bech32-encoded HTTPS query string which is supposed to help payer interact with payee and thus simplify a number of standard scenarios such as:
+
+- Requesting incoming channels 
+- Logging in
+- Withdrawing funds
+- Paying for a service
+
+An example `LNURL`: 
 > https://service.com/api?q=3fc3645b439ce8e7f2553a69e5267081d96dcd340693afabe04be7b0ccd178df
 
 would be bech32-encoded as:
@@ -8,15 +15,15 @@ would be bech32-encoded as:
 
 and presented as the following QR:
 
-![A QR encoded LNUrl example](https://i.imgur.com/HbB7U1K.png)
+![A QR encoded LNURL example](https://i.imgur.com/HbB7U1K.png)
 
-Once `lnurl` is decoded:
-- If `tag` query parameter is present then this `lnurl` has a special meaning, further actions will be based on `tag` parameter value.
+Once `LNURL` is decoded:
+- If `tag` query parameter is present then this `LNURL` has a special meaning, further actions will be based on `tag` parameter value.
 - Otherwise an HTTPS GET request should be issued which must return a Json object containing a `tag` field, further actions will be based on `tag` field value.
 
 # Fallback scheme
 
-`lnurl` can be used as fallback inside of other URI schemes, with the key 'lightning' and the value equal to the bech32-encoding, an example: `https://service.com/giftcard/redeem?id=123&lightning=lnurl1...`
+`LNURL` can be used as fallback inside of other URI schemes, with the key 'lightning' and the value equal to the bech32-encoding, an example: `https://service.com/giftcard/redeem?id=123&lightning=LNURL1...`
 
 # Decoding examples
 
@@ -35,7 +42,7 @@ new String(requestByteArray, "UTF-8") // https://service.com/api?q=3fc3645b439ce
 
 # Sub protocols
 
-## 1. lnurl-channel
+## 1. LNURL-channel
 ### Incoming payment channel request  
 
 Suppose user has a balance on a certain service which he wishes to turn into an incoming channel and service supports such functionality. This would require many parameters so resulting QR may be overly dense and cause scanning issues. Other than that, when using a mobile wallet user has to make sure that a connection to target LN node is established from mobile client before an incoming channel is requested.
@@ -61,7 +68,7 @@ or
 6. Receives a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
 
-## 1.1 lnurl-hosted-channel
+## 1.1 LNURL-hosted-channel
 ### Hosted channel request
 
 **User software flow:**
@@ -85,18 +92,18 @@ or
 6. The rest is handled by hosted channel protocol.
 
 
-## 2. lnurl-auth
+## 2. LNURL-auth
 ### Authorization with Bitcoin Wallet
 
-A special `linkingKey` can be used to login user to a service or authorise sensitive actions. This preferrably should be done without compromising user identity so plain LN node key can not be used here. Instead of asking for user credentials a service could display a "login" QR code which contains a specialized `lnurl`.
+A special `linkingKey` can be used to login user to a service or authorise sensitive actions. This preferrably should be done without compromising user identity so plain LN node key can not be used here. Instead of asking for user credentials a service could display a "login" QR code which contains a specialized `LNURL`.
 
 **Server-side signature verification:**
-Once service receives a call at the specified `lnurl-auth` handler, it should take `k1`, `key` and a DER-encoded `sig` and verify the signature using `secp256k1`, storing somehow `key` as the user identifier, either in a session, database or however it sees fit.
+Once service receives a call at the specified `LNURL-auth` handler, it should take `k1`, `key` and a DER-encoded `sig` and verify the signature using `secp256k1`, storing somehow `key` as the user identifier, either in a session, database or however it sees fit.
 
 **Key derivation for Bitcoin wallets:**
 Once "login" QR code is scanned `linkingKey` derivation in user's wallet happens as follows:
 1. There exists a private `hashingKey` which is derived by user wallet using `m/138'/0` path.
-2. Service domain name is extracted from login `lnurl` and then hashed using `hmacSha256(hashingKey, service domain name)`.
+2. Service domain name is extracted from login `LNURL` and then hashed using `hmacSha256(hashingKey, service domain name)`.
 3. First 8 bytes are taken from resulting hash and then turned into a `Long` which is in turn used to derive a service-specific `linkingKey` using `m/138'/0/<long value>` path, a Scala example:
 
 ```Scala
@@ -113,14 +120,14 @@ val linkingKey = linkingPrivKey.publicKey
 1. Scans a QR code and decodes an URL which must contain the following query parameters:
 	- `tag` with value set to `login` which means no HTTPS GET should be made yet.
 	- `k1` (hex encoded 32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`.
-2. Displays a "Login" dialog which must include a domain name extracted from `lnurl` query string.
-3. Once accepted user software signs `k1` on `secp256k1` using `linkingPrivKey` and DER-encodes the signature, issuing an HTTPS GET request using `<lnurl_hostname_and_path>?<lnurl_existing_query_parameters>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` which results in a successful login with `{"status":"OK"}` sent back to wallet once signature is verified by service. `linkingKey` should be used as user identifier in this case.
+2. Displays a "Login" dialog which must include a domain name extracted from `LNURL` query string.
+3. Once accepted user software signs `k1` on `secp256k1` using `linkingPrivKey` and DER-encodes the signature, issuing an HTTPS GET request using `<LNURL_hostname_and_path>?<LNURL_existing_query_parameters>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` which results in a successful login with `{"status":"OK"}` sent back to wallet once signature is verified by service. `linkingKey` should be used as user identifier in this case.
 
 
-## 3. lnurl-withdraw
+## 3. LNURL-withdraw
 ### Withdrawing funds from a service
 
-Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet while using a desktop website. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `lnurl`.
+Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet while using a desktop website. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `LNURL`.
 
 **Wallet-to-server interaction flow:**
 
@@ -159,9 +166,9 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. `LN WALLET` awaits for incoming payment if response was successful.
 
-Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (lnurl-auth, email link etc.) before displaying a withdraw QR.
+Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (LNURL-auth, email link etc.) before displaying a withdraw QR.
 
-## 4. lnurl-pay
+## 4. LNURL-pay
 ### Pay to static QR/NFC/link
 
 **Wallet-to-server interaction flow:**
@@ -211,7 +218,7 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	min can send = max(minSendable, local minimal value allowed by wallet)
 	```
 	Additionally, a payment dialog must include:
-	- Domain name extracted from `lnurl` query string.
+	- Domain name extracted from `LNURL` query string.
 	- A way to view the metadata sent of `text/plain` format.
 
 5. `LN WALLET` makes a HTTPS GET request using 
