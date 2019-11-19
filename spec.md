@@ -39,8 +39,12 @@ val requestByteArray = Bech32.five2eight(dataPart)
 new String(requestByteArray, "UTF-8") // https://service.com/api?q=3fc3645b439ce8e7f2553a69e5267081d96dcd340693afabe04be7b0ccd178df
 ```
 
+# Getting help
 
-# Sub protocols
+If you have any questions about implementing LNURL as a wallet or service, join us in the [BLW Telegram](https://t.me/lightningwallet) and get help from the creators and other LNURL enthusiasts.
+
+
+# Sub protocols:
 
 ## 1. LNURL-channel
 ### Incoming payment channel request  
