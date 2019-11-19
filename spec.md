@@ -45,50 +45,57 @@ new String(requestByteArray, "UTF-8") // https://service.com/api?q=3fc3645b439ce
 ## 1. LNURL-channel
 ### Incoming payment channel request  
 
-Suppose user has a balance on a certain service which he wishes to turn into an incoming channel and service supports such functionality. This would require many parameters so resulting QR may be overly dense and cause scanning issues. Other than that, when using a mobile wallet user has to make sure that a connection to target LN node is established from mobile client before an incoming channel is requested.
+Suppose user has a balance on a certain service which he wishes to turn into an incoming channel and service supports such functionality. This would require many parameters so the resulting QR may be overly dense and cause scanning issues. Additionally, the user has to make sure that a connection to target LN node is established before an incoming channel is requested.
 
-**User software flow:**
-1. Scans a QR code and decodes an URL.
-2. Makes an HTTPS GET request to a service.
-3. Gets Json response of form: 
-```
-{
-	uri: String, // Remote node address of form node_key@ip_address:port_number
-	callback: String, // a second-level url which would initiate an OpenChannel message from target LN node
-	k1: String, // a second-level arbitrary secret string to authorize user request 
-	tag: "channelRequest" // Now user software knows what to do next...
-}
+**Wallet to service interaction flow:**
 
-or
+1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
+2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
+3. `LN WALLET` gets Json response from `LN SERVICE` of form:
+	
+	```
+	{
+		uri: String, // Remote node address of form node_key@ip_address:port_number
+		callback: String, // a second-level url which would initiate an OpenChannel message from target LN node
+		k1: String, // random or non-random string to identify the user's LN WALLET when using the callback url
+		tag: "channelRequest" // type of LNURL
+	}
+	```
+	or
 
-{"status":"ERROR", "reason":"error details..."}
-```
-4. Opens a Lightning socket connection to a target node using `uri` field.
-5. Issues an HTTPS GET request using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
-6. Receives a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
-7. Awaits for incoming `OpenChannel` message via Lightning socket connection which would initiate a channel opening.
+	```
+	{"status":"ERROR", "reason":"error details..."}
+	```
+	
+4. `LN WALLET` opens a connection to the target node using `uri` field.
+5. `LN WALLET` issues an HTTPS GET request to `LN SERVICE` using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
+6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
+7. `LN WALLET` awaits for incoming `OpenChannel` message from the target node which would initiate a channel opening.
 
 ## 1.1 LNURL-hosted-channel
 ### Hosted channel request
 
-**User software flow:**
-1. Scans a QR code and decodes an URL.
-2. Makes an HTTPS GET request to a service.
-3. Gets Json response of form: 
-```
-{
-	uri: String, // Remote node address of form node_key@ip_address:port_number
-	k1: String, // a second-level hex encoded secret byte array to be used by wallet in `InvokeHostedChannel` message, may be random if Host has no use for it
-	alias: String, // Optional remote node alias
-	tag: "hostedChannelRequest" // Now user software knows what to do next...
-}
+**Wallet to service interaction flow:**
 
-or
-
-{"status":"ERROR", "reason":"error details..."}
-```
-4. Opens a Lightning socket connection to a target node using `uri` field.
-5. Once connected sends an `InvokeHostedChannel` message using `k1` converted to byte array.
+1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
+2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
+3. `LN WALLET` gets Json response from `LN SERVICE` of form:
+    
+    ```
+    {
+    	uri: String, // Remote node address of form node_key@ip_address:port_number
+    	k1: String, // a second-level hex encoded secret byte array to be used by wallet in `InvokeHostedChannel` message, may be random if Host has no use for it
+    	alias: String, // Optional remote node alias
+    	tag: "hostedChannelRequest" // type of LNURL
+    }
+    ```
+    or
+    
+    ```
+    {"status":"ERROR", "reason":"error details..."}
+    ```
+4. `LN WALLET` opens a connection to the target node using `uri` field.
+5. Once connected, `LN WALLET` sends an `InvokeHostedChannel` message to the target node using `k1` converted to byte array.
 6. The rest is handled by hosted channel protocol.
 
 
@@ -116,7 +123,8 @@ val linkingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) :: 0L :: B
 val linkingKey = linkingPrivKey.publicKey
 ```
 
-**User software flow:**
+**Wallet to service interaction flow:**
+
 1. Scans a QR code and decodes an URL which must contain the following query parameters:
 	- `tag` with value set to `login` which means no HTTPS GET should be made yet.
 	- `k1` (hex encoded 32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`.
@@ -129,7 +137,7 @@ val linkingKey = linkingPrivKey.publicKey
 
 Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet while using a desktop website. Instead of asking for Lightning invoice a service could display a "withdraw" QR code which contains a specialized `LNURL`.
 
-**Wallet-to-server interaction flow:**
+**Wallet to service interaction flow:**
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
@@ -138,7 +146,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 	```
 	{
 		callback: String, // the url which LN SERVICE would accept a withdrawal Lightning invoice as query parameter
-		k1: String, // an ephemeral secret which would allow user to withdraw funds
+		k1: String, // random or non-random string to identify the user's LN WALLET when using the callback url
 		maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on LN SERVICE
 		defaultDescription: String, // A default withdrawal invoice description
 		minWithdrawable: MilliSatoshi // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
@@ -171,7 +179,7 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 ## 4. LNURL-pay
 ### Pay to static QR/NFC/link
 
-**Wallet-to-server interaction flow:**
+**Wallet to service interaction flow:**
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
