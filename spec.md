@@ -245,6 +245,7 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	```
 	{
 		pr: String, // bech32-serialized lightning invoice with h tag set to sha256(utf8ByteArray(metadata))
+		successUrl: String, // optional. A URL to open in the user's default browser after successfully paying the invoice
 		routes: 
 		[
 			[
