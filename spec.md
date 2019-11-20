@@ -220,7 +220,7 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
     and be sent as a string:
     
     ```
-    '[["text/plain", "lorem ipsum blah blah"]]'
+    "[[\"text/plain\", \"lorem ipsum blah blah\"]]"
     ```
 
 4. `LN WALLET` displays a payment dialog where user can specify an exact sum to be sent which would be bounded by:
