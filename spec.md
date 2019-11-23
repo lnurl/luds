@@ -245,7 +245,7 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	```
 	{
 		pr: String, // bech32-serialized lightning invoice with h tag set to sha256(utf8ByteArray(metadata))
-		successUrl: String, // OPTIONAL. A URL to open in the user's default browser after successfully paying the invoice
+		successAction: Object, // required. Action to be executed after successfully paying an invoice
 		routes: 
 		[
 			[
@@ -266,12 +266,41 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	{"status":"ERROR", "reason":"error details..."}
 	```
 	[More information about the h tag](https://github.com/lightningnetwork/lightning-rfc/blob/master/11-payment-encoding.md#tagged-fields)
+	
+	`successAction` currently only supports `'url'`, `'message'`, and `'noop'` tags. If there is no action, `{ tag: 'noop' }` must be used. 
+	
+	```
+	{
+	   tag: String, // action type. Can only be 'url' or 'noop' currently
+	   description: String, // a popup description of action before it is executed
+	   data: String, // Payload of successAction
+	}
+	```
+	
+	Examples of `successAction`:
+    	
+    ```
+	{
+	   tag: 'url'
+	   description: 'Thank you for your purchase. Here is your order details:'
+	   data: 'https://www.ln-service.com/order/<orderId>'
+	}	
+	
+	{
+	   tag: 'message'
+	   description: 'Thank you for using bike-over-ln CO! Your rental bike is unlocked now'
+	}
+	
+	{
+	   tag: 'noop' //does nothing
+	}
+    ```
 
 7. `LN WALLET` Verifies that `h` tag in provided invoice is a hash of `metadata` string converted to byte array in UTF-8 encoding. 
 8. `LN WALLET` Verifies that amount in provided invoice equals an amount previously specified by user.
 9. If routes array is not empty: verifies signature for every provided `ChannelUpdate`, may use these routes if fee levels are acceptable.
 10. `LN WALLET` pays the invoice, no additional user confirmation is required at this point.
-11. `LN WALLET` opens `successUrl` in user's default browser, if provided by `LN SERVICE`
+11. `LN WALLET` exceutes `successAction`. If `tag` is `noop` nothing is required. For `message`, a toaster or popup is sufficient. For `url`, the wallet should give the user a popup which displays `description`, `url`, and a 'open' button to open the `url` in a new browser tab. The wallet should also store `successAction` data on the transaction record.  
 
 ### Note on metadata for server-side LNURL-PAY:
 
