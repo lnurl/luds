@@ -239,12 +239,12 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	```
 	<callback>?amount=<milliSatoshi>&fromnodes=<nodeId1,nodeId2,...>
 	```
-	where `amount` is user specified sum in MilliSatoshi and `fromnodes` is an optional parameter with value 	set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from 	specified LN `nodeId`s.
+	where `amount` is user specified sum in MilliSatoshi and `fromnodes` is an optional parameter with value set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from specified LN `nodeId`s.
 6. `LN Service` takes the GET request and returns JSON response of form:
 	
 	```
 	{
-		pr: String, // bech32-serialized lightning invoice with h tag set to sha256(utf8ByteArray(metadata))
+		pr: String, // bech32-serialized lightning invoice
 		successAction: Object, // required. Action to be executed after successfully paying an invoice
 		routes: 
 		[
@@ -265,9 +265,10 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	```
 	{"status":"ERROR", "reason":"error details..."}
 	```
-	[More information about the h tag](https://github.com/lightningnetwork/lightning-rfc/blob/master/11-payment-encoding.md#tagged-fields)
 	
-	`successAction` currently only supports `'url'`, `'message'`, and `'noop'` tags. If there is no action, `{ tag: 'noop' }` must be used. 
+	`pr` must have the [`h` tag (`description_hash`)](https://github.com/lightningnetwork/lightning-rfc/blob/master/11-payment-encoding.md#tagged-fields) set to `sha256(utf8ByteArray(metadata))`.
+	
+	`successAction` supports `'url'`, `'message'`, and `'noop'` tags. If there is no action, `{ tag: 'noop' }` must be used. 
 	
 	```
 	{
