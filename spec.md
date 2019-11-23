@@ -272,9 +272,8 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	
 	```
 	{
-	   tag: String, // action type. Can only be 'url' or 'noop' currently
-	   description: String, // a popup description of action before it is executed
-	   data: String, // Payload of successAction
+	   tag: String, // action type
+	   ... rest of fields depends on tag value
 	}
 	```
 	
