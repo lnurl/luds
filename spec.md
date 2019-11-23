@@ -58,6 +58,9 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 3. `LN WALLET` gets Json response from `LN SERVICE` of form:
 	
 	```
+	HTTP/1.1 200 OK
+	Content-Type: application/json;
+	
 	{
 		uri: String, // Remote node address of form node_key@ip_address:port_number
 		callback: String, // a second-level URL which would initiate an OpenChannel message from target LN node
@@ -68,7 +71,13 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 	or
 
 	```
-	{"status":"ERROR", "reason":"error details..."}
+	HTTP/1.1 400 Bad Request
+	Content-Type: application/json;
+	
+	{
+		"status":"ERROR", 
+		"reason":"error details..."
+	}
 	```
 	
 4. `LN WALLET` opens a connection to the target node using `uri` field.
@@ -86,17 +95,26 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 3. `LN WALLET` gets Json response from `LN SERVICE` of form:
     
     ```
-    {
-    	uri: String, // Remote node address of form node_key@ip_address:port_number
-    	k1: String, // a second-level hex encoded secret byte array to be used by wallet in `InvokeHostedChannel` message, may be random if Host has no use for it
-    	alias: String, // Optional remote node alias
-    	tag: "hostedChannelRequest" // type of LNURL
-    }
+    	HTTP/1.1 200 OK
+	Content-Type: application/json;
+	
+    	{
+    		uri: String, // Remote node address of form node_key@ip_address:port_number
+    		k1: String, // a second-level hex encoded secret byte array to be used by wallet in `InvokeHostedChannel` message, may be random if Host has no use for it
+    		alias: String, // Optional remote node alias
+    		tag: "hostedChannelRequest" // type of LNURL
+    	}
     ```
     or
     
     ```
-    {"status":"ERROR", "reason":"error details..."}
+    	HTTP/1.1 400 Bad Request
+	Content-Type: application/json;
+	
+    	{
+    		"status":"ERROR", 
+		"reason":"error details..."
+	}
     ```
 4. `LN WALLET` opens a connection to the target node using `uri` field.
 5. Once connected, `LN WALLET` sends an `InvokeHostedChannel` message to the target node using `k1` converted to byte array.
@@ -149,6 +167,9 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 3. `LN WALLET` gets Json response from `LN SERVICE` of form:
 	
 	```
+	HTTP/1.1 200 OK
+	Content-Type: application/json;
+
 	{
 		callback: String, // the URL which LN SERVICE would accept a withdrawal Lightning invoice as query parameter
 		k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
@@ -161,7 +182,13 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 	or
 	
 	```
-	{"status":"ERROR", "reason":"error details..."}
+	HTTP/1.1 400 Bad Request
+	Content-Type: application/json;
+	
+	{
+		"status":"ERROR", 
+		"reason":"error details..."
+	}
 	```
 4. `LN WALLET` Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
 	
@@ -191,18 +218,27 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 3. `LN WALLET` gets Json response from `LN SERVICE` of form:
     
     ```
-    {
-        callback: String, // the URL from LN SERVICE which will accept the pay request parameters
-        maxSendable: MilliSatoshi, // max amount LN SERVICE is willing to receive
-        minSendable: MilliSatoshi, // min amount LN SERVICE is willing to receive, can not be less than 1 or more than `maxSendable`
-        metadata: String, // metadata json which must be presented as raw string here, this is required to pass signature verification at a later step
-        tag: "payRequest" // type of LNURL
-    }
+    	HTTP/1.1 200 OK
+	Content-Type: application/json;
+	
+    	{
+        	callback: String, // the URL from LN SERVICE which will accept the pay request parameters
+        	maxSendable: MilliSatoshi, // max amount LN SERVICE is willing to receive
+        	minSendable: MilliSatoshi, // min amount LN SERVICE is willing to receive, can not be less than 1 or more than `maxSendable`
+        	metadata: String, // metadata json which must be presented as raw string here, this is required to pass signature verification at a later step
+        	tag: "payRequest" // type of LNURL
+    	}
     ```
     or
     
     ```
-    {"status":"ERROR", "reason":"error details..."}
+    	HTTP/1.1 400 Bad Request
+	Content-Type: application/json;
+	
+    	{
+		"status":"ERROR", 
+		"reason":"error details..."
+	}
     ```
     
     `metadata` must contain the following json:
@@ -243,6 +279,9 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 6. `LN Service` takes the GET request and returns JSON response of form:
 	
 	```
+	HTTP/1.1 200 OK
+	Content-Type: application/json;
+	
 	{
 		pr: String, // bech32-serialized lightning invoice with h tag set to sha256(utf8ByteArray(metadata))
 		successAction: Object, // required. Action to be executed after successfully paying an invoice
@@ -263,17 +302,26 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	or
 	
 	```
-	{"status":"ERROR", "reason":"error details..."}
+	HTTP/1.1 400 Bad Request
+	Content-Type: application/json;
+	
+	{
+		"status":"ERROR", 
+		"reason":"error details..."
+	}
 	```
 	[More information about the h tag](https://github.com/lightningnetwork/lightning-rfc/blob/master/11-payment-encoding.md#tagged-fields)
 	
 	`successAction` currently only supports `'url'`, `'message'`, and `'noop'` tags. If there is no action, `{ tag: 'noop' }` must be used. 
 	
 	```
+	HTTP/1.1 200 OK
+	Content-Type: application/json;
+	
 	{
-	   tag: String, // action type. Can only be 'url' or 'noop' currently
-	   description: String, // a popup description of action before it is executed
-	   data: String, // Payload of successAction
+	   	tag: String, // action type. Can only be 'url' or 'noop' currently
+	   	description: String, // a popup description of action before it is executed
+	   	data: String, // Payload of successAction
 	}
 	```
 	
