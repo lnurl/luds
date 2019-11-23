@@ -282,13 +282,13 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
     ```
 	{
 	   tag: 'url'
-	   description: 'Thank you for your purchase. Here is your order details:'
-	   data: 'https://www.ln-service.com/order/<orderId>'
+	   description: 'Thank you for your purchase. Here is your order details:' // Up to 144 characters
+	   url: 'https://www.ln-service.com/order/<orderId>'
 	}	
 	
 	{
 	   tag: 'message'
-	   description: 'Thank you for using bike-over-ln CO! Your rental bike is unlocked now'
+	   message: 'Thank you for using bike-over-ln CO! Your rental bike is unlocked now' // Up to 144 characters
 	}
 	
 	{
