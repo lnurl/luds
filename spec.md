@@ -246,17 +246,6 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	{
 		pr: String, // bech32-serialized lightning invoice
 		successAction: Object, // required. Action to be executed after successfully paying an invoice
-		routes: 
-		[
-			[
-				{
-					nodeId: String,
-					channelUpdate: String // hex-encoded serialized ChannelUpdate gossip message
-				},
-				... // next hop
-			],
-			... // next route
-		] // array with payment routes, should be left empty if no routes are to be provided
 	}
 	```
 	
@@ -267,6 +256,8 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	```
 	
 	`pr` must have the [`h` tag (`description_hash`)](https://github.com/lightningnetwork/lightning-rfc/blob/master/11-payment-encoding.md#tagged-fields) set to `sha256(utf8ByteArray(metadata))`.
+	
+	If `fromnodes` was sent by wallet in the previous step, `pr` should have an [`r` tag (route hints)](https://github.com/lightningnetwork/lightning-rfc/blob/master/11-payment-encoding.md#tagged-fields) with a reasonable number of routes going from some of the specified `fromnodes` and the final payment destination.
 	
 	`successAction` supports `'url'`, `'message'`, and `'noop'` tags. If there is no action, `{ tag: 'noop' }` must be used. 
 	
