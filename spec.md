@@ -299,8 +299,9 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 7. `LN WALLET` Verifies that `h` tag in provided invoice is a hash of `metadata` string converted to byte array in UTF-8 encoding. 
 8. `LN WALLET` Verifies that amount in provided invoice equals an amount previously specified by user.
 9. If routes array is not empty: verifies signature for every provided `ChannelUpdate`, may use these routes if fee levels are acceptable.
-10. `LN WALLET` pays the invoice, no additional user confirmation is required at this point.
-11. `LN WALLET` exceutes `successAction`. If `tag` is `noop` nothing is required. For `message`, a toaster or popup is sufficient. For `url`, the wallet should give the user a popup which displays `description`, `url`, and a 'open' button to open the `url` in a new browser tab. The wallet should also store `successAction` data on the transaction record.  
+10. `LN WALLET` makes sure that `tag` value of `successAction` is of known type, aborts a payment otherwise.
+11. `LN WALLET` pays the invoice, no additional user confirmation is required at this point.
+12. `LN WALLET` excecutes `successAction`. If `tag` is `noop` nothing is required. For `message`, a toaster or popup is sufficient. For `url`, the wallet should give the user a popup which displays `description`, `url`, and a 'open' button to open the `url` in a new browser tab. The wallet should also store `successAction` data on the transaction record.  
 
 ### Note on metadata for server-side LNURL-PAY:
 
