@@ -245,7 +245,7 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	```
 	{
 		pr: String, // bech32-serialized lightning invoice
-		successAction: Object, // required. Action to be executed after successfully paying an invoice
+		successAction: Object or null, // An optional action to be executed after successfully paying an invoice
 		routes: 
 		[
 			[
