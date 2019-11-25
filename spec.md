@@ -311,12 +311,11 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 
 **When client makes a first call**
 
-1. Construct a metadata object, turn it into json, then include in into parent json as string.
-2. Include that escaped string as is in `metadata` field in first response json.  
+Construct a metadata object, turn it into json, then include in into parent json as string.
 
 **When client makes a second call**
 
-1. Make a hash as follows: `sha256(utf8ByteArray(metadata_string))`.
+1. Make a hash as follows: `sha256(utf8ByteArray(unescaped_metadata_string))`.
 2. Generate a payment request using an obtained hash.
 
 ### Note on `aes` action tag
