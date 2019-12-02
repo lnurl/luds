@@ -132,7 +132,7 @@ val linkingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) +: pathSuf
 val linkingKey = linkingPrivKey.publicKey
 ```
 
-Wallets may use a different derivation scheme but doing so will make it unportable. That is, users won't be able to switch to a different wallet a keep using a service bound to existing `linkingKey`.
+`LN WALLET` may choose to use a different derivation scheme but doing so will make it unportable. That is, users won't be able to switch to a different wallet and keep using a service bound to existing `linkingKey`.
 
 **Wallet to service interaction flow:**
 
