@@ -112,20 +112,27 @@ A special `linkingKey` can be used to login user to a service or authorise sensi
 Once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, it should take `k1`, `key` and a DER-encoded `sig` and verify the signature using `secp256k1`, storing somehow `key` as the user identifier, either in a session, database or however it sees fit.
 
 **Key derivation for Bitcoin wallets:**
-Once "login" QR code is scanned `linkingKey` derivation in user's `LN WALLET` happens as follows:
+Once "login" QR code is scanned `linkingKey` derivation in user's `LN WALLET` should happen as follows:
 1. There exists a private `hashingKey` which is derived by user `LN WALLET` using `m/138'/0` path.
 2. `LN SERVICE` domain name is extracted from login `LNURL` and then hashed using `hmacSha256(hashingKey, service domain name)`.
-3. First 8 bytes are taken from resulting hash and then turned into a `Long` which is in turn used to derive a service-specific `linkingKey` using `m/138'/0/<long value>` path, a Scala example:
+3. First 16 bytes are taken from resulting hash and then turned into a sequence of 4 `Long` values which are in turn used to derive a service-specific `linkingKey` using `m/138'/<long1>/<long2>/<long3>/<long4>` path, a Scala example:
 
 ```Scala
-import scala.math.BigInt
+import fr.acinq.bitcoin.crypto
+import fr.acinq.bitcoin.Protocol
+import java.io.ByteArrayInputStream
 import fr.acinq.bitcoin.DeterministicWallet._
 
+val domainName = "site.com"
 val hashingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) :: 0L :: Nil)
-val prefix = hmacSha256(hashingPrivKey, serviceDomainName).take(8)
-val linkingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) :: 0L :: BigInt(prefix).toLong :: Nil)
+val derivationMaterial = hmac256(key = hashingPrivKey.toBin, message = domainName)
+val stream = new ByteArrayInputStream(derivationMaterial.slice(0, 16).toArray)
+val pathSuffix = Vector.fill(4)(Protocol.uint32(stream, ByteOrder.BIG_ENDIAN)) // each uint32 call consumes next 4 bytes
+val linkingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) +: pathSuffix)
 val linkingKey = linkingPrivKey.publicKey
 ```
+
+Wallets may use a different derivation scheme but doing so will make it unportable. That is, users won't be able to switch to a different wallet a keep using a service bound to existing `linkingKey`.
 
 **Wallet to service interaction flow:**
 
