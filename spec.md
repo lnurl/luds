@@ -209,6 +209,23 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
     or
     
     ```
+    {
+        callback: String, // the URL from LN SERVICE which will accept the pay request parameters
+        options: [
+		[
+			"Option 1", // descrition, up to 72 characters; <font color="...">, <i>, <strong> tags are allowed
+			100000000 // amount in MilliSatoshi
+		],
+		...
+	],
+        metadata: String, // metadata json which must be presented as raw string here, this is required to pass signature verification at a later step
+        tag: "payRequestChoice" // type of LNURL
+    }
+    ```
+    
+    or
+    
+    ```
     {"status":"ERROR", "reason":"error details..."}
     ```
     
