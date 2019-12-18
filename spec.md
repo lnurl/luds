@@ -222,11 +222,11 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
         ],
         [
             "image/png;base64", // optional 512x512px PNG thumbnail which will represent this lnurl in a list or grid
-            content // base64 string
+            content // base64 string, up to 136536 characters (100Kb of image data in base-64 encoding)
         ],
         [
             "image/jpeg;base64", // optional 512x512px JPG thumbnail which will represent this lnurl in a list or grid
-            content // base64 string
+            content // base64 string, up to 136536 characters (100Kb of image data in base-64 encoding)
         ],
         ... // more objects for future types
     ]
