@@ -212,13 +212,21 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
     {"status":"ERROR", "reason":"error details..."}
     ```
     
-    `metadata` must contain the following json:
+    `metadata` json array must contain one `text/plain` entry, all other types of entries are optional:
     
     ```
     [
         [
-            "text/plain", // mime-type, "text/plain" is the only supported type for now, must always be present
+            "text/plain", // must always be present
             content // actual metadata content
+        ],
+        [
+            "image/png;base64", // optional 512x512px PNG thumbnail which will represent this lnurl in a list or grid
+            content // base64 string, up to 136536 characters (100Kb of image data in base-64 encoding)
+        ],
+        [
+            "image/jpeg;base64", // optional 512x512px JPG thumbnail which will represent this lnurl in a list or grid
+            content // base64 string, up to 136536 characters (100Kb of image data in base-64 encoding)
         ],
         ... // more objects for future types
     ]
