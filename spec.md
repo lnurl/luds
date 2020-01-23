@@ -261,7 +261,7 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	{
 		pr: String, // bech32-serialized lightning invoice
 		successAction: Object or null, // An optional action to be executed after successfully paying an invoice
-		disposabe: Boolean or null, // An optional flag to let a wallet know whether to persist Json from step 3 and thus make it reusable
+		disposabe: Boolean or null, // An optional flag to let a wallet know whether to persist `lightning:LNURL..` code from step 1
 		routes: 
 		[
 			[
