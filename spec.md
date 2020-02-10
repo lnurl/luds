@@ -149,7 +149,6 @@ val linkingKey = linkingPrivKey.publicKey
 	}
 	``` 
 	or
-	
 	```
 	{"status":"ERROR", "reason":"error details..."}
 	```
