@@ -145,14 +145,21 @@ val linkingKey = linkingPrivKey.publicKey
 	```
 	{
 		status: "OK", 
-		event: "LOGGEDIN | REGISTERED | AUTHED" // An optional enum indication of which exact action has happened, 3 listed types are supported
+		event: "REGISTERED | LOGGEDIN | LINKED | AUTHED" // An optional enum indication of which exact action has happened, 3 listed types are supported
 	}
 	``` 
 	or
 	```
 	{"status":"ERROR", "reason":"error details..."}
 	```
-	`linkingKey` should henceforth be used as user identifier by service.
+	`linkingKey` should henceforth be used as user identifier by service. 
+
+	`event` enums meaning:
+	- `REGISTERED`: service has created a new account linked to user provided `linkingKey`.
+	- `LOGGEDIN`: service has found a matching existing account linked to user provided `linkingKey`.
+	- `LINKED` service has linked a user provided `linkingKey` to user's existing account (if account was not originally created using `lnurl-auth`).
+	- `AUTHED`: user was requesting some stateless action which does not require logging in (or possibly even prior registration) and that request was granted.
+
 
 
 ## 3. LNURL-withdraw
