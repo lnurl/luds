@@ -141,7 +141,19 @@ val linkingKey = linkingPrivKey.publicKey
 	- `k1` (hex encoded 32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`.
 2. `LN WALLET` displays a "Login" dialog which must include a domain name extracted from `LNURL` query string.
 3. Once accepted, user `LN WALLET` signs `k1` on `secp256k1` using `linkingPrivKey` and DER-encodes the signature. `LN WALLET` Then issues an HTTPS GET to `LN SERVICE` using `<LNURL_hostname_and_path>?<LNURL_existing_query_parameters>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` 
-4. `LN SERVICE` responds with `{"status":"OK"}` sent back to wallet once signature is verified by service. `linkingKey` should be used as user identifier in this case.
+4. `LN SERVICE` responds with the following Json once client signature is verified: 
+	```
+	{
+		status: "OK", 
+		event: "LOGGEDIN | REGISTERED | AUTHED" // An optional enum indication of which exact action has happened, 3 listed types are supported
+	}
+	``` 
+	or
+	
+	```
+	{"status":"ERROR", "reason":"error details..."}
+	```
+	`linkingKey` should henceforth be used as user identifier by service.
 
 
 ## 3. LNURL-withdraw
