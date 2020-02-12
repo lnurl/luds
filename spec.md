@@ -55,7 +55,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
-3. `LN WALLET` gets Json response from `LN SERVICE` of form:
+3. `LN WALLET` gets JSON response from `LN SERVICE` of form:
 	
 	```
 	{
@@ -73,7 +73,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 	
 4. `LN WALLET` opens a connection to the target node using `uri` field.
 5. `LN WALLET` issues an HTTPS GET request to `LN SERVICE` using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
-6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
+6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` JSON response.
 7. `LN WALLET` awaits for incoming `OpenChannel` message from the target node which would initiate a channel opening.
 
 ## 1.1 LNURL-hosted-channel
@@ -83,7 +83,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
-3. `LN WALLET` gets Json response from `LN SERVICE` of form:
+3. `LN WALLET` gets JSON response from `LN SERVICE` of form:
     
     ```
     {
@@ -171,7 +171,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
-3. `LN WALLET` gets Json response from `LN SERVICE` of form:
+3. `LN WALLET` gets JSON response from `LN SERVICE` of form:
 	
 	```
 	{
@@ -200,8 +200,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 	<callback>?k1=<k1>&pr=<lightning invoice, ...>
 	```
 	
-	Note that user may send multiple invoices with a splitted total amount in a single request.
-6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
+6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` JSON response and then attempts to pay the invoices asynchronously.
 7. `LN WALLET` awaits for incoming payment if response was successful.
 
 Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (LNURL-auth, email link etc.) before displaying a withdraw QR.
@@ -213,7 +212,7 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
-3. `LN WALLET` gets Json response from `LN SERVICE` of form:
+3. `LN WALLET` gets JSON response from `LN SERVICE` of form:
     
     ```
     {
