@@ -179,10 +179,10 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 5. Once accepted by the user, `LN WALLET` sends an HTTPS GET to `LN SERVICE` in the form of 
 	
 	```
-	<callback>?k1=<k1>&pr=<lightning invoice>
+	<callback>?k1=<k1>&pr=<lightning invoice, ...>
 	```
 	
-6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` JSON response and then attempts to pay the invoice asynchronously.
+6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` JSON response and then attempts to pay the invoices asynchronously.
 7. `LN WALLET` awaits for incoming payment if response was successful.
 
 Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (LNURL-auth, email link etc.) before displaying a withdraw QR.
