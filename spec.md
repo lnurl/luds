@@ -76,6 +76,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 	```
 	
 4. `LN WALLET` opens a connection to the target node using `uri` field.
+
 5. `LN WALLET` issues a GET request to `LN SERVICE` using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
 6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. `LN WALLET` awaits for incoming `OpenChannel` message from the target node which would initiate a channel opening.
@@ -145,7 +146,24 @@ val linkingKey = linkingPrivKey.publicKey
 	- `k1` (hex encoded 32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`.
 2. `LN WALLET` displays a "Login" dialog which must include a domain name extracted from `LNURL` query string.
 3. Once accepted, user `LN WALLET` signs `k1` on `secp256k1` using `linkingPrivKey` and DER-encodes the signature. `LN WALLET` Then issues a GET to `LN SERVICE` using `<LNURL_hostname_and_path>?<LNURL_existing_query_parameters>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` 
-4. `LN SERVICE` responds with `{"status":"OK"}` sent back to wallet once signature is verified by service. `linkingKey` should be used as user identifier in this case.
+4. `LN SERVICE` responds with the following Json once client signature is verified: 
+	```
+	{
+		status: "OK", 
+		event: "REGISTERED | LOGGEDIN | LINKED | AUTHED" // An optional enum indication of which exact action has happened, 3 listed types are supported
+	}
+	``` 
+	or
+	```
+	{"status":"ERROR", "reason":"error details..."}
+	```
+	`linkingKey` should henceforth be used as user identifier by service. 
+
+	`event` enums meaning:
+	- `REGISTERED`: service has created a new account linked to user provided `linkingKey`.
+	- `LOGGEDIN`: service has found a matching existing account linked to user provided `linkingKey`.
+	- `LINKED` service has linked a user provided `linkingKey` to user's existing account (if account was not originally created using `lnurl-auth`).
+	- `AUTHED`: user was requesting some stateless action which does not require logging in (or possibly even prior registration) and that request was granted.
 
 
 ## 3. LNURL-withdraw
@@ -186,8 +204,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 	<callback>?k1=<k1>&pr=<lightning invoice, ...>
 	```
 	
-	Note that user may send multiple invoices with a splitted total amount in a single request.
-6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
+6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` JSON response and then attempts to pay the invoices asynchronously.
 7. `LN WALLET` awaits for incoming payment if response was successful.
 
 Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (LNURL-auth, email link etc.) before displaying a withdraw QR.
@@ -216,13 +233,21 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
     {"status":"ERROR", "reason":"error details..."}
     ```
     
-    `metadata` must contain the following json:
+    `metadata` json array must contain one `text/plain` entry, all other types of entries are optional:
     
     ```
     [
         [
-            "text/plain", // mime-type, "text/plain" is the only supported type for now, must always be present
+            "text/plain", // must always be present
             content // actual metadata content
+        ],
+        [
+            "image/png;base64", // optional 512x512px PNG thumbnail which will represent this lnurl in a list or grid
+            content // base64 string, up to 136536 characters (100Kb of image data in base-64 encoding)
+        ],
+        [
+            "image/jpeg;base64", // optional 512x512px JPG thumbnail which will represent this lnurl in a list or grid
+            content // base64 string, up to 136536 characters (100Kb of image data in base-64 encoding)
         ],
         ... // more objects for future types
     ]
@@ -257,6 +282,7 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	{
 		pr: String, // bech32-serialized lightning invoice
 		successAction: Object or null, // An optional action to be executed after successfully paying an invoice
+		disposabe: Boolean or null, // An optional flag to let a wallet know whether to persist `lightning:LNURL..` code from step 1
 		routes: 
 		[
 			[
