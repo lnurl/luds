@@ -1,6 +1,6 @@
 # LNURL: Lightning Network UX protocol   
 
-`LNURL` is a bech32-encoded HTTPS query string which is supposed to help payer interact with payee and thus simplify a number of standard scenarios such as:
+`LNURL` is a bech32-encoded HTTPS/Onion query string which is supposed to help payer interact with payee and thus simplify a number of standard scenarios such as:
 
 - Requesting incoming channels 
 - Logging in
@@ -19,7 +19,11 @@ and presented as the following QR:
 
 Once `LNURL` is decoded:
 - If `tag` query parameter is present then this `LNURL` has a special meaning, further actions will be based on `tag` parameter value.
-- Otherwise an HTTPS GET request should be issued which must return a Json object containing a `tag` field, further actions will be based on `tag` field value.
+- Otherwise a GET request should be executed which must return a Json object containing a `tag` field, further actions will be based on `tag` field value.
+
+# HTTPS or Onion
+
+`LNURL` is acceptable in two forms: either an `https://` clearnet link (no self-signed certificates allowed) or an `http://` v2/v3 onion link.
 
 # Fallback scheme
 
@@ -54,7 +58,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 **Wallet to service interaction flow:**
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
-2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
+2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
 3. `LN WALLET` gets Json response from `LN SERVICE` of form:
 	
 	```
@@ -72,7 +76,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 	```
 	
 4. `LN WALLET` opens a connection to the target node using `uri` field.
-5. `LN WALLET` issues an HTTPS GET request to `LN SERVICE` using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
+5. `LN WALLET` issues a GET request to `LN SERVICE` using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
 6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` Json response.
 7. `LN WALLET` awaits for incoming `OpenChannel` message from the target node which would initiate a channel opening.
 
@@ -82,7 +86,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 **Wallet to service interaction flow:**
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
-2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
+2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
 3. `LN WALLET` gets Json response from `LN SERVICE` of form:
     
     ```
@@ -137,10 +141,10 @@ val linkingKey = linkingPrivKey.publicKey
 **Wallet to service interaction flow:**
 
 1. `LN WALLET` scans a QR code and decodes an URL which must contain the following query parameters:
-	- `tag` with value set to `login` which means no HTTPS GET should be made yet.
+	- `tag` with value set to `login` which means no GET should be made yet.
 	- `k1` (hex encoded 32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`.
 2. `LN WALLET` displays a "Login" dialog which must include a domain name extracted from `LNURL` query string.
-3. Once accepted, user `LN WALLET` signs `k1` on `secp256k1` using `linkingPrivKey` and DER-encodes the signature. `LN WALLET` Then issues an HTTPS GET to `LN SERVICE` using `<LNURL_hostname_and_path>?<LNURL_existing_query_parameters>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` 
+3. Once accepted, user `LN WALLET` signs `k1` on `secp256k1` using `linkingPrivKey` and DER-encodes the signature. `LN WALLET` Then issues a GET to `LN SERVICE` using `<LNURL_hostname_and_path>?<LNURL_existing_query_parameters>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` 
 4. `LN SERVICE` responds with `{"status":"OK"}` sent back to wallet once signature is verified by service. `linkingKey` should be used as user identifier in this case.
 
 
@@ -152,7 +156,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 **Wallet to service interaction flow:**
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
-2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
+2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
 3. `LN WALLET` gets Json response from `LN SERVICE` of form:
 	
 	```
@@ -176,7 +180,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 	max can receive = min(maxWithdrawable, local estimation of how much can be routed into wallet)
 	min can receive = max(minWithdrawable, local minimal value allowed by wallet)
 	```
-5. Once accepted by the user, `LN WALLET` sends an HTTPS GET to `LN SERVICE` in the form of 
+5. Once accepted by the user, `LN WALLET` sends a GET to `LN SERVICE` in the form of 
 	
 	```
 	<callback>?k1=<k1>&pr=<lightning invoice, ...>
@@ -194,7 +198,7 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 **Wallet to service interaction flow:**
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
-2. `LN WALLET` makes an HTTPS GET request to `LN SERVICE` using the decoded LNURL.
+2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
 3. `LN WALLET` gets Json response from `LN SERVICE` of form:
     
     ```
@@ -241,7 +245,7 @@ Note that service will withdraw funds to anyone who can provide a valid ephemera
 	- Domain name extracted from `LNURL` query string.
 	- A way to view the metadata sent of `text/plain` format.
 
-5. `LN WALLET` makes a HTTPS GET request using 
+5. `LN WALLET` makes a GET request using 
 	
 	```
 	<callback>?amount=<milliSatoshi>&fromnodes=<nodeId1,nodeId2,...>
