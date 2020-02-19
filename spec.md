@@ -176,7 +176,9 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 _Longer path typically used for scanning a QR code_
 
 1.1 User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.  
+
 1.2 `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.  
+
 1.3 `LN WALLET` gets Json response from `LN SERVICE` of form:  
 	
 	```
