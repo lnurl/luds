@@ -181,7 +181,6 @@ _Longer path typically used for scanning a QR code_
 
 1.3 `LN WALLET` gets Json response from `LN SERVICE` of form:  
 	
-	```
 	{
 		callback: String, // the URL which LN SERVICE would accept a withdrawal Lightning invoice as query parameter
 		k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
@@ -190,13 +189,10 @@ _Longer path typically used for scanning a QR code_
 		minWithdrawable: MilliSatoshi // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
 		tag: "withdrawRequest" // type of LNURL
 	}
-	```
 
-	or
+or  
 	
-	```
 	{"status":"ERROR", "reason":"error details..."}
-	```
 
 _Shorter path typically used in applications_
 
