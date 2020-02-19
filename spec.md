@@ -191,6 +191,7 @@ _Longer path typically used for scanning a QR code_
 		tag: "withdrawRequest" // type of LNURL
 	}
 	```
+	
 	or
 	
 	```
