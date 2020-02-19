@@ -191,7 +191,7 @@ _Longer path typically used for scanning a QR code_
 		tag: "withdrawRequest" // type of LNURL
 	}
 	```
-	
+
 	or
 	
 	```
@@ -202,7 +202,6 @@ _Shorter path typically used in applications_
 
 1.1 Application provides a `lightning:LNURL..` link which encodes the following query string:  
 
-	```
 	https://fallbackURL
 	?tag=withdrawRequest
 	&k1=String
@@ -210,7 +209,6 @@ _Shorter path typically used in applications_
 	&maxWithdrawable=MilliSatoshi
 	&defaultDescription=String
 	&callback=String
-	```
 
 2. `LN WALLET` Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
 	
