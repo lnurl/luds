@@ -173,11 +173,14 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 
 **Wallet to service interaction flow:**
 
-1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
-2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
-3. `LN WALLET` gets Json response from `LN SERVICE` of form:
+_Longer path typically used for scanning a QR code_
+
+1.1 User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.  
+
+1.2 `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.  
+
+1.3 `LN WALLET` gets Json response from `LN SERVICE` of form:  
 	
-	```
 	{
 		callback: String, // the URL which LN SERVICE would accept a withdrawal Lightning invoice as query parameter
 		k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
@@ -186,26 +189,37 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 		minWithdrawable: MilliSatoshi // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
 		tag: "withdrawRequest" // type of LNURL
 	}
-	```
-	or
+
+or  
 	
-	```
 	{"status":"ERROR", "reason":"error details..."}
-	```
-4. `LN WALLET` Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
+
+_Shorter path typically used in applications_
+
+1.1 Application provides a `lightning:LNURL..` link which encodes the following query string:  
+
+	https://fallbackURL
+	?tag=withdrawRequest
+	&k1=String
+	&minWithdrawable=MilliSatoshi
+	&maxWithdrawable=MilliSatoshi
+	&defaultDescription=String
+	&callback=String
+
+2. `LN WALLET` Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
 	
 	```
 	max can receive = min(maxWithdrawable, local estimation of how much can be routed into wallet)
 	min can receive = max(minWithdrawable, local minimal value allowed by wallet)
 	```
-5. Once accepted by the user, `LN WALLET` sends a GET to `LN SERVICE` in the form of 
+3. Once accepted by the user, `LN WALLET` sends a GET to `LN SERVICE` in the form of 
 	
 	```
 	<callback>?k1=<k1>&pr=<lightning invoice, ...>
 	```
 	
-6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` JSON response and then attempts to pay the invoices asynchronously.
-7. `LN WALLET` awaits for incoming payment if response was successful.
+4. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` JSON response and then attempts to pay the invoices asynchronously.
+5. `LN WALLET` awaits for incoming payment if response was successful.
 
 Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (LNURL-auth, email link etc.) before displaying a withdraw QR.
 
