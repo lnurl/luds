@@ -173,13 +173,11 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 
 **Wallet to service interaction flow:**
 
-_Longer path typically used for scanning a QR code_
+1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.  
 
-1.1 User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.  
+2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.  
 
-1.2 `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.  
-
-1.3 `LN WALLET` gets Json response from `LN SERVICE` of form:  
+3. `LN WALLET` gets Json response from `LN SERVICE` of form:  
 	
 	{
 		callback: String, // the URL which LN SERVICE would accept a withdrawal Lightning invoice as query parameter
@@ -194,34 +192,39 @@ or
 	
 	{"status":"ERROR", "reason":"error details..."}
 
-_Shorter path typically used in applications_
+4. `LN WALLET` Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
+	
+	```
+	max can receive = min(maxWithdrawable, local estimation of how much can be routed into wallet)
+	min can receive = max(minWithdrawable, local minimal value allowed by wallet)
+	```
+5. Once accepted by the user, `LN WALLET` sends a GET to `LN SERVICE` in the form of 
+	
+	```
+	<callback>?k1=<k1>&pr=<lightning invoice, ...>
+	```
+6. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` JSON response and then attempts to pay the invoices asynchronously.
+7. `LN WALLET` awaits for incoming payment if response was successful.
 
-1.1 Application provides a `lightning:LNURL..` link which encodes the following query string:  
+Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (LNURL-auth, email link etc.) before displaying a withdraw QR.
 
-	https://fallbackURL
+Additionally, `LN SERVICE` and `LN WALLET` developers can also choose to implement a _fast LNURL-withdraw_. This implementation reduces the steps involved in the process by putting the data that would be sent by `LN SERVICE` in step 3. as query parameters of the `LN SERVICE` URL accessed in step 1., before it is bech32-encoded.
+
+Eg:
+
+	https://LNserviceURL
 	?tag=withdrawRequest
 	&k1=String
 	&minWithdrawable=MilliSatoshi
 	&maxWithdrawable=MilliSatoshi
 	&defaultDescription=String
 	&callback=String
+	
+This fast LNURL-withdraw method is not to be confused as an alternative to the original LNURL-withdraw, and is designed to be only be used for `lightning:`-type links that work between apps. It is not suitable for QR code implementations. 
 
-2. `LN WALLET` Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
-	
-	```
-	max can receive = min(maxWithdrawable, local estimation of how much can be routed into wallet)
-	min can receive = max(minWithdrawable, local minimal value allowed by wallet)
-	```
-3. Once accepted by the user, `LN WALLET` sends a GET to `LN SERVICE` in the form of 
-	
-	```
-	<callback>?k1=<k1>&pr=<lightning invoice, ...>
-	```
-	
-4. `LN SERVICE` sends a `{"status":"OK"}` or `{"status":"ERROR", "reason":"error details..."}` JSON response and then attempts to pay the invoices asynchronously.
-5. `LN WALLET` awaits for incoming payment if response was successful.
+If a `LN SERVICE` developer chooses to implement fast LNURL-withdraw in their app, the encoded URL with query params must still return a Json response containing data that would be sent in step 3. when a GET request is made to it. This is required so as to be backwards-compatible with `LN WALLET`s which have only implemented the original LNURL-withdraw method. 
 
-Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (LNURL-auth, email link etc.) before displaying a withdraw QR.
+If a `LN WALLET` developer chooses to implement fast LNURL-withdraw in their app, they will need to handle for both fast and original LNURL-withdraw methods as `LN SERVICE`s mostly use the original method. 
 
 ## 4. LNURL-pay
 ### Pay to static QR/NFC/link
