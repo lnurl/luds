@@ -147,23 +147,25 @@ val linkingKey = linkingPrivKey.publicKey
 2. `LN WALLET` displays a "Login" dialog which must include a domain name extracted from `LNURL` query string.
 3. Once accepted, user `LN WALLET` signs `k1` on `secp256k1` using `linkingPrivKey` and DER-encodes the signature. `LN WALLET` Then issues a GET to `LN SERVICE` using `<LNURL_hostname_and_path>?<LNURL_existing_query_parameters>&sig=<hex(sign(k1.toByteArray, linkingPrivKey))>&key=<hex(linkingKey)>` 
 4. `LN SERVICE` responds with the following Json once client signature is verified: 
-	```
-	{
-		status: "OK", 
-		event: "REGISTERED | LOGGEDIN | LINKED | AUTHED" // An optional enum indication of which exact action has happened, 3 listed types are supported
-	}
-	``` 
-	or
-	```
-	{"status":"ERROR", "reason":"error details..."}
-	```
-	`linkingKey` should henceforth be used as user identifier by service. 
+    ```
+    {
+        status: "OK", 
+        event: "REGISTERED | LOGGEDIN | LINKED | AUTHED" // An optional enum indication of which exact action has happened, 3 listed types are supported
+    }
+    ```
+    or
+    
+    ```
+    {"status":"ERROR", "reason":"error details..."}
+    ```
+    
+`linkingKey` should henceforth be used as user identifier by service. 
 
-	`event` enums meaning:
-	- `REGISTERED`: service has created a new account linked to user provided `linkingKey`.
-	- `LOGGEDIN`: service has found a matching existing account linked to user provided `linkingKey`.
-	- `LINKED` service has linked a user provided `linkingKey` to user's existing account (if account was not originally created using `lnurl-auth`).
-	- `AUTHED`: user was requesting some stateless action which does not require logging in (or possibly even prior registration) and that request was granted.
+`event` enums meaning:
+- `REGISTERED`: service has created a new account linked to user provided `linkingKey`.
+- `LOGGEDIN`: service has found a matching existing account linked to user provided `linkingKey`.
+- `LINKED` service has linked a user provided `linkingKey` to user's existing account (if account was not originally created using `lnurl-auth`).
+- `AUTHED`: user was requesting some stateless action which does not require logging in (or possibly even prior registration) and that request was granted.
 
 
 ## 3. LNURL-withdraw
@@ -178,19 +180,21 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.  
 
 3. `LN WALLET` gets Json response from `LN SERVICE` of form:  
-	
-	{
-		callback: String, // the URL which LN SERVICE would accept a withdrawal Lightning invoice as query parameter
-		k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
-		maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on LN SERVICE
-		defaultDescription: String, // A default withdrawal invoice description
-		minWithdrawable: MilliSatoshi // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
-		tag: "withdrawRequest" // type of LNURL
-	}
-
-or  
-	
-	{"status":"ERROR", "reason":"error details..."}
+    ```
+    {
+        callback: String, // the URL which LN SERVICE would accept a withdrawal Lightning invoice as query parameter
+        k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
+        maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on LN SERVICE
+        defaultDescription: String, // A default withdrawal invoice description
+        minWithdrawable: MilliSatoshi // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
+        tag: "withdrawRequest" // type of LNURL
+    }
+    ```
+    or
+    
+    ```
+    {"status":"ERROR", "reason":"error details..."}
+    ```
 
 4. `LN WALLET` Displays a withdraw dialog where user can specify an exact sum to be withdrawn which would be bounded by: 
 	
