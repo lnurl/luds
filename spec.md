@@ -25,9 +25,11 @@ Once `LNURL` is decoded:
 
 `LNURL` is acceptable in two forms: either an `https://` clearnet link (no self-signed certificates allowed) or an `http://` v2/v3 onion link.
 
-# Fallback scheme
+# Fallback schemes
 
 `LNURL` can be used as fallback inside of other URI schemes, with the key 'lightning' and the value equal to the bech32-encoding, an example: `https://service.com/giftcard/redeem?id=123&lightning=LNURL1...`
+
+`LNURL` can be embedded into BOLT11 invoice as a tagged field using `u` (28) as identifier, this field must contain a plain (non bech32-encoded) `LNURL` string with encoding rules similar to `d` description tag. Once an embedded `LNURL` is recognized by wallet it should offer user a choice whether to continue with invoice itself or try to utilize a found `LNURL`.
 
 # Decoding examples
 
