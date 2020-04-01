@@ -48,7 +48,8 @@ Additionally, `LN SERVICE` and `LN WALLET` developers can also choose to impleme
 Eg:
 
 	https://LNserviceURL
-	?tag=withdrawRequest
+	?q=signature
+	&tag=withdrawRequest
 	&k1=String
 	&minWithdrawable=MilliSatoshi
 	&maxWithdrawable=MilliSatoshi
