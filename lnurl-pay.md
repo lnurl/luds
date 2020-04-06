@@ -72,7 +72,7 @@
 	{
 		pr: String, // bech32-serialized lightning invoice
 		successAction: Object or null, // An optional action to be executed after successfully paying an invoice
-		disposabe: Boolean or null, // An optional flag to let a wallet know whether to persist `lightning:LNURL..` code from step 1
+		disposable: Boolean or null, // An optional flag to let a wallet know whether to persist the link from step 1, if null should be interpreted as true
 		routes: 
 		[
 			[
