@@ -8,6 +8,10 @@ A special `linkingKey` can be used to login user to a service or authorise sensi
 
 Once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, it should take `k1`, `key` and a DER-encoded `sig` and verify the signature using `secp256k1`, storing somehow `key` as the user identifier, either in a session, database or however it sees fit.
 
+`LN SERVICE` must make sure that:
+ - `k1` values are randomly generated per each auth attempt, they can not be predictable or static.
+ - Unexpected `k1`s are not accepted: it is advised for `LN SERVICE` to have a cache of unused `k1`s, only proceed with verification for `k1`s present in that cache and remove used `k1`s on successful auth attempts.
+
 ### Key derivation for Bitcoin wallets:
 
 Once "login" QR code is scanned `linkingKey` derivation in user's `LN WALLET` should happen as follows:
