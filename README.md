@@ -47,7 +47,7 @@ new String(requestByteArray, "UTF-8") // https://service.com/api?q=3fc3645b439ce
 
 ## Getting help
 
-If you have any questions about implementing LNURL as a wallet or service, join us in the [BLW Telegram](https://t.me/lightningwallet) and get help from the creators and other LNURL implementors.
+If you have any questions about implementing LNURL as a wallet or service, join us in the [Telegram group](https://t.me/lnurl) and get help from the creators and other LNURL implementors.
 
 ## Protocols
 
