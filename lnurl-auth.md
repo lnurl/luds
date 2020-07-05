@@ -63,3 +63,13 @@ val linkingKey = linkingPrivKey.publicKey
 - `LOGGEDIN`: service has found a matching existing account linked to user provided `linkingKey`.
 - `LINKED` service has linked a user provided `linkingKey` to user's existing account (if account was not originally created using `lnurl-auth`).
 - `AUTHED`: user was requesting some stateless action which does not require logging in (or possibly even prior registration) and that request was granted.
+
+### Test vector
+
+```
+domain name: site.com
+
+hashingPrivKey: 0x7d417a6a5e9a6a4a879aeaba11a11838764c8fa2b959c242d43dea682b3e409b01
+
+pathSuffix: Vector(3751473387, 2829804099, 4228872783, 4134047485)
+```
