@@ -63,9 +63,9 @@
 5. `LN WALLET` makes a GET request using 
 	
 	```
-	<callback>?amount=<milliSatoshi>&fromnodes=<nodeId1,nodeId2,...>
+	<callback>?amount=<milliSatoshi>&nonce=<hex(8 bytes of random data)>&fromnodes=<nodeId1,nodeId2,...>
 	```
-	where `amount` is user specified sum in MilliSatoshi and `fromnodes` is an optional parameter with value set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from specified LN `nodeId`s.
+	where `amount` is user specified sum in MilliSatoshi, optional `nonce` is used to prevent server response caching and `fromnodes` is an optional parameter with value set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from specified LN `nodeId`s.
 6. `LN Service` takes the GET request and returns JSON response of form:
 	
 	```
