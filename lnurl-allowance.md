@@ -2,12 +2,6 @@
 
 The LNURL Allowance scheme allows a SERVICE and a WALLET to establish a `pairing` over a WebSocket connection. The idea is that SERVICE will provide some recommended criteria (pairing amount and pairing time) to WALLET and once displayed and accepted by the user of WALLET, will allow for WALLET to pay/receive funds to/from SERVICE without user interaction or QR Code scanning.
 
-## QUESTIONS FOR PR COMMENT/DISCUSSION
-
-- Should `requestAllowanceTime` and `requestAllowanceAmount` really be `maxRequestAllowanceTime` and `maxRequestAllowanceAmount`, such that when the WALLET displays the UI the WALLET can display 1) their preffered allowance pairing time/amount, and 2) the SERVICE's recommended/maximum time/amount to allow, almost like a slider?
-- What should the cadence of re-sending of messages once they return with an `error` status?
-- Should there also be an `Extension Request` message type (`extensionRequest`, `extensionSuccess`, and `extensionError`)? This can be for 1) LN WALLET telling the SERVICE that it wants to increase current allowance request, and 2) SERVICE asking to up the current balance from WALLET, after seeing that the current balance is not enough for the next `activity` in the SERVICE. What should this `extending the current allowance amount/time` flow be?
-
 ## Scan QR code to establish allowance/pairing
 
 ### WALLET to SERVICE interaction flow:
@@ -38,11 +32,10 @@ or
 }
 ```
 
-4. `LN WALLET` displays a `pairing/allowance` dialog where user can specify an exact sum to be `spendable`, as well as set a maximum `time` allowed before another allowance request is made:
+4. `LN WALLET` displays a `pairing/allowance` dialog where user can specify an exact sum to be `spendable`:
 
 ```
-- allowance time = max(requestAllowanceTime, local value entered by user)
-- allowance amount = max(requestAllowanceAmount, local value entered by user)
+- allowance amount = or(requestAllowanceAmount, local value entered by user)
 ```
 
 Additionally, the pairing dialog must include:
@@ -59,24 +52,18 @@ payload = {
   // received from previous `k1` property
   k1: '1ah6bceef7891...', <String>
 
-  // amount of seconds LN WALLET will remain
-  // connected to SERVICE before requesting
-  // reauthorization from both USER and SERVICE
-  maxAllowanceTime: 7200, <Number>
-
-  // total satoshi amount for all invoices
-  // WALLET is able to spend to SERVICE,
-  // before requesting reauthorization
-  maxAllowanceAmount: 20000, <Number>
+  // total millisatoshi amount for all invoices
+  // WALLET is able to spend to SERVICE
+  balance: 20000000, <Number>
 
   // type of LNURLAllowance message
-  type: "requestAllowance" <Enum>
+  type: "allowanceRequest" <Enum>
 }
 
 e.g. JSON.stringify(payload)
 ```
 
-6. `LN Service` receives message, parses the JSON payload and checks the `type` property of the message, find a `requestAllowance` type. For this message type SERVICE must check that `maxAllowanceTime` and `maxAllowanceAmount` are values allowed given SERVICE's own criteria. SERVICE must also validate that `k1` value passed matches a real `k1` inside SERVICE. If all checks are performed on SERVICE side and the connection should remain established, SERVICE sends a JSON stringified message payload to WALLET with the following format:
+6. `LN Service` receives message, parses the JSON payload and checks the `type` property of the message, find a `allowanceRequest` type. For this message type SERVICE must check that that `k1` value passed matches a real `k1` inside SERVICE. If all checks are performed on SERVICE side and the connection should remain established, SERVICE sends a JSON stringified message payload to WALLET with the following format:
 
 ```
 payload = {
@@ -84,7 +71,6 @@ payload = {
   message: 'Allowance setup successfully', <String>
 
   // UNIX timestamp of pairing success time
-  // used by WALLET to perform checks on `maxAllowanceTime`
   timestamp: 1593453067, <Number/UNIX Date>
 
   // type of LNURLAllowance message
@@ -103,54 +89,31 @@ or
 }
 ```
 
+SERVICE should disconnect the socket connection with WALLET after pushing an `allowanceError` message.
+
 7. Assuming `SERVICE` and `LN WALLET` can pair, and `SERVICE` sends the `allowanceSuccess` payload back to `LN WALLET`, `LN WALLET` shows a successsful socket pairing message with the `message` text from the `SERVICE` payload.
 
-8. `LN WALLET` must now be responsible for:
-  - allowance time: current time < (`SERVICE` timestamp + `LN WALLET` `maxAllowanceTime`)
-  - allowance amount: current amount spent < `LN WALLET`'s `maxAllowanceAmount`
+8. `LN WALLET` must now be responsible for allowance amount:
+  - current amount spent < `LN WALLET`'s `balance`
 
 Now that `LN WALLET` is `paired` with `SERVICE`, the two can send messages containing Lightning invoices that can be paid automatically until either the `time` or `amount` criteria of the `LN WALLET` is met.
 
-## Requesting LN WALLET allowance balance (SERVICE to WALLET)
+## WebSocket Persistence
 
-On an already established WebSocket connection between `LN WALLET` and `SERVICE`:
+In order to maintain a WebSocket connection alive for long periods of time, it is advised/necessary that the WALLET (client) and the SERVICE (server) send `ping/pong` messages to each other every so often.
 
-1. `SERVICE` sends a JSON stringified message payload with the following format:
-
-```
-payload = {
-  // message type requesting balance
-  type: "balanceRequest" <Enum>
-}
-
-e.g. JSON.stringify(payload)
-```
-
-2. `LN WALLET` receives message, parses its contents and finds the `balanceRequest` message type, responding with the following JSON stringified payload:
+Given this requirement the WALLET must send a `balance` message payload to the SERVICE periodically (e.g. every 15 seconds).
 
 ```
 payload = {
-  // message type suggestng balance success
-  type: "balanceSuccess" <Enum>
+  // millisatoshis amount in the temporary balance
+  balance: 15000000, <Number>
 
-  // current left over allowance funds
-  // (in satoshis) from `LN WALLET`'s side
-  balance: 3550, <Number>
-}
+  // current UNIX timestamp of message
+  timestamp: 1593453067, <Number/UNIX Date>
 
-e.g. JSON.stringify(payload)
-```
-
-or
-
-```
-payload = {
-  // message type requesting balance
-  type: "balanceError" <Enum>
-
-  // current left over allowance
-  // funds from `LN WALLET`'s side
-  balance: 3550, <Number>
+  // type of LNURLAllowance message
+  type: "balance" <Enum>
 }
 
 e.g. JSON.stringify(payload)
@@ -167,7 +130,7 @@ payload = {
   // message type requesting balance
   type: "invoiceRequest", <Enum>
 
-  // amount for invoice
+  // amount for invoice in millisatoshis
   amount: 4000, <Number>
 }
 
@@ -188,35 +151,7 @@ payload = {
 e.g. JSON.stringify(payload)
 ```
 
-3. `SERVICE` must check whether the invoice received actually matches the amount `SERVICE` asked for, and if so attempts to pay it. Depending on the invoice payment status, SERVICE sends `LN WALLET` another JSON stringified message payload:
-```
-payload = {
-  // message type requesting balance
-  type: "invoiceError", <Enum>
-
-  // payment request lnbc
-  invoice: "lnbc1500n", <String>
-
-  // message explaining issue
-  reason: "This is why I could not pay", <String>
-}
-
-e.g. JSON.stringify(payload)
-```
-
-or
-
-```
-payload = {
-  // message type requesting balance
-  type: "invoicePaid", <Enum>
-
-  // payment request lnbc
-  invoice: "lnbc1500n", <String>
-}
-
-e.g. JSON.stringify(payload)
-```
+3. `SERVICE` must check whether the invoice received actually matches the amount `SERVICE` asked for, and if so attempts to pay it.
 
 ## Requesting payment from LN WALLET (SERVICE to WALLET)
 
@@ -229,7 +164,7 @@ payload = {
   // message type requesting payment
   type: "paymentRequest", <Enum>
 
-  // amount for invoice
+  // amount for invoice in millisatoshis
   amount: 4000, <Number>
 
   // payment request
@@ -239,51 +174,19 @@ payload = {
 e.g. JSON.stringify(payload)
 ```
 
-2. `LN WALLET` receives message, parses its contents and finds the `paymentRequest` message type, verifies that the amount asked for matches the invoice details, and that the current allowance balance is greater than the amount for the invoice, attempts to pay, and responds with the following JSON stringified payloads:
-
-```
-payload = {
-  // message type suggesting success
-  type: "paymentSuccess", <Enum>
-
-  // payment request lnbc
-  invoice: 'lnbc...', <String>
-}
-
-e.g. JSON.stringify(payload)
-```
-
-or
-
-```
-payload = {
-  // message type suggesting error
-  type: "paymentError", <Enum>
-
-  // payment request lnbc
-  invoice: "lnbc1500n", <String>
-
-  // message explaining issue
-  reason: "This is why I could not pay", <String>
-}
-
-e.g. JSON.stringify(payload)
-```
+2. `LN WALLET` receives message, parses its contents and finds the `paymentRequest` message type, verifies that the amount asked for matches the invoice details, and that the current allowance balance is greater than the amount for the invoice, then attempts to pay it.
 
 ### LNURL Allowance Socket Message Types
 
 These are the support WebSocket message types that WALLET and SERVICE should be aware of.
 
+- Allowance
+  - `allowanceRequest` --> WALLET identifying/asking for allowance with SERVICE
+  - `allowanceSuccess` --> SERVICE confirming allowance pairsed with WALLET
 - Payment
-  - `paymentRequest`
-  - `paymentSuccess`
-  - `paymentError`
+  - `paymentRequest` --> SERVICE asking WALLET to pay an invoice
 - Invoice
-  - `invoiceRequest`
-  - `invoiceSuccess`
-  - `invoiceError`
-  - `invoicePaid`
+  - `invoiceRequest` --> SERVICE asking WALLET for an invoice
+  - `invoiceSuccess` --> WALLET responding to SERVICE with invoice
 - Balance
-  - `balanceRequest`
-  - `balanceSuccess`
-  - `balanceError`
+  - `balance`        --> WALLET sending SERVICE current balance
