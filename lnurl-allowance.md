@@ -1,6 +1,6 @@
 # LNURL-allowance
 
-The LNURL Allowance scheme allows a SERVICE and a WALLET to establish a `pairing` over a WebSocket connection. The idea is that SERVICE will provide some recommended criteria (pairing amount and pairing time) to WALLET and once displayed and accepted by the user of WALLET, will allow for WALLET to pay/receive funds to/from SERVICE without user interaction or QR Code scanning.
+The LNURL Allowance scheme allows a `LN SERVICE` and a `LN WALLET` to establish a `pairing` over a WebSocket connection. The idea is that `LN SERVICE` will provide an LNURL that returns some parameters (including a socket URL) to `LN WALLET`. `LN WALLET` will diplay a pairing dialog and once accepted by the user, `LN WALLET` will start a socket connection to `LN SERVICE`. This will allow for `LN WALLET` to pay/receive funds to/from `LN SERVICE` without user interaction or QR Code scanning, up to the established allowance amount.
 
 ## Scan QR code to establish allowance/pairing
 
@@ -16,10 +16,9 @@ The LNURL Allowance scheme allows a SERVICE and a WALLET to establish a `pairing
 {
     socket: String, // the URL from LN SERVICE which will accept the WebSocket connections from the WALLET
     k1: String, // random or non-random string to identify the WALLET when receiving connection to socket
-    requestAllowanceTime: Seconds, // amount of time the SERVICE recommends WALLET to ask user for this allowance/pairing
-    requestAllowanceAmount: Seconds, // amount of seconds the SERVICE recommends WALLET to ask user for this allowance/pairing
-    image: Base64, // base64-encoded SERVICE image for WALLET to display to user when establishing connection
-    description: String, // SERVICE description that WALLET should showcase to user
+    recommendedAllowanceAmount: Millsatoshis, // amount of satoshis the SERVICE recommends WALLET to ask user for this allowance/pairing
+    image: Base64, // base64-encoded LN SERVICE image for LN WALLET to display to user when establishing connection
+    description: String, // LN SERVICE description that LN WALLET should showcase to user
     tag: "allowanceRequest" // type of LNURL
 }
 ```
@@ -35,25 +34,25 @@ or
 4. `LN WALLET` displays a `pairing/allowance` dialog where user can specify an exact sum to be `spendable`:
 
 ```
-- allowance amount = or(requestAllowanceAmount, local value entered by user)
+- allowance amount = or(recommendedAllowanceAmount, local value entered by user)
 ```
 
 Additionally, the pairing dialog must include:
 - Domain name extracted from `LNURL` query string
 - A way to view the image and description fields from LNURL response
 
-5. `LN WALLET` initiates a WebSocket connection to the `socket` URI provided in previous LNRUL response, and if connection is successful `LN WALLET` sends first identifying JSON strigified payload message:
+5. `LN WALLET` initiates a WebSocket connection to the `socket` URI provided in previous LNRUL response, and if connection is successful `LN WALLET` sends first identifying JSON strigified payload message. WebSocket connection must be SSL'ed (e.g. `wss://...` instead of `ws://...`).
 
 > e.g. wss://server.btc/websocket-server
 
 ```
 payload = {
-  // k1 to identify LN WALLET in SERVICE
+  // k1 to identify LN WALLET in LN SERVICE
   // received from previous `k1` property
   k1: '1ah6bceef7891...', <String>
 
   // total millisatoshi amount for all invoices
-  // WALLET is able to spend to SERVICE
+  // LN WALLET is able to spend to SERVICE
   balance: 20000000, <Number>
 
   // type of LNURLAllowance message
@@ -63,12 +62,12 @@ payload = {
 e.g. JSON.stringify(payload)
 ```
 
-6. `LN Service` receives message, parses the JSON payload and checks the `type` property of the message, find a `allowanceRequest` type. For this message type SERVICE must check that that `k1` value passed matches a real `k1` inside SERVICE. If all checks are performed on SERVICE side and the connection should remain established, SERVICE sends a JSON stringified message payload to WALLET with the following format:
+6. `LN SERVICE` receives message, parses the JSON payload and checks the `type` property of the message, finding an `allowanceRequest` type. For this message type `LN SERVICE` must check that `k1` value passed matches a real `k1` inside `LN SERVICE`. If all checks are performed on `LN SERVICE` side and the connection should remain established, `LN SERVICE` sends a JSON stringified message payload to `LN WALLET` with the following format:
 
 ```
 payload = {
   // success message to show on the WALLET
-  message: 'Allowance setup successfully', <String>
+  message: 'Allowance setup successful', <String>
 
   // UNIX timestamp of pairing success time
   timestamp: 1593453067, <Number/UNIX Date>
@@ -89,24 +88,24 @@ or
 }
 ```
 
-SERVICE should disconnect the socket connection with WALLET after pushing an `allowanceError` message.
+`LN SERVICE` should disconnect the socket connection with `LN WALLET` after pushing an `allowanceError` message.
 
-7. Assuming `SERVICE` and `LN WALLET` can pair, and `SERVICE` sends the `allowanceSuccess` payload back to `LN WALLET`, `LN WALLET` shows a successsful socket pairing message with the `message` text from the `SERVICE` payload.
+7. Assuming `LN SERVICE` and `LN WALLET` can pair, and `LN SERVICE` sends the `allowanceSuccess` payload back to `LN WALLET`, `LN WALLET` shows a successsful socket pairing message with the `message` text from the `LN SERVICE` payload.
 
 8. `LN WALLET` must now be responsible for allowance amount:
   - current amount spent < `LN WALLET`'s `balance`
 
-Now that `LN WALLET` is `paired` with `SERVICE`, the two can send messages containing Lightning invoices that can be paid automatically until either the `time` or `amount` criteria of the `LN WALLET` is met.
+Now that `LN WALLET` is `paired` with `LN SERVICE`, the two can send messages containing Lightning invoices that can be paid automatically until the `balance` criteria of the `LN WALLET` is met.
 
 ## WebSocket Persistence
 
-In order to maintain a WebSocket connection alive for long periods of time, it is advised/necessary that the WALLET (client) and the SERVICE (server) send `ping/pong` messages to each other every so often.
+In order to maintain a WebSocket connection alive for long periods of time, it is advised/necessary that the `LN WALLET` (client) and the `LN SERVICE` (server) send `ping/pong` messages to each other every so often.
 
-Given this requirement the WALLET must send a `balance` message payload to the SERVICE periodically (e.g. every 15 seconds).
+Given this requirement the `LN WALLET` must send a `balance` message payload to the `LN SERVICE` periodically (e.g. every 15 seconds).
 
 ```
 payload = {
-  // millisatoshis amount in the temporary balance
+  // millisatoshis amount in the allowance balance
   balance: 15000000, <Number>
 
   // current UNIX timestamp of message
@@ -119,11 +118,11 @@ payload = {
 e.g. JSON.stringify(payload)
 ```
 
-## Requesting invoice from LN WALLET (SERVICE to WALLET)
+## Requesting invoice from `LN WALLET` (SERVICE to WALLET)
 
-On an already established WebSocket connection between `LN WALLET` and `SERVICE`:
+On an already established WebSocket connection between `LN WALLET` and `LN SERVICE`:
 
-1. `SERVICE` sends a JSON stringified message payload with the following format:
+1. `LN SERVICE` sends a JSON stringified message payload with the following format:
 
 ```
 payload = {
@@ -151,13 +150,13 @@ payload = {
 e.g. JSON.stringify(payload)
 ```
 
-3. `SERVICE` must check whether the invoice received actually matches the amount `SERVICE` asked for, and if so attempts to pay it.
+3. `LN SERVICE` must check whether the invoice received actually matches the amount `LN SERVICE` asked for, and if so attempts to pay it.
 
-## Requesting payment from LN WALLET (SERVICE to WALLET)
+## Requesting payment from `LN WALLET` (SERVICE to WALLET)
 
-On an already established WebSocket connection between `LN WALLET` and `SERVICE`:
+On an already established WebSocket connection between `LN WALLET` and `LN SERVICE`:
 
-1. `SERVICE` sends a JSON stringified message payload with the following format:
+1. `LN SERVICE` sends a JSON stringified message payload with the following format:
 
 ```
 payload = {
@@ -182,7 +181,7 @@ These are the support WebSocket message types that WALLET and SERVICE should be 
 
 - Allowance
   - `allowanceRequest` --> WALLET identifying/asking for allowance with SERVICE
-  - `allowanceSuccess` --> SERVICE confirming allowance pairsed with WALLET
+  - `allowanceSuccess` --> SERVICE confirming allowance paired with WALLET
 - Payment
   - `paymentRequest` --> SERVICE asking WALLET to pay an invoice
 - Invoice
@@ -190,3 +189,9 @@ These are the support WebSocket message types that WALLET and SERVICE should be 
   - `invoiceSuccess` --> WALLET responding to SERVICE with invoice
 - Balance
   - `balance`        --> WALLET sending SERVICE current balance
+
+### Known Issues
+
+While it is trivial to maintain a WebSocket connection opened in Web environments, it becomes a hurdle in Mobile environments. For iOS devices, there isn't really a proper way to maintain that connection active, apart from forcing the device to stay awake during the duration of the `allowance`. For Android devices the recommended approach is to run a [Service](https://developer.android.com/guide/components/services.html) that handles the flow of messages to/from the device on the background.
+
+
