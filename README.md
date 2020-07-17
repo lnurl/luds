@@ -56,4 +56,4 @@ If you have any questions about implementing LNURL as a wallet or service, join 
 2. [LNURL-auth](lnurl-auth.md)
 3. [LNURL-withdraw](lnurl-withdraw.md)
 4. [LNURL-pay](lnurl-pay.md)
-4. [LNURL-allowance](lnurl-allowance.md)
+5. [LNURL-allowance](lnurl-allowance.md)
