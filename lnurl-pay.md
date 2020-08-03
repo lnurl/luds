@@ -14,7 +14,7 @@
         maxSendable: MilliSatoshi, // max amount LN SERVICE is willing to receive
         minSendable: MilliSatoshi, // min amount LN SERVICE is willing to receive, can not be less than 1 or more than `maxSendable`
         metadata: String, // metadata json which must be presented as raw string here, this is required to pass signature verification at a later step
-        commentAllowed: Boolean, // whether the LN SERVICE accepts a custom `comment` query param on subsequent callback invocation
+        commentAllowed: Number, // number of characters accepted for the `comment` query parameter on subsequent callback, defaults to 0. (no comment allowed)
         tag: "payRequest" // type of LNURL
     }
     ```
@@ -24,7 +24,7 @@
     {"status":"ERROR", "reason":"error details..."}
     ```
 
-    `metadata` json array must contain one `text/plain` entry, all other types of entries are optional:
+    `metadata` - json array must contain one `text/plain` entry, all other types of entries are optional
 
     ```
     [
@@ -60,7 +60,7 @@
 	Additionally, a payment dialog must include:
 	- Domain name extracted from `LNURL` query string.
 	- A way to view the metadata sent of `text/plain` format.
-  - A text input where user can enter a custom `comment` string (only if `commentAllowed` is set to true)
+  - A text input where user can enter a`comment` string (max character count is equal or less than `commentAllowed` value)
 
 5. `LN WALLET` makes a GET request using
 
@@ -73,6 +73,8 @@
   - `amount` - user specified sum in MilliSatoshi
   - `fromnodes` - an optional parameter with value set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from specified LN `nodeId`s
   - `comment` - an optional parameter to pass the LN WALLET user's `comment` to LN SERVICE
+
+  *Note on `comment` length: [GET URL's accept around ~2000 characters for the entire request string](https://stackoverflow.com/a/417184). Therefore `comment` can only be as large as to fit in the URL alongisde any/all of the properties outlined above.*
 
 6. `LN Service` takes the GET request and returns JSON response of form:
 
