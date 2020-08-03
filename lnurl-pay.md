@@ -65,15 +65,16 @@
 5. `LN WALLET` makes a GET request using
 
 	```
-	<callback>?amount=<milliSatoshi>&fromnodes=<nodeId1,nodeId2,...>&comment=<String>
+	<callback>?amount=<milliSatoshi>&nonce=<hex(8 bytes of random data)>&fromnodes=<nodeId1,nodeId2,...>&comment=<String>
 	```
 
 	This corresponds to the following query parameters:
 
   - `amount` - user specified sum in MilliSatoshi
+  - `nonce` - an optional parameter used to prevent server response caching
   - `fromnodes` - an optional parameter with value set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from specified LN `nodeId`s
   - `comment` - an optional parameter to pass the LN WALLET user's `comment` to LN SERVICE
-
+  
 6. `LN Service` takes the GET request and returns JSON response of form:
 
 	```
