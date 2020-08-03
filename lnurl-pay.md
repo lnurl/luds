@@ -7,24 +7,25 @@
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
 3. `LN WALLET` gets Json response from `LN SERVICE` of form:
-    
+
     ```
     {
         callback: String, // the URL from LN SERVICE which will accept the pay request parameters
         maxSendable: MilliSatoshi, // max amount LN SERVICE is willing to receive
         minSendable: MilliSatoshi, // min amount LN SERVICE is willing to receive, can not be less than 1 or more than `maxSendable`
         metadata: String, // metadata json which must be presented as raw string here, this is required to pass signature verification at a later step
+        commentAllowed: Boolean, // whether the LN SERVICE accepts a custom `comment` query param on subsequent callback invocation
         tag: "payRequest" // type of LNURL
     }
     ```
     or
-    
+
     ```
     {"status":"ERROR", "reason":"error details..."}
     ```
-    
+
     `metadata` json array must contain one `text/plain` entry, all other types of entries are optional:
-    
+
     ```
     [
         [
@@ -42,9 +43,9 @@
         ... // more objects for future types
     ]
     ```
-    
+
     and be sent as a string:
-    
+
     ```
     "[[\"text/plain\", \"lorem ipsum blah blah\"]]"
     ```
@@ -53,27 +54,34 @@
 
 	```
 	max can send = min(maxSendable, local estimation of how much can be sent from wallet)
-	
+
 	min can send = max(minSendable, local minimal value allowed by wallet)
 	```
 	Additionally, a payment dialog must include:
 	- Domain name extracted from `LNURL` query string.
 	- A way to view the metadata sent of `text/plain` format.
+  - A text input where user can enter a custom `comment` string (only if `commentAllowed` is set to true)
 
-5. `LN WALLET` makes a GET request using 
-	
+5. `LN WALLET` makes a GET request using
+
 	```
-	<callback>?amount=<milliSatoshi>&fromnodes=<nodeId1,nodeId2,...>
+	<callback>?amount=<milliSatoshi>&fromnodes=<nodeId1,nodeId2,...>&comment=<String>
 	```
-	where `amount` is user specified sum in MilliSatoshi and `fromnodes` is an optional parameter with value set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from specified LN `nodeId`s.
+
+	This corresponds to the following query parameters:
+
+  - `amount` - user specified sum in MilliSatoshi
+  - `fromnodes` - an optional parameter with value set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from specified LN `nodeId`s
+  - `comment` - an optional parameter to pass the LN WALLET user's `comment` to LN SERVICE
+
 6. `LN Service` takes the GET request and returns JSON response of form:
-	
+
 	```
 	{
 		pr: String, // bech32-serialized lightning invoice
 		successAction: Object or null, // An optional action to be executed after successfully paying an invoice
 		disposable: Boolean or null, // An optional flag to let a wallet know whether to persist the link from step 1, if null should be interpreted as true
-		routes: 
+		routes:
 		[
 			[
 				{
@@ -86,53 +94,53 @@
 		] // array with payment routes, should be left empty if no routes are to be provided
 	}
 	```
-	
+
 	or
-	
+
 	```
 	{"status":"ERROR", "reason":"error details..."}
 	```
-	
+
 	`pr` must have the [`h` tag (`description_hash`)](https://github.com/lightningnetwork/lightning-rfc/blob/master/11-payment-encoding.md#tagged-fields) set to `sha256(utf8ByteArray(metadata))`.
-	
-	Currently supported tags for `successAction` object are `url`, `message`, and `aes`. If there is no action then `successAction` value must be set to `null`. 
-	
+
+	Currently supported tags for `successAction` object are `url`, `message`, and `aes`. If there is no action then `successAction` value must be set to `null`.
+
 	```
 	{
 	   tag: String, // action type
 	   ... rest of fields depends on tag value
 	}
 	```
-	
+
 	Examples of `successAction`:
-    	
+
     ```
 	{
 	   tag: 'url'
 	   description: 'Thank you for your purchase. Here is your order details' // Up to 144 characters
 	   url: 'https://www.ln-service.com/order/<orderId>' // url domain must be the same as `callback` domain at step 3
-	}	
-	
+	}
+
 	{
 	   tag: 'message'
 	   message: 'Thank you for using bike-over-ln CO! Your rental bike is unlocked now' // Up to 144 characters
 	}
-	
+
 	{
 	   tag: 'aes'
 	   description: 'Here is your redeem code' // Up to 144 characters
 	   ciphertext: <base64> // an AES-encrypted data where encryption key is payment preimage, up to 4kb of characters
 	   iv: <base64> // initialization vector, exactly 24 characters
 	}
-	
+
     ```
 
-7. `LN WALLET` Verifies that `h` tag in provided invoice is a hash of `metadata` string converted to byte array in UTF-8 encoding. 
+7. `LN WALLET` Verifies that `h` tag in provided invoice is a hash of `metadata` string converted to byte array in UTF-8 encoding.
 8. `LN WALLET` Verifies that amount in provided invoice equals an amount previously specified by user.
 9. If routes array is not empty: verifies signature for every provided `ChannelUpdate`, may use these routes if fee levels are acceptable.
 10. If `successAction` is not null: `LN WALLET` makes sure that `tag` value of is of supported type, aborts a payment otherwise.
 11. `LN WALLET` pays the invoice, no additional user confirmation is required at this point.
-12. Once payment is fulfilled `LN WALLET` excecutes a non-null `successAction`. For `message`, a toaster or popup is sufficient. For `url`, the wallet should give the user a popup which displays `description`, `url`, and a 'open' button to open the `url` in a new browser tab. For `aes`, `LN WALLET` must attempt to decrypt a `ciphertext` with payment preimage. `LN WALLET` should also store `successAction` data on the transaction record.  
+12. Once payment is fulfilled `LN WALLET` excecutes a non-null `successAction`. For `message`, a toaster or popup is sufficient. For `url`, the wallet should give the user a popup which displays `description`, `url`, and a 'open' button to open the `url` in a new browser tab. For `aes`, `LN WALLET` must attempt to decrypt a `ciphertext` with payment preimage. `LN WALLET` should also store `successAction` data on the transaction record.
 
 ## Notes on metadata for server-side LNURL-PAY
 
