@@ -14,7 +14,7 @@
         maxSendable: MilliSatoshi, // max amount LN SERVICE is willing to receive
         minSendable: MilliSatoshi, // min amount LN SERVICE is willing to receive, can not be less than 1 or more than `maxSendable`
         metadata: String, // metadata json which must be presented as raw string here, this is required to pass signature verification at a later step
-        commentAllowed: Number, // number of characters accepted for the `comment` query parameter on subsequent callback, defaults to 0. (no comment allowed)
+        commentAllowed: Number, // optional number of characters accepted for the `comment` query parameter on subsequent callback, defaults to 0 if not provided. (no comment allowed)
         tag: "payRequest" // type of LNURL
     }
     ```
