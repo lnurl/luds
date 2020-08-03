@@ -24,7 +24,7 @@
     {"status":"ERROR", "reason":"error details..."}
     ```
 
-    `metadata` - json array must contain one `text/plain` entry, all other types of entries are optional
+    `metadata` json array must contain one `text/plain` entry, all other types of entries are optional:
 
     ```
     [
