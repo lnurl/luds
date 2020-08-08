@@ -60,7 +60,7 @@
 	Additionally, a payment dialog must include:
 	- Domain name extracted from `LNURL` query string.
 	- A way to view the metadata sent of `text/plain` format.
-  - A text input where user can enter a `comment` string (max character count is equal or less than `commentAllowed` value)
+	- A text input where user can enter a `comment` string (max character count is equal or less than `commentAllowed` value)
 
 5. `LN WALLET` makes a GET request using
 
