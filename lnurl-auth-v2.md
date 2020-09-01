@@ -13,7 +13,7 @@ This auth method uses a domain-specific `linkingKey` derived by `LN WALLET` to l
     - `action` with value set to human readable description of action to be performed (e.g. "login to site" or "unlock the door").
     - `features` with value set to `v2`. By doing this `SERVICE` indicates that `LNURL-auth-v2` scheme is supported. `features` may contain many comma-separated named features (e.g. `v2,v3,...`) so `LN WALLET` must parse it accordingly.
 3. `LN WALLET` displays a "Login" dialog which must include a domain name extracted from `LNURL` query string and `action` text.
-4. Once accepted, user's `LN WALLET` creates a DER-encoded signature to use in GET response. Signature is obtained by signing `sha256(hexToBytes(k1) + asciiToBytes(action))` on `secp256k1` using `linkingPrivKey`.
+4. Once accepted, user's `LN WALLET` creates a DER-encoded signature to use in GET response. Signature is obtained by signing `sha256(hexToBytes(k1) + utf8ToBytes(action))` on `secp256k1` using `linkingPrivKey`.
 5. `LN WALLET` issues a GET to `SERVICE` using `<LNURL_hostname_and_path>?<LNURL_existing_query_parameters>&sig=<hex(DER_encoded_signature)>&key=<hex(linkingPubKey)>&usedfeatures=v2`. Adding `usedfeatures=v2` to response is an indication that `LN WALLET` also supports `v2` and `SERVICE` must verify a provided signature accordingly.
 6. `SERVICE` responds with the following Json once client signature is verified: 
     ```
@@ -29,7 +29,7 @@ This auth method uses a domain-specific `linkingKey` derived by `LN WALLET` to l
 
 ### Server-side signature verification:
 
-Once `SERVICE` receives a call at the specified `LNURL-auth` handler, it must extract a `sig`, `key`, `k1` and `action` query parameters, DER-decode a signature and verify it on `sha256(hexToBytes(k1) + asciiToBytes(action))` data using `secp256k1` and user-provided `key`. If verification passes then `SERVICE` can use and store a provided `key` as user identifier.
+Once `SERVICE` receives a call at the specified `LNURL-auth` handler, it must extract a `sig`, `key`, `k1` and `action` query parameters, DER-decode a signature and verify it on `sha256(hexToBytes(k1) + utf8ToBytes(action))` data using `secp256k1` and user-provided `key`. If verification passes then `SERVICE` can use and store a provided `key` as user identifier.
 
 `SERVICE` must make sure that:
  - `k1` values are randomly generated per each auth attempt, they can not be predictable or static.
