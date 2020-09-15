@@ -62,5 +62,13 @@ val linkingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) +: pathSuf
 val linkingPubKey = linkingPrivKey.publicKey
 ```
 
-### `linkingKey` derivation for LND-based wallets:
-???
+### `linkingKey` derivation for wallets which don't have an access to master `privKey`:
+
+In this case neither `hashingKey` nor domain-specific `linkingKey`s can be derived by path. To overcome this limitation a different scheme is used for this class of wallets:
+
+1. The following canonical phrase is defined: `DO NOT EVER SIGN THIS TEXT WITH YOUR PRIVATE KEYS! IS IT ONLY USED FOR DERIVATION OF LNURL-AUTH HASHING-KEY, DISCLOSING ITS SIGNATURE WILL COMPROMISE YOUR LNURL-AUTH IDENTITY AND MAY LEAD TO LOSS OF FUNDS!`.
+2. `LN WALLET` obtains an `RFC6979` deterministic signature of `sha256(utf8ToBytes(canonical phrase))` using `secp256k1` with node private key.
+3. `LN WALLET` defines `hashingKey` as `PrivateKey(sha256(obtained signature))`.
+4. `SERVICE` domain name is extracted from auth `LNURL` and then service-specific `linkingPrivKey` is defined as `PrivateKey(hmacSha256(hashingKey, service domain name))`.
+
+`LN WALLET` must make sure it is not possible to accidentally or automatically sign and hand out a signature of canonical phrase.

@@ -1,5 +1,23 @@
 # LNURL-auth
 
+## Deprecation warning
+
+This auth scheme is supposed to be superceded by [LNURL-auth-v2](lnurl-auth-v2.md). Services which already use this scheme should consider adding `v2` on top of it. `v2` is designed to be backwards-compatible with current scheme, the only substantial difference is how `LN WALLET`-provided signature is verified. The following pseudocode shows how a seamless upgrade could be carried out on server:
+
+```
+Step 1: when sending an lnurl-auth string to user, append "action=<human readable action to be performed>&features=v2
+
+Step 2: when observing a GET request from user,
+
+if (incoming GET request has "usedfeatures" query parameter which is set to "v2") {
+    verify signature as outlined in new v2 spec
+} else {
+    verify signature as outlined in current v1 spec
+}
+
+no change in rest of steps
+```
+
 ## Authorization with Bitcoin Wallet
 
 A special `linkingKey` can be used to login user to a service or authorise sensitive actions. This preferrably should be done without compromising user identity so plain LN node key can not be used here. Instead of asking for user credentials a service could display a "login" QR code which contains a specialized `LNURL`.
