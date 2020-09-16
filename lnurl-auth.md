@@ -8,7 +8,7 @@ A special `linkingKey` can be used to login user to a service or authorise sensi
 
 ### Server-side generation of auth URL and signature verification:
 
-When creating an `LNURL-auth` handler `LN SERVICE` must include in it a `k1` query parameter consisting of randomly generated 32 bytes of data, an example is `https://site.com?tag=login&k1=hex(32 bytes of random data)`.
+When creating an `LNURL-auth` handler `LN SERVICE` must include in it a `k1` query parameter consisting of randomly generated 32 bytes of data as well as optional `action` enum, an example is `https://site.com?tag=login&k1=hex(32 bytes of random data)&action=login`.
 
 Later, once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, it should take `k1`, `key` and a DER-encoded `sig` and verify the signature using `secp256k1`. Once signature is successfully verified a user provided `key` can be used as identifier and may be stored in a session, database or however `LN SERVICE` sees fit.
 
@@ -20,13 +20,13 @@ Later, once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, 
 1. `LN WALLET` scans a QR code and decodes an URL which is expected to have the following query parameters:
     - `tag` with value set to `login` which means no GET should be made yet.
     - `k1` (hex encoded 32 bytes of challenge) which is going to be signed by user's `linkingPrivKey`.
-2. `LN WALLET` displays a "Login" dialog which must include a domain name extracted from `LNURL` query string.
+    - optional `action` enum which can be one of four strings: `register | login | link | auth`.
+2. `LN WALLET` displays a "Login" dialog which must include a domain name extracted from `LNURL` query string and `action` enum translated into human readable text if `action` query parameter was present.
 3. Once accepted by user, `LN WALLET` signs `k1` on `secp256k1` using `linkingPrivKey` and DER-encodes the signature. `LN WALLET` Then issues a GET to `LN SERVICE` using `<LNURL_hostname_and_path>?<LNURL_existing_query_parameters>&sig=<hex(sign(utf8ToBytes(k1), linkingPrivKey))>&key=<hex(linkingKey)>` 
 4. `LN SERVICE` responds with the following Json once client signature is verified: 
     ```
     {
-        status: "OK",
-        event: "REGISTERED | LOGGEDIN | LINKED | AUTHED" // An optional enum indication of which exact action has happened, 4 listed types are supported
+        status: "OK"
     }
     ```
     or
@@ -36,10 +36,10 @@ Later, once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, 
     ```
 
 `event` enums meaning:
-- `REGISTERED`: service has created a new account linked to user provided `linkingKey`.
-- `LOGGEDIN`: service has found a matching existing account linked to user provided `linkingKey`.
-- `LINKED` service has linked a user provided `linkingKey` to user's existing account (if account was not originally created using `lnurl-auth`).
-- `AUTHED`: user was requesting some stateless action which does not require logging in (or possibly even prior registration) and that request was granted.
+- `register`: service will create a new account linked to user's `linkingKey`.
+- `login`: service will login user to an existing existing account linked to user's `linkingKey`.
+- `link` service will link a user provided `linkingKey` to user's existing account (if account was not originally created using `lnurl-auth`).
+- `auth`: some stateless action which does not require logging in (or possibly even prior registration) will be granted.
 
 ## `linkingKey` derivation
 
