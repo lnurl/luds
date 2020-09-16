@@ -35,7 +35,7 @@ Later, once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, 
     {"status":"ERROR", "reason":"error details..."}
     ```
 
-`event` enums meaning:
+`action` enums meaning:
 - `register`: service will create a new account linked to user's `linkingKey`.
 - `login`: service will login user to an existing account linked to user's `linkingKey`.
 - `link` service will link a user provided `linkingKey` to user's existing account (if account was not originally created using `lnurl-auth`).
