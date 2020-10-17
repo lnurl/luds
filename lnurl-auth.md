@@ -14,6 +14,12 @@ Later, once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, 
 
 `LN SERVICE` must make sure that unexpected `k1`s are not accepted: it is strongly advised for `LN SERVICE` to have a cache of unused `k1`s, only proceed with verification of `k1`s present in that cache and remove used `k1`s on successful auth attempts.
 
+### Server-side choice of subdomain:
+
+ `LN SERVICE` should carefully choose which subdomain (if any) will be used as LNURL-auth endpoint and stick to chosen subdomain in future. For example, if `auth.site.com` was initially chosen then changing it to, say, `login.site.com` will result in different account for each user because full domain name is used by wallets as material for key derivation.
+
+ `LN SERVICE` should consider giving meaningful names to chosen subdomains since `LN WALLET` may show a full domain name to users on login attempt. For example, `auth.site.com` is less confusing than `ksf03.site.com`.
+
 
 ### Wallet to service interaction flow:
 
@@ -47,11 +53,10 @@ Later, once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, 
 
 However, second goal is not reachable in practice because there exist different formats of seeds which can't be transferred across all existing wallets. As such a practical approach is to have a recommended ways to derive `linkingKey` for different wallet types.
 
-
 ### `linkingKey` derivation for BIP-32 based wallets:
 
 1. There exists a private `hashingKey` which is derived by user `LN WALLET` using `m/138'/0` path.
-2. `SERVICE` domain name is extracted from auth `LNURL` and then hashed using `hmacSha256(hashingKey, service domain name)`.
+2. `LN SERVICE` full domain name is extracted from login `LNURL` and then hashed using `hmacSha256(hashingKey, full service domain name)`. Full domain name here means FQDN with last comma omitted (Example: for `https://x.y.z.com/...` it would be `x.y.z.com`).
 3. First 16 bytes are taken from resulting hash and then turned into a sequence of 4 `Long` values which are in turn used to derive a service-specific `linkingKey` using `m/138'/<long1>/<long2>/<long3>/<long4>` path, a Scala example:
 
 ```Scala
@@ -67,7 +72,6 @@ val pathSuffix = Vector.fill(4)(Protocol.uint32(stream, ByteOrder.BIG_ENDIAN)) /
 val linkingPrivKey = derivePrivateKey(walletMasterKey, hardened(138L) +: pathSuffix)
 val linkingPubKey = linkingPrivKey.publicKey
 ```
-
 
 ### `linkingKey` derivation for wallets which don't have an access to master `privKey`:
 
