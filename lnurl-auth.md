@@ -12,6 +12,8 @@ Once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, it shou
  - `k1` values are randomly generated per each auth attempt, they can not be predictable or static.
  - Unexpected `k1`s are not accepted: it is advised for `LN SERVICE` to have a cache of unused `k1`s, only proceed with verification for `k1`s present in that cache and remove used `k1`s on successful auth attempts.
 
+### Server-side choice of subdomain:
+
  `LN SERVICE` should carefully choose which subdomain (if any) will be used as LNURL-auth endpoint and stick to chosen subdomain in future. For example, if `auth.site.com` was initially chosen then changing it to, say, `login.site.com` will result in different account for each user because full domain name is used by wallets as material for key derivation.
 
  `LN SERVICE` should consider giving meaningful names to chosen subdomains since `LN WALLET` may show a full domain name to users on login attempt. For example, `auth.site.com` is less confusing than `ksf03.site.com`.
