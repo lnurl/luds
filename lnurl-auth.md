@@ -12,11 +12,13 @@ Once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, it shou
  - `k1` values are randomly generated per each auth attempt, they can not be predictable or static.
  - Unexpected `k1`s are not accepted: it is advised for `LN SERVICE` to have a cache of unused `k1`s, only proceed with verification for `k1`s present in that cache and remove used `k1`s on successful auth attempts.
 
+ `LN SERVICE` should carefully choose which subdomain (if any) will be used as LNURL-auth endpoint and stick to chosen subdomain in future. For example, if `auth.site.com` was initially chosen then changing it to, say, `login.site.com` will result in different account for each user because full domain name is used by wallets as material for key derivation.
+
 ### Key derivation for Bitcoin wallets:
 
 Once "login" QR code is scanned `linkingKey` derivation in user's `LN WALLET` should happen as follows:
 1. There exists a private `hashingKey` which is derived by user `LN WALLET` using `m/138'/0` path.
-2. `LN SERVICE` domain name is extracted from login `LNURL` and then hashed using `hmacSha256(hashingKey, service domain name)`.
+2. `LN SERVICE` full domain name is extracted from login `LNURL` and then hashed using `hmacSha256(hashingKey, full service domain name)`. Full domain name here means FQDN with last comma omitted (Example: for `https://x.y.z.com/...` it would be `x.y.z.com`).
 3. First 16 bytes are taken from resulting hash and then turned into a sequence of 4 `Long` values which are in turn used to derive a service-specific `linkingKey` using `m/138'/<long1>/<long2>/<long3>/<long4>` path, a Scala example:
 
 ```Scala
