@@ -14,6 +14,8 @@ Once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, it shou
 
  `LN SERVICE` should carefully choose which subdomain (if any) will be used as LNURL-auth endpoint and stick to chosen subdomain in future. For example, if `auth.site.com` was initially chosen then changing it to, say, `login.site.com` will result in different account for each user because full domain name is used by wallets as material for key derivation.
 
+ `LN SERVICE` should consider giving meaningful names to chosen subdomains since `LN WALLET` may show a full domain name to users on login attempt. For example, `auth.site.com` is less confusing than `ksf03.site.com`.
+
 ### Key derivation for Bitcoin wallets:
 
 Once "login" QR code is scanned `linkingKey` derivation in user's `LN WALLET` should happen as follows:
