@@ -1,15 +1,13 @@
-![Logo](media/logo/logo_600.png)
-
 # LNURL: Lightning Network UX protocol
 
 `LNURL` is a bech32-encoded HTTPS/Onion query string which is supposed to help payer interact with payee and thus simplify a number of standard scenarios such as:
 
-- Requesting incoming channels ([LNURL-channel](lnurl-channel.md)) 
+- Requesting incoming channels ([LNURL-channel](lnurl-channel.md))
 - Logging in ([LNURL-auth](lnurl-auth.md))
 - Withdrawing funds ([LNURL-withdraw](lnurl-withdraw.md))
 - Paying for a service ([LNURL-pay](lnurl-pay.md))
 
-An example `LNURL`: 
+An example `LNURL`:
 > https://service.com/api?q=3fc3645b439ce8e7f2553a69e5267081d96dcd340693afabe04be7b0ccd178df
 
 would be bech32-encoded as:
@@ -37,11 +35,11 @@ In Scala:
 ```scala
 import fr.acinq.bitcoin.Bech32
 val bech32lnurl: String = "LNURL1DP68GURN8GHJ7UM9WFMXJCM99E3K7MF0V9CXJ0M385EKVCENXC6R2C35XVUKXEFCV5MKVV34X5EKZD3EV56NYD3HXQURZEPEXEJXXEPNXSCRVWFNV9NXZCN9XQ6XYEFHVGCXXCMYXYMNSERXFQ5FNS"
-  
+
 val (hrp, dataPart) = Bech32.decode(bech32lnurl)
-  
+
 val requestByteArray = Bech32.five2eight(dataPart)
-  
+
 new String(requestByteArray, "UTF-8") // https://service.com/api?q=3fc3645b439ce8e7f2553a69e5267081d96dcd340693afabe04be7b0ccd178df
 ```
 
