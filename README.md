@@ -59,13 +59,17 @@ let requestByteArray = bech32.fromWords(dataPart)
 Buffer.from(requestByteArray).toString()
 ```
 
-## Getting help
-
-If you have any questions about implementing LNURL as a wallet or service, join us in the [Telegram group](https://t.me/lnurl) and get help from the creators and other LNURL implementors.
-
 ## Protocols
 
 1. [LNURL-channel](lnurl-channel.md)
 2. [LNURL-auth](lnurl-auth.md)
 3. [LNURL-withdraw](lnurl-withdraw.md)
 4. [LNURL-pay](lnurl-pay.md)
+
+## Implementations
+
+The repository https://github.com/fiatjaf/awesome-lnurl has a list of some wallets and services that implement the protocols specified here.
+
+## Getting help
+
+If you have any questions about implementing LNURL as a wallet or service, join us in the [Telegram group](https://t.me/lnurl) and get help from other LNURL implementors.
