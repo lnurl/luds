@@ -29,6 +29,10 @@ Once `LNURL` is decoded:
 
 `LNURL` can be used as fallback inside of other URI schemes, with the key 'lightning' and the value equal to the bech32-encoding, an example: `https://service.com/giftcard/redeem?id=123&lightning=LNURL1...`
 
+## HTTP Status Codes and Content-Type
+
+Neither status codes or any HTTP Header has any meaning. Servers may use whatever they want. Clients should ignore them (and be careful when using libraries that treat responses differently based on headers and status codes) and just parse the response body as JSON, then interpret it accordingly.
+
 ## Decoding examples
 
 In Scala:
