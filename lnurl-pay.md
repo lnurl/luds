@@ -6,7 +6,7 @@
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
-3. `LN WALLET` gets Json response from `LN SERVICE` of form:
+3. `LN WALLET` gets JSON response from `LN SERVICE` of form:
 
     ```
     {
@@ -21,7 +21,7 @@
     or
 
     ```
-    {"status":"ERROR", "reason":"error details..."}
+    {"status": "ERROR", "reason": "error details..."}
     ```
 
     `metadata` json array must contain one `text/plain` entry, all other types of entries are optional:
@@ -143,7 +143,7 @@
 9. If routes array is not empty: verifies signature for every provided `ChannelUpdate`, may use these routes if fee levels are acceptable.
 10. If `successAction` is not null: `LN WALLET` makes sure that `tag` value of is of supported type, aborts a payment otherwise.
 11. `LN WALLET` pays the invoice, no additional user confirmation is required at this point.
-12. Once payment is fulfilled `LN WALLET` excecutes a non-null `successAction`. For `message`, a toaster or popup is sufficient. For `url`, the wallet should give the user a popup which displays `description`, `url`, and a 'open' button to open the `url` in a new browser tab. For `aes`, `LN WALLET` must attempt to decrypt a `ciphertext` with payment preimage. `LN WALLET` should also store `successAction` data on the transaction record.
+12. Once payment is fulfilled `LN WALLET` executes a non-null `successAction`. For `message`, a toaster or popup is sufficient. For `url`, the wallet should give the user a popup which displays `description`, `url`, and a 'open' button to open the `url` in a new browser tab. For `aes`, `LN WALLET` must attempt to decrypt a `ciphertext` with payment preimage. `LN WALLET` should also store `successAction` data on the transaction record.
 
 ## Notes on metadata for server-side LNURL-PAY
 
