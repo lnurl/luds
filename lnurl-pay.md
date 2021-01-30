@@ -75,7 +75,9 @@
   - `fromnodes` - an optional parameter with value set to comma separated `nodeId`s if payer wishes a service to provide payment routes starting from specified LN `nodeId`s
   - `comment` - an optional parameter to pass the LN WALLET user's `comment` to LN SERVICE
 
-  *Note on `comment` length: [GET URL's accept around ~2000 characters for the entire request string](https://stackoverflow.com/a/417184). Therefore `comment` can only be as large as to fit in the URL alongisde any/all of the properties outlined above.*
+  * Note on `comment` length: [GET URL's accept around ~2000 characters for the entire request string](https://stackoverflow.com/a/417184). Therefore `comment` can only be as large as to fit in the URL alongisde any/all of the properties outlined above.*
+
+  * `LN WALLET` must make sure to not just naïvely append `?` to the callback URL, as it could already have querystring parameters in it, in which case a `&` must be used instead.
 
 6. `LN Service` takes the GET request and returns JSON response of form:
 
