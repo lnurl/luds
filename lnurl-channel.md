@@ -26,7 +26,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 
 4. `LN WALLET` opens a connection to the target node using `uri` field.
 
-5. `LN WALLET` issues a GET request to `LN SERVICE` using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>`
+5. `LN WALLET` issues a GET request to `LN SERVICE` using `<callback>?k1=<k1>&remoteid=<Local LN node ID>&private=<1/0>` if user decides to proceed or `<callback>?k1=<k1>&remoteid=<Local LN node ID>&cancel=<1/0>` if user decides to cancel a channel midway.
 6. `LN SERVICE` sends a `{"status": "OK"}` or `{"status": "ERROR", "reason": "error details..."}` JSON response.
 7. `LN WALLET` awaits for incoming `OpenChannel` message from the target node which would initiate a channel opening.
 
