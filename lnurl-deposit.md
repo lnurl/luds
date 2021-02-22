@@ -13,14 +13,13 @@ Today users are asked to provide a withdrawal Lightning invoice to a service eve
 3. `LN WALLET` gets JSON response from `LN SERVICE` of form:
     ```
     {
-        callback: String, // the confirmation URL which the LN SERVICE expects to receive the depositing parameters
-        k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
-        maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on LN SERVICE
-        defaultDescription: String, // A default direct deposit invoice description
-        keysend: Boolean, // Set true to use keysend instead of regular invoices
-        minWithdrawable: MilliSatoshi // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
-        tag: "directDepositRequest" // type of LNURL
+        serviceName: String, // the name of the LN SERVICE for the user to identify payments in the future
+	supportsKeysend: Boolean, // whether or not the LN SERVICE supports the optional keysend mechanism
+        callback: String, // the confirmation URL which the LN SERVICE expects to receive the depositing details
+	depositFrequency: String, // an optional description of how often a deposit will be expected (e.g., "Every 2 weeks", "Instant")
+	tag: "directDepositRequest" // type of LNURL
     }
+    
     ```
     or
 
@@ -29,6 +28,21 @@ Today users are asked to provide a withdrawal Lightning invoice to a service eve
     ```
 
 4. `LN WALLET` Displays a direct deposit confirmation dialog allowing `LN_SERVICE` to send payments to the user's wallet without interactions. This permission can be revoked by the user at any time.
+
+
+5. Once the user accepts, the `LN_SERVICE` POSTs the deposit information using the callback in the previous step.
+
+    ```
+    {
+        callback: String, // the URL which the LN SERVICE will use when requesting a direct deposit invoice for the user
+	k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
+        maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on LN SERVICE
+        defaultDescription: String, // A default direct deposit invoice description
+        keysend: Boolean, // Set true to use keysend instead of regular invoices
+        minWithdrawable: MilliSatoshi // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
+        
+    }
+    ```
 
 5. Once accepted by the user, the `LN SERVICE` can use the callback (or keysend) given by `LN WALLET` to send funds to the user at any time in the future (until the direct deposit relationship is revoked by the wallet). An example of a URL callback to make a deposit would be initiated as:
 
@@ -42,7 +56,7 @@ An example of a non-URL keysend (for wallets and services who choose to support 
   lncli keysend <wallet_node> "{userKey: ...}"
   ```
 
-6. `LN WALLET` respond to the URL callback with an invoice:
+6. `LN WALLET` respond to the URL callback with an invoice (and optional amount):
 
   ```
   {"status": "OK", "directDepositInvoice": "lnbc1..."}
