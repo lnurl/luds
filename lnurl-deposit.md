@@ -67,9 +67,9 @@ An example of a non-URL keysend (for wallets and services who choose to support 
   {"status": "ERROR", "reason": "error details..."}
   ```
   
-7. `LN SERVICE` then attempts to pay the invoices asynchronously.
+7. `LN SERVICE` then attempts to pay the invoice asynchronously.
 
-8. `LN WALLET` awaits for incoming payment and automatically credits the user's balance without any interaction (or with notification).
+8. `LN WALLET` awaits for incoming payment and automatically credits the user's balance without any interaction (or with soft notification).
 
 Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (LNURL-auth, email link etc.) before registering the direct deposit.
 
