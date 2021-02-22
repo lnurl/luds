@@ -14,10 +14,10 @@ Today users are asked to provide a withdrawal Lightning invoice to a service or 
     ```
     {
         serviceName: String, // the name of the LN SERVICE for the user to identify payments in the future
-	    supportsKeysend: Boolean, // whether or not the LN SERVICE supports the optional keysend mechanism
+	supportsKeysend: Boolean, // whether or not the LN SERVICE supports the optional keysend mechanism
         callback: String, // the confirmation URL which the LN SERVICE expects to receive the depositing details
-	    depositFrequency: String, // an optional description of how often a deposit will be expected (e.g., "Every 2 weeks", "Instant")
-	    tag: "directDepositRequest" // type of LNURL
+	depositFrequency: String, // an optional description of how often a deposit will be expected (e.g., "Every 2 weeks", "Instant")
+	tag: "directDepositRequest" // type of LNURL
     }
     
     ```
@@ -35,7 +35,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service or 
     ```
     {
         callback: String, // the URL which the LN SERVICE should use when requesting a direct deposit invoice for the user
-	    k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
+	k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
         maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on LN SERVICE
         defaultDescription: String, // A default direct deposit invoice description
         keysend: Boolean, // Set true to use keysend instead of regular invoices
@@ -44,11 +44,11 @@ Today users are asked to provide a withdrawal Lightning invoice to a service or 
     }
     ```
 
-5. Once accepted by the user, the `LN SERVICE` can use the callback (or keysend) given by `LN WALLET` to send funds to the user at any time in the future (until the direct deposit relationship is revoked by the wallet). An example of a URL callback to make a deposit would be initiated as:
+6. Once accepted by the user, the `LN SERVICE` can use the callback (or keysend) given by `LN WALLET` to send funds to the user at any time in the future (until the direct deposit relationship is revoked by the wallet). An example of a URL callback to make a deposit would be initiated as:
 
-	```
-	<callback>?k1=<k1>&action=getInvoice&amount=...
-	```
+    ```
+    <callback>?k1=<k1>&action=getInvoice&amount=...
+    ```
   
 An example of a non-URL keysend (for wallets and services who choose to support it) to make a deposit would be initiated as:
 
@@ -56,7 +56,7 @@ An example of a non-URL keysend (for wallets and services who choose to support 
   lncli keysend <wallet_node> "{userKey: ...}"
   ```
 
-6. `LN WALLET` respond to the URL callback with an invoice (and optional amount):
+7. `LN WALLET` respond to the URL callback with an invoice (and optional amount):
 
   ```
   {"status": "OK", "directDepositInvoice": "lnbc1..."}
