@@ -34,7 +34,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service or 
 
     ```
     {
-        callback: String, // the URL which the LN SERVICE will use when requesting a direct deposit invoice for the user
+        callback: String, // the URL which the LN SERVICE should use when requesting a direct deposit invoice for the user
 	    k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
         maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on LN SERVICE
         defaultDescription: String, // A default direct deposit invoice description
