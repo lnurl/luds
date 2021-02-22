@@ -6,6 +6,7 @@
 - Logging in ([LNURL-auth](lnurl-auth.md))
 - Withdrawing funds ([LNURL-withdraw](lnurl-withdraw.md))
 - Paying for a service ([LNURL-pay](lnurl-pay.md))
+- Direct deposit ([LNURL-deposit](lnurl-deposit.md))
 
 An example `LNURL`:
 > `https://service.com/api?q=3fc3645b439ce8e7f2553a69e5267081d96dcd340693afabe04be7b0ccd178df`
@@ -65,6 +66,7 @@ Buffer.from(requestByteArray).toString()
 2. [LNURL-auth](lnurl-auth.md)
 3. [LNURL-withdraw](lnurl-withdraw.md)
 4. [LNURL-pay](lnurl-pay.md)
+5. [LNRUL-deposit](lnurl-deposit.md)
 
 ## Implementations
 
