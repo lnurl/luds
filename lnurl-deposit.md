@@ -2,11 +2,11 @@
 
 ## Direct deposit of funds from a service
 
-Today users are asked to provide a withdrawal Lightning invoice to a service, this requires some effort and is especially painful when user tries to withdraw funds into mobile wallet while using a desktop website. Instead of asking for Lightning invoice a service could link a "direct deposit" relationship with a wallet through a URL-based callback scheme.
+Today users are asked to provide a withdrawal Lightning invoice to a service every time they want to withdraw (such as with LNURL-withdraw). This requires some manual effort and is especially painful when they prefer to always keep all funds in their mobile wallet. Instead of asking manually requesting withdrawals, a service could link a long-term "direct deposit" relationship with a wallet through a URL-based callback scheme.
 
 ### Wallet to service interaction flow:
 
-1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
+1. User scans a LNURL Direct Deposit QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 
 2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
 
@@ -36,13 +36,13 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 	<callback>?k1=<k1>&action=getInvoice&amount=...
 	```
   
-An example of a non-URL keysend to make a deposit would be initiated as:
+An example of a non-URL keysend (for wallets and services who choose to support it) to make a deposit would be initiated as:
 
   ```
   lncli keysend <wallet_node> "{userKey: ...}"
   ```
 
-6. `LN WALLET` responds with an invoice
+6. `LN WALLET` respond to the URL callback with an invoice:
 
   ```
   {"status": "OK", "directDepositInvoice": "lnbc1..."}
@@ -55,7 +55,7 @@ An example of a non-URL keysend to make a deposit would be initiated as:
   
 7. `LN SERVICE` then attempts to pay the invoices asynchronously.
 
-7. `LN WALLET` awaits for incoming payment and automatically credits the user's balance without any interaction (or with notification).
+8. `LN WALLET` awaits for incoming payment and automatically credits the user's balance without any interaction (or with notification).
 
 Note that service will withdraw funds to anyone who can provide a valid ephemeral `k1`. In order to harden this a service may require autorization (LNURL-auth, email link etc.) before registering the direct deposit.
 
