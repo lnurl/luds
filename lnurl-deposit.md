@@ -2,7 +2,7 @@
 
 ## Direct deposit of funds from a service
 
-Today users are asked to provide a withdrawal Lightning invoice to a service every time they want to withdraw (such as with LNURL-withdraw). This requires some manual effort and is especially painful when they prefer to always keep all funds in their mobile wallet. Instead of asking manually requesting withdrawals, a service could link a long-term "direct deposit" relationship with a wallet through a URL-based callback scheme. Then, the service can send payments to the user's mobile wallet asynchronously.
+Today users are asked to provide a withdrawal Lightning invoice to a service or use LNURL-withdraw every time they want to withdraw. This requires some manual effort and is especially painful when this is needed repeatedly because they prefer to keep all funds in their mobile wallet and off the service. Instead of asking manually requesting withdrawals, a service could link a long-term "direct deposit" relationship with a wallet through a URL-based callback scheme. Then, the service can send payments to the user's mobile wallet asynchronously.
 
 ### Wallet to service interaction flow:
 
