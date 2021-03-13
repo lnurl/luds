@@ -36,7 +36,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 5. Once accepted by the user, `LN WALLET` sends a GET to `LN SERVICE` in the form of
 
 	```
-	<callback>?k1=<k1>&pr=<lightning invoice, ...>
+	<callback><?|&>k1=<k1>&pr=<lightning invoice, ...>
 	```
 6. `LN SERVICE` sends a `{"status": "OK"}` or `{"status": "ERROR", "reason": "error details..."}` JSON response and then attempts to pay the invoices asynchronously.
 7. `LN WALLET` awaits for incoming payment if response was successful.

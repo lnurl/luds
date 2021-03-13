@@ -65,7 +65,7 @@
 5. `LN WALLET` makes a GET request using
 
 	```
-	<callback>?amount=<milliSatoshi>&nonce=<hex(8 bytes of random data)>&fromnodes=<nodeId1,nodeId2,...>&comment=<String>
+	<callback><?|&>amount=<milliSatoshi>&nonce=<hex(8 bytes of random data)>&fromnodes=<nodeId1,nodeId2,...>&comment=<String>
 	```
 
 	This corresponds to the following query parameters:
@@ -76,8 +76,6 @@
   - `comment` - an optional parameter to pass the LN WALLET user's `comment` to LN SERVICE
 
   * Note on `comment` length: [GET URL's accept around ~2000 characters for the entire request string](https://stackoverflow.com/a/417184). Therefore `comment` can only be as large as to fit in the URL alongisde any/all of the properties outlined above.*
-
-  * `LN WALLET` must make sure to not just naïvely append `?` to the callback URL, as it could already have querystring parameters in it, in which case a `&` must be used instead.
 
 6. `LN Service` takes the GET request and returns JSON response of form:
 
