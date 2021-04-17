@@ -17,8 +17,8 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
         callback: String, // the URL which LN SERVICE would accept a withdrawal Lightning invoice as query parameter
         k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
         defaultDescription: String, // A default withdrawal invoice description
-        maxWithdrawable: MilliSatoshi, // max withdrawable amount for a given user on LN SERVICE
-        minWithdrawable: MilliSatoshi, // An optional field, defaults to 1 MilliSatoshi if not present, can not be less than 1 or more than `maxWithdrawable`
+        minWithdrawable: Integer, // Min amount (in millisatoshis) the user can withdraw from LN SERVICE, or 0
+        maxWithdrawable: Integer, // Max amount (in millisatoshis) the user can withdraw from LN SERVICE, or equal to minWithdrawable if the user has no choice over the amounts
         balanceCheck: String, // Optional, an URL that can be called next time the wallet wants to perform a balance check, the call will be the same as performed in this step and the expected response is the same
     }
     ```
@@ -77,8 +77,8 @@ Eg:
 	https://LNserviceURL
 	?tag=withdrawRequest
 	&k1=String
-	&minWithdrawable=MilliSatoshi
-	&maxWithdrawable=MilliSatoshi
+	&minWithdrawable=Integer
+	&maxWithdrawable=Integer
 	&defaultDescription=String
 	&callback=String
     &balanceCheck=String
