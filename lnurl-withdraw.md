@@ -77,8 +77,8 @@ Eg:
 	https://LNserviceURL
 	?tag=withdrawRequest
 	&k1=String
-	&minWithdrawable=Integer
-	&maxWithdrawable=Integer
+	&minWithdrawable=MilliSatoshi
+	&maxWithdrawable=MilliSatoshi
 	&defaultDescription=String
 	&callback=String
     &balanceCheck=String
