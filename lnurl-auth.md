@@ -22,6 +22,7 @@ Later, once `LN SERVICE` receives a call at the specified `LNURL-auth` handler, 
 
 
 ### Wallet to service interaction flow:
+![Diagram showing interaction](media/diagrams/lnurl-auth-1.0.svg "Diagram showing interaction")
 
 1. `LN WALLET` scans a QR code and decodes an URL which is expected to have the following query parameters:
     - `tag` with value set to `login` which means no GET should be made yet.

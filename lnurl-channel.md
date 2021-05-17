@@ -5,6 +5,7 @@
 Suppose user has a balance on a certain service which he wishes to turn into an incoming channel and service supports such functionality. This would require many parameters so the resulting QR may be overly dense and cause scanning issues. Additionally, the user has to make sure that a connection to target LN node is established before an incoming channel is requested.
 
 ### Wallet to service interaction flow:
+![Diagram showing interaction](media/diagrams/lnurl-channel-incoming-1.0.svg "Diagram showing interaction")
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
@@ -35,6 +36,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 ## Hosted channel request
 
 ## Wallet to service interaction flow:
+![Diagram showing interaction](media/diagrams/lnurl-channel-incoming-1.0.svg "Diagram showing interaction")
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.

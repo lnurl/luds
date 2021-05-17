@@ -3,6 +3,7 @@
 ## Pay to static QR/NFC/link
 
 ### Wallet to service interaction flow:
+![Diagram showing interaction](media/diagrams/lnurl-pay-1.0.svg "Diagram showing interaction")
 
 1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
