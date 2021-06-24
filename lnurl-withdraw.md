@@ -7,7 +7,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
 ### Wallet to service interaction flow:
 ![Diagram showing interaction](media/diagrams/lnurl-withdraw-1.0.svg "Diagram showing interaction")
 
-1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
+1. User scans a LNURL QR code or accesses an `lnurl:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 
 2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
 
@@ -84,7 +84,7 @@ Eg:
 	&callback=String
     &balanceCheck=String
 
-This fast LNURL-withdraw method is not to be confused as an alternative to the original LNURL-withdraw, and is designed to be only be used for `lightning:`-type links that work between apps. It is not suitable for QR code implementations.
+This fast LNURL-withdraw method is not to be confused as an alternative to the original LNURL-withdraw, and is designed to be only be used for `lnurl:`-type links that work between apps. It is not suitable for QR code implementations.
 
 If a `LN SERVICE` developer chooses to implement fast LNURL-withdraw in their app, the encoded URL with query params must still return a JSON response containing data that would be sent in step 3. when a GET request is made to it. This is required so as to be backwards-compatible with `LN WALLET`s which have only implemented the original LNURL-withdraw method.
 

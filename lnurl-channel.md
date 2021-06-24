@@ -7,7 +7,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 ### Wallet to service interaction flow:
 ![Diagram showing interaction](media/diagrams/lnurl-channel-incoming-1.0.svg "Diagram showing interaction")
 
-1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
+1. User scans a LNURL QR code or accesses an `lnurl:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
 3. `LN WALLET` gets JSON response from `LN SERVICE` of form:
 
@@ -38,7 +38,7 @@ Suppose user has a balance on a certain service which he wishes to turn into an 
 ## Wallet to service interaction flow:
 ![Diagram showing interaction](media/diagrams/lnurl-channel-incoming-1.0.svg "Diagram showing interaction")
 
-1. User scans a LNURL QR code or accesses an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
+1. User scans a LNURL QR code or accesses an `lnurl:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.
 2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.
 3. `LN WALLET` gets JSON response from `LN SERVICE` of form:
 
