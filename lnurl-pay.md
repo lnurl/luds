@@ -9,8 +9,8 @@
 1.1.1. User scans a LNURL QR code or pastes/shares an `lightning:LNURL..` link with `LN WALLET` and `LN WALLET` decodes LNURL.  
 1.1.2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.  
 **Or**   
-1.2.1. User scans/pastes/shares an email address with `LN WALLET`.  
-1.2.2. `LN WALLET` makes a GET request to `<LN SERVICE domain>/lnurl-pay?key=<user>` endpoint where `domain` and `key` are extracted from email, an example for `payments@site.com` is GET `https://site.com/lnurl-pay?key=payments`.  
+1.2.1. User scans/pastes/shares an [internet identifier](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1) with `LN WALLET`.  
+1.2.2. `LN WALLET` makes a GET request to `<LN SERVICE domain>/lnurl-pay?key=<user>` endpoint where `domain` and `key` are extracted from identifier string, an example for `payments@site.com` is GET `https://site.com/lnurl-pay?key=payments`.  
 **Then**  
 2. `LN WALLET` gets JSON response from `LN SERVICE` of form:
 
@@ -30,7 +30,8 @@
     {"status": "ERROR", "reason": "error details..."}
     ```
 
-    `metadata` json array must contain one `text/plain` entry, all other types of entries are optional:
+    `metadata` json array must contain one `text/plain` entry, all other types of entries are optional.
+    `metadata` json array must contain either one `text/email` entry or one `text/identifier` entry or nethier.
 
     ```
     [
@@ -49,6 +50,10 @@
         [
             "text/email", // optional indication that this payment link is associated with an email address
             content // an email string in standard user@site.com format
+        ],
+        [
+            "text/identifier", // optional indication that this payment link is associated with an internet identifier string
+            content // an internet identifier string in standard user@site.com format
         ]
         ... // more objects for future types
     ]
