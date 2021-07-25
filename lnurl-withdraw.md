@@ -58,6 +58,11 @@ This _optional_ property is meant to enable automatic delivery of funds from ser
   * The goal of doing this is to see if there is some balance waiting to be withdrawn on that `LN SERVICE`. If there is any the wallet may decide to withdraw it automatically.
   * After calling the `balanceCheck` URL `LN WALLET` must check the response for the presence of a new `balanceCheck` property and replace the previous with the new one -- just erase the previous if there is not a new one.
   * To support this flow `LN SERVICE` only needs to implement a scheme for renewing the `balanceCheck` URL on every call it receives, returning the next URL every time. Then proceed to redeem withdraw requests when they come. `LN SERVICE` may also choose to offer a static LNURL-withdraw endpoint for each user, which can be less safe, but also simplifies implementation, in this case it would just indicate that same endpoint every time as the `balanceCheck` value.
+  * Services can respond to HTTP status codes returned by `balanceCheck` how they like, but following usual HTTP semantics as a general guide:
+    * `404` - Discard URL (API may have been reorg'd) and avoid further checks to URL
+    * `500` - Possibly a temporary problem, continue checks at next interval
+    * `422` - Discard URL (k or k1 may have expired, user may have been deleted from service, user may have recently decided to turn off withdrawals, etc) and avoid further checks to URL
+    * `420` - Keep URL but slow down requests if possible
 
 ### `balanceNotify`
 
