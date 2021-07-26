@@ -16,12 +16,13 @@
 
     ```
     {
-        callback: String, // the URL from LN SERVICE which will accept the pay request parameters
-        maxSendable: MilliSatoshi, // max amount LN SERVICE is willing to receive
-        minSendable: MilliSatoshi, // min amount LN SERVICE is willing to receive, can not be less than 1 or more than `maxSendable`
-        metadata: String, // metadata json which must be presented as raw string here, this is required to pass signature verification at a later step
-        commentAllowed: Number, // optional number of characters accepted for the `comment` query parameter on subsequent callback, defaults to 0 if not provided. (no comment allowed)
-        tag: "payRequest" // type of LNURL
+        callback: String, // The URL from LN SERVICE which will accept the pay request parameters
+        maxSendable: MilliSatoshi, // Max amount LN SERVICE is willing to receive
+        minSendable: MilliSatoshi, // Min amount LN SERVICE is willing to receive, can not be less than 1 or more than `maxSendable`
+        metadata: String, // Metadata json which must be presented as raw string here, this is required to pass signature verification at a later step
+        commentAllowed: Number, // Optional number of characters accepted for the `comment` query parameter on subsequent callback, defaults to 0 if not provided. (no comment allowed)
+        withdrawLink: String, // Optional lnurl-withdraw link (for explanation see justification.md)
+        tag: "payRequest" // Type of LNURL
     }
     ```
     or
