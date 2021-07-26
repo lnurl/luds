@@ -10,7 +10,7 @@
 1.1.2. `LN WALLET` makes a GET request to `LN SERVICE` using the decoded LNURL.  
 **Or**   
 1.2.1. User scans/pastes/shares an [internet identifier](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1) with `LN WALLET`.  
-1.2.2. `LN WALLET` extracts `domain` and `user` parts from identifier, makes a GET request to `https://<LN SERVICE domain>/.well-known/lnurlp/<user>` endpoint if `domain` is clearnet or `http://<LN SERVICE domain>/.well-known/lnurlp/<user>` if `domain` is onion, an example for `payments@site.com` is GET `https://site.com/.well-known/lnurlp/payments`.  
+1.2.2. `LN WALLET` extracts `domain` and `user` parts from identifier, makes a GET request to `https://<LN SERVICE domain>/.well-known/lnurlp/<user>` endpoint, an example for `payments@site.com` is GET `https://site.com/.well-known/lnurlp/payments`.  
 **Then**  
 2. `LN WALLET` gets JSON response from `LN SERVICE` of form:
 
