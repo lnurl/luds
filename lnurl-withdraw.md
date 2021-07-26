@@ -15,12 +15,13 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
     ```
     {
         tag: "withdrawRequest", // type of LNURL
-        callback: String, // the URL which LN SERVICE would accept a withdrawal Lightning invoice as query parameter
-        k1: String, // random or non-random string to identify the user's LN WALLET when using the callback URL
+        callback: String, // The URL which LN SERVICE would accept a withdrawal Lightning invoice as query parameter
+        k1: String, // Random or non-random string to identify the user's LN WALLET when using the callback URL
         defaultDescription: String, // A default withdrawal invoice description
         minWithdrawable: Integer, // Min amount (in millisatoshis) the user can withdraw from LN SERVICE, or 0
         maxWithdrawable: Integer, // Max amount (in millisatoshis) the user can withdraw from LN SERVICE, or equal to minWithdrawable if the user has no choice over the amounts
         balanceCheck: String, // Optional, an URL that can be called next time the wallet wants to perform a balance check, the call will be the same as performed in this step and the expected response is the same
+        payLink: String, // Optional lnurl-pay link (for explanation see justification.md)
     }
     ```
     or
