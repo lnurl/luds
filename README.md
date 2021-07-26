@@ -21,9 +21,9 @@ Once `LNURL` is decoded:
 - If `tag` query parameter is present then this `LNURL` has a special meaning, further actions will be based on `tag` parameter value.
 - Otherwise a GET request should be executed which must return a JSON object containing a `tag` field, further actions will be based on `tag` field value.
 
-## HTTPS or Onion
+## Self-signed certificates for Onion addresses
 
-`LNURL` is acceptable in two forms: either an `https://` clearnet link (no self-signed certificates allowed) or an `http://` v2/v3 onion link.
+`LNURL` links must use `https` at all times, self-signed certificates are only allowed for v2/v3 onion addresses.
 
 ## Fallback scheme
 
