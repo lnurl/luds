@@ -22,6 +22,7 @@ Today users are asked to provide a withdrawal Lightning invoice to a service, th
         maxWithdrawable: Integer, // Max amount (in millisatoshis) the user can withdraw from LN SERVICE, or equal to minWithdrawable if the user has no choice over the amounts
         balanceCheck: String, // Optional, an URL that can be called next time the wallet wants to perform a balance check, the call will be the same as performed in this step and the expected response is the same
         payLink: String, // Optional lnurl-pay link (for explanation see justification.md)
+	currentBalance: Integer // Optional current balace on user's account at service
     }
     ```
     or
