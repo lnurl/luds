@@ -1,0 +1,34 @@
+digraph {
+  01[label="01 bech32"]
+  02[label="02 channel"]
+  03[label="03 withdraw"]
+  04[label="04 auth"]
+  05[label="05 bip32 seeds"]
+  06[label="06 pay"]
+  07[label="07 hosted channel"]
+  08[label="08 fast withdraw"]
+  09[label="09 successAction"]
+  10[label="10 aes"]
+  11[label="11 disposable"]
+  12[label="12 comments"]
+  13[label="13 LND seeds"]
+  14[label="14 balance check"]
+  15[label="15 balance notify"]
+  16[label="16 pay to username"]
+  17[label="17 new schemes"]
+  18[label="18 proof of payer"]
+  19[label="19 mutual discoverability"]
+
+  { 01 17 } -> { 02 03 04 06 07 } // base protocols depend on URL format
+  01 -> 17 // it's still necessary to implement the bech32 stuff
+  04 -> { 05 13 } // lnurl-auth seed generation methods
+  03 -> 08 // fast withdraw
+  03 -> 14 -> 15 // balanceCheck/balanceNotify
+  06 -> 11 // disposable lnurl-pay
+  06 -> 09 -> 10 // lnurl-pay successAction
+  06 -> 11 // lnurl-pay disposable
+  06 -> 12 // lnurl-pay comments
+  06 -> 18 // lnurl-pay proof-of-payer
+  06 -> 16 // paying to user@domain.com
+  { 06 15 } -> 19 // mutually discoverable pay and withdraw links
+}
