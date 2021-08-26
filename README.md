@@ -24,6 +24,7 @@ These are all the individual documents describing each small piece of protocol t
 | [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Blixt][blixt] |
 | [18](18.md) | Proof-of-payer in `payRequest` protocol.                    |  |
 | [19](19.md) | Mutually discoverable pay and withdraw links.               |  |
+| [20](20.md) | Long payment description for pay protocol.                  |  |
 
 [blixt]: https://blixtwallet.github.io
 [bluewallet]: https://bluewallet.io
