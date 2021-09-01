@@ -20,7 +20,7 @@ These are all the individual documents describing each small piece of protocol t
 | [13](13.md) | `signMessage`-based seed generation for auth protocol.      | [Blixt][blixt] [Zeus][zeus] |
 | [14](14.md) | `balanceCheck`: reusable `withdrawRequest`s.                | [Blixt][blixt] [@lntxbot][lntxbot] [LNbits][lnbits] |
 | [15](15.md) | `balanceNotify`: services hurrying up the withdraw process. | [@lntxbot][lntxbot] [LNbits][lnbits] |
-| [16](16.md) | Paying to static internet identifiers.                      | [@lntxbot][lntxbot] [Blixt][blixt] [LNbits][lnbits] [ZEBEDEE][zbd] [ZBD Telegram][zbd] [ZBD Discord][zbd] [ZBD Extension][zbd] |
+| [16](16.md) | Paying to static internet identifiers.                      | [Blixt][blixt] [@lntxbot][lntxbot] [LNbits][lnbits] [ZEBEDEE][zbd] [ZBD Telegram][zbd] [ZBD Discord][zbd] [ZBD Extension][zbd] |
 | [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Blixt][blixt] |
 | [18](18.md) | Proof-of-payer in `payRequest` protocol.                    |  |
 | [19](19.md) | Mutually discoverable pay and withdraw links.               |  |
