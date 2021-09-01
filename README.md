@@ -18,7 +18,7 @@ These are all the individual documents describing each small piece of protocol t
 | [11](11.md) | Disposable and storeable `payRequest`s.                     | [BLW][blw] [ZBD Extension][zbd] [Zap Android][zap] |
 | [12](12.md) | Comments in `payRequest`.                                   | [Blixt][blixt] [BlueWallet][bluewallet] [Breez][breez] [LNbits][lnbits] [@lntxbot][lntxbot] [Phoenix][phoenix] [ThunderHub][thunderhub] [ThunderHub][thunderhub] [Wallet of Satoshi][wos] [Zap Android][zap] [ZEBEDEE][zbd] [ZBD Telegram][zbd] [ZBD Discord][zbd] [ZBD Extension][zbd] [Zeus][zeus] |
 | [13](13.md) | `signMessage`-based seed generation for auth protocol.      | [Blixt][blixt] [Zeus][zeus] |
-| [14](14.md) | `balanceCheck`: reusable `withdrawRequest`s.                | [@lntxbot][lntxbot] [LNbits][lnbits] |
+| [14](14.md) | `balanceCheck`: reusable `withdrawRequest`s.                | [Blixt][blixt] [@lntxbot][lntxbot] [LNbits][lnbits] |
 | [15](15.md) | `balanceNotify`: services hurrying up the withdraw process. | [@lntxbot][lntxbot] [LNbits][lnbits] |
 | [16](16.md) | Paying to static internet identifiers.                      | [@lntxbot][lntxbot] [Blixt][blixt] [LNbits][lnbits] [ZEBEDEE][zbd] [ZBD Telegram][zbd] [ZBD Discord][zbd] [ZBD Extension][zbd] |
 | [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Blixt][blixt] |
