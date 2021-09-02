@@ -5,12 +5,12 @@ These are all the individual documents describing each small piece of protocol t
 
 | Number      | Description                                                 | Wallets |
 |-------------|-------------------------------------------------------------|---------|
-| [01](01.md) | Base LNURL encoding and decoding.                           | [BLW][blw] [Blixt][blixt] [BlueWallet][bluewallet] [Breez][breez] [coinos][coinos] [LNbits][lnbits] [@lntxbot][lntxbot] [Muun][muun] [Phoenix][phoenix] [ShockWallet][shockwallet] [ThunderHub][thunderhub] [Wallet of Satoshi][wos] [Zap Android][zap] [Zap iOS][zap] [Zap Desktop][zap] [ZEBEDEE][zbd] [ZBD Telegram][zbd] [ZBD Discord][zbd] [ZBD Extension][zbd] [Zeus][zeus] |
+| [01](01.md) | Base LNURL encoding and decoding.                           | [BLW][blw] [Blixt][blixt] [BlueWallet][bluewallet] [Breez][breez] [BTCPay Server][btcpayserver] [coinos][coinos] [LNbits][lnbits] [@lntxbot][lntxbot] [Muun][muun] [Phoenix][phoenix] [ShockWallet][shockwallet] [ThunderHub][thunderhub] [Wallet of Satoshi][wos] [Zap Android][zap] [Zap iOS][zap] [Zap Desktop][zap] [ZEBEDEE][zbd] [ZBD Telegram][zbd] [ZBD Discord][zbd] [ZBD Extension][zbd] [Zeus][zeus] |
 | [02](02.md) | `channelRequest` base spec.                                 | [BLW][blw] [Breez][breez] [Zap Android][zap] [Zap Desktop][zap] [Zeus][zeus] |
 | [03](03.md) | `withdrawRequest` base spec.                                | [BLW][blw] [Blixt][blixt] [BlueWallet][bluewallet] [Breez][breez] [coinos][coinos] [LNbits][lnbits] [@lntxbot][lntxbot] [Muun][muun] [Phoenix][phoenix] [ShockWallet][shockwallet] [ThunderHub][thunderhub] [Wallet of Satoshi][wos] [Zap Android][zap] [Zap iOS][zap] [Zap Desktop][zap] [ZEBEDEE][zbd] [ZBD Telegram][zbd] [ZBD Discord][zbd] [ZBD Extension][zbd] [Zeus][zeus] |
 | [04](04.md) | Auth base spec.                                             | [BLW][blw] [Blixt][blixt] [Breez][breez] [coinos][coinos] [LNbits][lnbits] [@lntxbot][lntxbot] [Phoenix][phoenix] [ThunderHub][thunderhub] [Zap Desktop][zap] [Zeus][zeus] |
 | [05](05.md) | BIP32-based seed generation for auth protocol.              | [BLW][blw] |
-| [06](06.md) | `payRequest` base spec.                                     | [BLW][blw] [Blixt][blixt] [BlueWallet][bluewallet] [Breez][breez] [coinos][coinos] [LNbits][lnbits] [@lntxbot][lntxbot] [Phoenix][phoenix] [ShockWallet][shockwallet] [ThunderHub][thunderhub] [Wallet of Satoshi][wos] [Zap Android][zap] [ZEBEDEE][zbd] [ZBD Telegram][zbd] [ZBD Discord][zbd] [ZBD Extension][zbd] [Zeus][zeus] |
+| [06](06.md) | `payRequest` base spec.                                     | [BLW][blw] [Blixt][blixt] [BlueWallet][bluewallet] [Breez][breez] [BTCPay Server][btcpayserver] [coinos][coinos] [LNbits][lnbits] [@lntxbot][lntxbot] [Phoenix][phoenix] [ShockWallet][shockwallet] [ThunderHub][thunderhub] [Wallet of Satoshi][wos] [Zap Android][zap] [ZEBEDEE][zbd] [ZBD Telegram][zbd] [ZBD Discord][zbd] [ZBD Extension][zbd] [Zeus][zeus] |
 | [07](07.md) | `hostedChannelRequest` base spec.                           | [BLW][blw] |
 | [08](08.md) | Fast `withdrawRequest`.                                     | [BLW][blw] [@lntxbot][lntxbot] [ZBD Extension][zbd] |
 | [09](09.md) | `successAction` field for `payRequest`.                     | [BLW][blw] [Blixt][blixt] [BlueWallet][bluewallet] [Breez][breez] [coinos][coinos] [LNbits][lnbits] [@lntxbot][lntxbot] [Phoenix][phoenix] [ShockWallet][shockwallet] [ThunderHub][thunderhub] [Wallet of Satoshi][wos] [Zap Android][zap] [ZEBEDEE][zbd] [ZBD Telegram][zbd] [ZBD Discord][zbd] [ZBD Extension][zbd] [Zeus][zeus] |
@@ -21,7 +21,7 @@ These are all the individual documents describing each small piece of protocol t
 | [14](14.md) | `balanceCheck`: reusable `withdrawRequest`s.                | [Blixt][blixt] [@lntxbot][lntxbot] [LNbits][lnbits] |
 | [15](15.md) | `balanceNotify`: services hurrying up the withdraw process. | [@lntxbot][lntxbot] [LNbits][lnbits] |
 | [16](16.md) | Paying to static internet identifiers.                      | [Blixt][blixt] [@lntxbot][lntxbot] [LNbits][lnbits] [ZEBEDEE][zbd] [ZBD Telegram][zbd] [ZBD Discord][zbd] [ZBD Extension][zbd] |
-| [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Blixt][blixt] |
+| [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Blixt][blixt] [BTCPay Server][btcpayserver] |
 | [18](18.md) | Proof-of-payer in `payRequest` protocol.                    |  |
 | [19](19.md) | Mutually discoverable pay and withdraw links.               |  |
 | [20](20.md) | Long payment description for pay protocol.                  | [Blixt][blixt] |
@@ -30,6 +30,7 @@ These are all the individual documents describing each small piece of protocol t
 [bluewallet]: https://bluewallet.io
 [blw]: https://lightning-wallet.com
 [breez]: https://breez.technology
+[btcpayserver]: https://btcpayserver.org
 [coinos]: https://coinos.io
 [lnbits]: https://lnbits.org
 [lntxbot]: https://lntxbot.com
