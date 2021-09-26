@@ -1,3 +1,7 @@
+### This spec is deprecated, it has been translated in a bunch of standalone documents describing each specific super-small self-contained LNURL standard at https://github.com/fiatjaf/lnurl-rfc/tree/luds.
+
+---
+
 # LNURL: Lightning Network UX protocol
 
 `LNURL` is a bech32-encoded HTTPS/Onion query string which is supposed to help payer interact with payee and thus simplify a number of standard scenarios such as:
