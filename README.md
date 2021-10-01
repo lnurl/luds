@@ -46,6 +46,10 @@ These are all the individual documents describing each small piece of protocol t
 Dependency Tree
 ---------------
 
+The entire idea of the suite of LNURL protocols is that they are optional. Each new LUD may be implemented by some wallets and not others, some services and not others, but they should still maintain compatibility at all times (except, of course, if the service _requires_ the new functionality).
+
+There is also a hierarchy of internal dependencies between the LUDs -- for example, you cannot implement sending comments in `payRequest`s if you haven't implemented the base `payRequest` spec also. The following graph displays that hierarchy of internal dependencies (you can safely ignore it though).
+
 [![dependencies](dependencies.png)](dependencies.dot)
 
 How to add your own document
