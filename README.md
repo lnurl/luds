@@ -22,7 +22,7 @@ These are all the individual documents describing each small piece of protocol t
 | [15](15.md) | `balanceNotify`: services hurrying up the withdraw process. | [LNbits][lnbits], [@lntxbot][lntxbot] |
 | [16](16.md) | Paying to static internet identifiers.                      | [Alby][alby], [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd] |
 | [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Blixt][blixt] |
-| [18](18.md) | Payer identity in `payRequest` protocol.                    | [SimpleBitcoinWallet][sbw] |
+| [18](18.md) | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [SimpleBitcoinWallet][sbw] |
 | [19](19.md) | Mutually discoverable pay and withdraw links.               |  |
 | [20](20.md) | Long payment description for pay protocol.                  | [Blixt][blixt] |
 
