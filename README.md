@@ -25,7 +25,7 @@ These are all the individual documents describing each small piece of protocol t
 | [18](18.md) | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [SimpleBitcoinWallet][sbw] |
 | [19](19.md) | Mutually discoverable pay and withdraw links.               |  |
 | [20](20.md) | Long payment description for pay protocol.                  | [Blixt][blixt] |
-| [21](21.md) | Webhook notification support in `payRequest`.               |  |
+| [22](22.md) | Webhook notification support in `payRequest`.               |  |
 
 [blixt]: https://blixtwallet.github.io
 [bluewallet]: https://bluewallet.io
