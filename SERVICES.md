@@ -42,19 +42,23 @@ Services
 Self-hosted
 ===========
 
-| Name                                                        | LUDs                 |
-| ----                                                        | ----                 |
-| [Addressless](https://github.com/futurepaul/addressless)    | [01](01) [06](06) [09](09) [16](16)          |
-| [Bleskomat](https://github.com/samotari/bleskomat)          | [01](01) [03](03)                |
-| [Citadel Bitcoin Node](https://github.com/runcitadel)       | [01](01) [06](06) [16](16)             |
-| [LNURLPoS](https://github.com/arcbtc/LNURLPoS)              | [01](01) [06](06) [09](09)             |
-| [LNbits.com](https://github.com/fiatjaf/lnbits)             | [01](01) [03](03) [04](04) [06](06) [09](09) [14](14) [15](15) |
-| [LightningATM](https://github.com/21isenough/LightningATM)  | [01](01) [03](03)                |
-| [NextPay](https://github.com/apotdevin/NextPay)             | [01](01) [06](06) [16](16)             |
-| [Satdress](https://github.com/fiatjaf/satdress)             | [01](01) [06](06) [09](09) [16](16)          |
-| [go-host-lnaddr](https://github.com/hieblmi/go-host-lnaddr) | [01](01) [06](06) [09](09) [16](16)          |
-| [ligess](https://github.com/Dolu89/ligess/)                 | [01](01) [06](06) [09](09) [16](16)          |
-| [lnme](https://github.com/bumi/lnme)                        | [01](01) [06](06) [09](09) [16](16)          |
+| Name                                                                                       | LUDs                                         |
+| ----                                                                                       | ----                                         |
+| [Addressless](https://github.com/futurepaul/addressless)                                   | [01](01) [06](06) [09](09) [16](16)          |
+| [Bleskomat](https://github.com/samotari/bleskomat)                                         | [01](01) [03](03)                            |
+| [Citadel Bitcoin Node](https://github.com/runcitadel)                                      | [01](01) [06](06) [16](16)                   |
+| [LNURLPoS](https://github.com/arcbtc/LNURLPoS)                                             | [01](01) [06](06) [09](09)                   |
+| [LNURLp](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/lnurlp)            | [01](01) [06](06) [12](12)                   |
+| [LNURLw](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/withdraw)          | [01](01) [03](03)                            |
+| [LNbits.com](https://github.com/fiatjaf/lnbits)                                            | [01](01) [03](03) [04](04) [14](14) [15](15) |
+| [LightningATM](https://github.com/21isenough/LightningATM)                                 | [01](01) [03](03)                            |
+| [NextPay](https://github.com/apotdevin/NextPay)                                            | [01](01) [06](06) [16](16)                   |
+| [OfflineShop](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/offlineshop)  | [01](01) [06](06) [09](09)                   |
+| [Satdress](https://github.com/fiatjaf/satdress)                                            | [01](01) [06](06) [09](09) [16](16)          |
+| [Streamer Copilot](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/copilot) | [01](01) [06](06) [12](12)                   |
+| [go-host-lnaddr](https://github.com/hieblmi/go-host-lnaddr)                                | [01](01) [06](06) [09](09) [16](16)          |
+| [ligess](https://github.com/Dolu89/ligess/)                                                | [01](01) [06](06) [09](09) [16](16)          |
+| [lnme](https://github.com/bumi/lnme)                                                       | [01](01) [06](06) [09](09) [16](16)          |
 
 Libraries
 =========
@@ -81,18 +85,18 @@ Libraries
 Tools for developers
 ====================
 
-| Name                                                                   | LUDs                                |
-| ----                                                                   | ----                                |
-| [LNURLProxyAPI](https://github.com/21isenough/LNURLProxyAPI)           | [01](01) [03](03)                               |
-| [Lightning Decoder](https://lightningdecoder.com/)                     | [01](01) [02](02) [03](03) [04](04) [06](06) [16](16)                   |
-| [Lightning Login](https://lightninglogin.live/)                        | [01](01) [04](04)                               |
-| [bifrost](https://github.com/takinbo/bifrost)                          | [01](01) [02](02)                               |
-| [lnch-vekslak](https://github.com/Kixunil/lnch-vekslak)                | [01](01) [02](02)                               |
-| [lnurl codec Scala](https://j-chimienti.github.io/lnurl_codec/)        | [01](01)                                  |
-| [lnurl codec JS](https://lnurl.fiatjaf.com/codec)                      | [01](01)                                  |
+| Name                                                                   | LUDs                                                                                                        |
+| ----                                                                   | ----                                                                                                        |
+| [LNURLProxyAPI](https://github.com/21isenough/LNURLProxyAPI)           | [01](01) [03](03)                                                                                           |
+| [Lightning Decoder](https://lightningdecoder.com/)                     | [01](01) [02](02) [03](03) [04](04) [06](06) [16](16)                                                       |
+| [Lightning Login](https://lightninglogin.live/)                        | [01](01) [04](04)                                                                                           |
+| [bifrost](https://github.com/takinbo/bifrost)                          | [01](01) [02](02)                                                                                           |
+| [lnch-vekslak](https://github.com/Kixunil/lnch-vekslak)                | [01](01) [02](02)                                                                                           |
+| [lnurl codec Scala](https://j-chimienti.github.io/lnurl_codec/)        | [01](01)                                                                                                    |
+| [lnurl codec JS](https://lnurl.fiatjaf.com/codec)                      | [01](01)                                                                                                    |
 | [lnurl playground](https://lnurl.fiatjaf.com)                          | [01](01) [02](02) [03](03) [04](04) [06](06) [09](09) [10](10) [12](12) [14](14) [15](15) [18](18) [20](20) |
-| [lnurl-toolbox](https://lnurl-toolbox.degreesofzero.com/)              | [01](01) [02](02) [03](03) [04](04) [06](06)                      |
-| [passport-lnurl-auth](https://github.com/chill117/passport-lnurl-auth) | [01](01) [04](04)                               |
+| [lnurl-toolbox](https://lnurl-toolbox.degreesofzero.com/)              | [01](01) [02](02) [03](03) [04](04) [06](06)                                                                |
+| [passport-lnurl-auth](https://github.com/chill117/passport-lnurl-auth) | [01](01) [04](04)                                                                                           |
 
 [01]: 01.md
 [02]: 02.md
