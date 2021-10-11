@@ -8,9 +8,9 @@ These are all the individual documents describing each small piece of protocol t
 | [01](01.md) | Base LNURL encoding and decoding.                           | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Muun][muun], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [Zap Desktop][zap], [Zap iOS][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [02](02.md) | `channelRequest` base spec.                                 | [Blixt][blixt], [Breez][breez], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [Zap Desktop][zap], [Zeus][zeus] |
 | [03](03.md) | `withdrawRequest` base spec.                                | [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Muun][muun], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [Zap Desktop][zap], [Zap iOS][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
-| [04](04.md) | Auth base spec.                                             | [Alby][alby], [Blixt][blixt], [Breez][breez], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Zap Desktop][zap], [Zeus][zeus] |
+| [04](04.md) | Auth base spec.                                             | [Alby][alby], [Blixt][blixt], [Breez][breez], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [SeedAuth](seedauth), [SeedAuthExtension](sae), [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Zap Desktop][zap], [Zeus][zeus] |
 | [05](05.md) | BIP32-based seed generation for auth protocol.              | [SimpleBitcoinWallet][sbw] |
-| [06](06.md) | `payRequest` base spec.                                     | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [06](06.md) | `payRequest` base spec.                                     | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [07](07.md) | `hostedChannelRequest` base spec.                           | [SimpleBitcoinWallet][sbw] |
 | [08](08.md) | Fast `withdrawRequest`.                                     | [@lntxbot][lntxbot], [SimpleBitcoinWallet][sbw], [ZBD Extension][zbd] |
 | [09](09.md) | `successAction` field for `payRequest`.                     | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
@@ -20,11 +20,11 @@ These are all the individual documents describing each small piece of protocol t
 | [13](13.md) | `signMessage`-based seed generation for auth protocol.      | [Alby][alby], [Blixt][blixt], [Zeus][zeus] |
 | [14](14.md) | `balanceCheck`: reusable `withdrawRequest`s.                | [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot] |
 | [15](15.md) | `balanceNotify`: services hurrying up the withdraw process. | [LNbits][lnbits], [@lntxbot][lntxbot] |
-| [16](16.md) | Paying to static internet identifiers.                      | [Alby][alby], [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd] |
+| [16](16.md) | Paying to static internet identifiers.                      | [Alby][alby], [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Blixt][blixt] |
-| [18](18.md) | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [SimpleBitcoinWallet][sbw] |
-| [19](19.md) | Mutually discoverable pay and withdraw links.               |  |
-| [20](20.md) | Long payment description for pay protocol.                  | [Blixt][blixt] |
+| [18](18.md) | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [@lntxbot][lntxbot] |
+| [19](19.md) | Mutually discoverable pay and withdraw links.               | [SimpleBitcoinWallet][sbw] |
+| [20](20.md) | Long payment description for pay protocol.                  | [Blixt][blixt], [@lntxbot][lntxbot] |
 
 [blixt]: https://blixtwallet.github.io
 [bluewallet]: https://bluewallet.io
@@ -34,14 +34,22 @@ These are all the individual documents describing each small piece of protocol t
 [coinos]: https://coinos.io
 [lnbits]: https://lnbits.org
 [lntxbot]: https://lntxbot.com
+[ltb]: https://ln.tips
 [muun]: https://muun.com
 [phoenix]: https://phoenix.acinq.co
+[sae]: https://github.com/pseudozach/seedauthextension
+[seedauth]: https://seedauth.etleneum.com/
 [shockwallet]: https://shockwallet.app
 [thunderhub]: https://www.thunderhub.io
 [wos]: https://www.walletofsatoshi.com
 [zap]: https://zaphq.io/
 [zbd]: https://zebedee.io/wallet
 [zeus]: https://zeusln.app
+
+Services and developer tools
+----------------------------
+
+[Here's a full list of services and developer tools and which LUD they make use of](SERVICES.md).
 
 Dependency Tree
 ---------------
