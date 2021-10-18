@@ -20,7 +20,7 @@ These are all the individual documents describing each small piece of protocol t
 | [13](13.md) | `signMessage`-based seed generation for auth protocol.      | [Alby][alby], [Blixt][blixt], [Zeus][zeus] |
 | [14](14.md) | `balanceCheck`: reusable `withdrawRequest`s.                | [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot] |
 | [15](15.md) | `balanceNotify`: services hurrying up the withdraw process. | [LNbits][lnbits], [@lntxbot][lntxbot] |
-| [16](16.md) | Paying to static internet identifiers.                      | [Alby][alby], [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [16](16.md) | Paying to static internet identifiers.                      | [Alby][alby], [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Blixt][blixt] |
 | [18](18.md) | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [@lntxbot][lntxbot] |
 | [19](19.md) | Mutually discoverable pay and withdraw links.               | [SimpleBitcoinWallet][sbw] |
