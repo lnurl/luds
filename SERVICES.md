@@ -9,6 +9,7 @@ Services
 | [Bitrefill](https://bitrefill.com/)                 | [01][01] [02][02] [06][06]                                     |
 | [Etleneum](https://etleneum.com/)                   | [01][01] [03][03] [04][04] [06][06] [09][09] [14][14] [15][15] |
 | [Flitz](https://getflitz.app/)                      | [01][01] [03][03]                                              |
+| [Going Dutch](https://www.goingdutch.pm/)           | [01][01] [03][03] [06][06]                                     |
 | [HangarSix](https://www.hangarsixgaming.com/)       | [01][01] [03][03]                                              |
 | [Infuse](https://zebedee.io/infuse/)                | [01][01] [03][03]                                              |
 | [Kollider](https://kollider.xyz/)                   | [01][01] [03][03] [04][04]                                     |
@@ -31,7 +32,7 @@ Services
 | [Wheel of Fortune](https://fortune.lngames.net)     | [01][01] [03][03] [04][04]                                     |
 | [bridgeaddr](https://bridgeaddr.fiatjaf.com)        | [01][01] [06][06] [09][09] [12][12] [16][16]                   |
 | [coinos](https://coinos.io/)                        | [01][01] [03][03] [04][04] [06][06] [16][16]                   |
-| [lnshort.it](https://lnshort.it/)                   | [01][01] [04][04]                                              |
+| [lnshort.it](https://lnshort.it/)                   | [01][01] [04][04] [06][06]                                              |
 | [lnurl-pay.me](https://lnurl-pay.me)                | [01][01] [06][06] [16][16]                                     |
 | [pollofeed](https://pollofeed.com)                  | [01][01] [06][06] [16][16]                                     |
 | [stacker.news](https://stacker.news/)               | [01][01] [04][04] [06][06] [16][16]                            |
