@@ -8,7 +8,6 @@ Services
 | [Bitcoin Bounce](https://thndr.games/)              | [01][01] [03][03] [08][08]                                     |
 | [Bitrefill](https://bitrefill.com/)                 | [01][01] [02][02] [06][06]                                     |
 | [Etleneum](https://etleneum.com/)                   | [01][01] [03][03] [04][04] [06][06] [09][09] [14][14] [15][15] |
-| [Flitz](https://getflitz.app/)                      | [01][01] [03][03]                                              |
 | [Going Dutch](https://goingdutch.pm/)               | [01][01] [03][03] [06][06]                                     |
 | [HangarSix](https://www.hangarsixgaming.com/)       | [01][01] [03][03]                                              |
 | [Infuse](https://zebedee.io/infuse/)                | [01][01] [03][03]                                              |
