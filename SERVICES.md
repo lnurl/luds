@@ -46,6 +46,7 @@ Self-hosted
 | ----                                                                                       | ----                                         |
 | [Addressless](https://github.com/futurepaul/addressless)                                   | [01][01] [06][06] [09][09] [16][16]          |
 | [Bleskomat](https://github.com/samotari/bleskomat)                                         | [01][01] [03][03]                            |
+| [BTCPayServer](https://btcpayserver.org/)                                                  | [01][01] [06][06] [16][16]                   |
 | [Citadel Bitcoin Node](https://github.com/runcitadel)                                      | [01][01] [06][06] [16][16]                   |
 | [LNURLPoS](https://github.com/arcbtc/LNURLPoS)                                             | [01][01] [06][06] [09][09]                   |
 | [LNURLp](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/lnurlp)            | [01][01] [06][06] [12][12]                   |
