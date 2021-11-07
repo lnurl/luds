@@ -31,10 +31,10 @@ Services
 | [Wheel of Fortune](https://fortune.lngames.net)     | [01][01] [03][03] [04][04]                                     |
 | [bridgeaddr](https://bridgeaddr.fiatjaf.com)        | [01][01] [06][06] [09][09] [12][12] [16][16]                   |
 | [coinos](https://coinos.io/)                        | [01][01] [03][03] [04][04] [06][06] [16][16]                   |
-| [lnshort.it](https://lnshort.it/)                   | [01][01] [04][04] [06][06]                                              |
+| [lnshort.it](https://lnshort.it/)                   | [01][01] [04][04] [06][06]                                     |
 | [lnurl-pay.me](https://lnurl-pay.me)                | [01][01] [06][06] [16][16]                                     |
 | [pollofeed](https://pollofeed.com)                  | [01][01] [06][06] [16][16]                                     |
-| [stacker.news](https://stacker.news/)               | [01][01] [04][04] [06][06] [16][16]                            |
+| [stacker.news](https://stacker.news/)               | [01][01] [03][03] [04][04] [06][06] [16][16]                   |
 | [zbd.gg](https://zbd.gg/)                           | [01][01] [03][03] [06][06] [09][09] [12][12] [16][16]          |
 
 [rtb]: https://play.google.com/store/apps/details?id=com.pseudozach.rewardstobitcoin
