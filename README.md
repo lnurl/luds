@@ -55,13 +55,14 @@ Services
 | [Azteco](https://azte.co/)                          | [01][01] [03][03]                                              |
 | [BTC Origin Stories](https://btcoriginstories.com/) | [01][01] [06][06]                                              |
 | [Bitcoin Bounce](https://thndr.games/)              | [01][01] [03][03] [08][08]                                     |
-| [Bitrefill](https://bitrefill.com/)                 | [01][01] [02][02] [06][06]                                     |
+| [Bitrefill](https://bitrefill.com/)                 | [01][01] [02][02] [06][06] [16][16]                            |
+| [CoinCorner](https://www.coincorner.com)            | [01][01] [02][02] [03][03] [06][06] [16][16]                   |
 | [Etleneum](https://etleneum.com/)                   | [01][01] [03][03] [04][04] [06][06] [09][09] [14][14] [15][15] |
 | [Going Dutch](https://goingdutch.pm/)               | [01][01] [03][03] [06][06]                                     |
 | [HangarSix](https://www.hangarsixgaming.com/)       | [01][01] [03][03]                                              |
 | [Infuse](https://zebedee.io/infuse/)                | [01][01] [03][03]                                              |
 | [Kollider](https://kollider.xyz/)                   | [01][01] [03][03] [04][04]                                     |
-| [Kriptode](https://kriptode.com/)                   | [01][01] [03][03]                                              |
+| [Kriptode](https://kriptode.com/)                   | [01][01] [03][03] [04][04]                                     |
 | [LNBIG](https://lnbig.com/)                         | [01][01] [02][02]                                              |
 | [LNMarkets](https://lnmarkets.com/)                 | [01][01] [03][03] [04][04] [06][06] [16][16]                   |
 | [LNPay.co](https://lnpay.co)                        | [01][01] [03][03]                                              |
@@ -95,7 +96,7 @@ Self-hosted
 | ----                                                                                       | ----                                         |
 | [Addressless](https://github.com/futurepaul/addressless)                                   | [01][01] [06][06] [09][09] [16][16]          |
 | [Bleskomat](https://github.com/samotari/bleskomat)                                         | [01][01] [03][03]                            |
-| [BTCPayServer](https://btcpayserver.org/)                                                  | [01][01] [06][06] [16][16]                   |
+| [BTCPayServer](https://btcpayserver.org/)                                                  | [01][01] [06][06] [16][16] [17][17]          |
 | [Citadel Bitcoin Node](https://github.com/runcitadel)                                      | [01][01] [06][06] [16][16]                   |
 | [LNURLPoS](https://github.com/arcbtc/LNURLPoS)                                             | [01][01] [06][06] [09][09]                   |
 | [LNURLp](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/lnurlp)            | [01][01] [06][06] [12][12]                   |
