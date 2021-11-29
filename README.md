@@ -24,7 +24,7 @@ These are all the individual documents describing each small piece of protocol t
 | [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Blixt][blixt], [BTCPayServer][btcp], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [18](18.md) | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [19](19.md) | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [SimpleBitcoinWallet][sbw] |
-| [20](20.md) | Long payment description for pay protocol.                  | [Blixt][blixt], [@lntxbot][lntxbot] |
+| [20](20.md) | Long payment description for pay protocol.                  | [Blixt][blixt], [@lntxbot][lntxbot], [Phoenix][phoenix] |
 
 [blixt]: https://blixtwallet.github.io
 [bluewallet]: https://bluewallet.io
