@@ -183,6 +183,6 @@ There is also a hierarchy of internal dependencies between the LUDs -- for examp
 How to add your own document
 ----------------------------
 
-Open a pull request with your proposal. Pick the next unreserved number for your proposal. To be accepted it just have to be generally decent and make sense and be implemented or currently being implemented by 2 or more wallets.
+Open a pull request with your proposal. Pick the next unreserved number for your proposal. To be accepted, it just has to be generally decent and make sense and be implemented or currently being implemented by 2 or more wallets.
 
 Join https://t.me/lnurl if you just want to talk about your ideas or chat about LNURL protocols in general.
