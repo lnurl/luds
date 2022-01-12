@@ -66,6 +66,7 @@ Services
 | [Kollider](https://kollider.xyz/)                   | [01][01] [03][03] [04][04]                                     |
 | [Kriptode](https://kriptode.com/)                   | [01][01] [03][03] [04][04]                                     |
 | [LNBIG](https://lnbig.com/)                         | [01][01] [02][02]                                              |
+| [ln.cash](https://ln.cash)                          | [01][01] [03][03]                                              |
 | [LNMarkets](https://lnmarkets.com/)                 | [01][01] [03][03] [04][04] [06][06] [16][16]                   |
 | [LNPay.co](https://lnpay.co)                        | [01][01] [03][03]                                              |
 | [LNbits.com](https://lnbits.com/)                   | [01][01] [03][03] [04][04] [14][14] [15][15]                   |
@@ -84,6 +85,7 @@ Services
 | [bridgeaddr](https://bridgeaddr.fiatjaf.com)        | [01][01] [06][06] [09][09] [12][12] [16][16]                   |
 | [coinos](https://coinos.io/)                        | [01][01] [03][03] [04][04] [06][06] [16][16]                   |
 | [lnshort.it](https://lnshort.it/)                   | [01][01] [04][04] [06][06]                                     |
+| [lnsms.world](https://lnsms.world/)                 | [01][01] [06][04] [11][11] [12][12] [16][16]                   |
 | [lnurl-pay.me](https://lnurl-pay.me)                | [01][01] [06][06] [16][16]                                     |
 | [pollofeed](https://pollofeed.com)                  | [01][01] [06][06] [16][16]                                     |
 | [stacker.news](https://stacker.news/)               | [01][01] [03][03] [04][04] [06][06] [16][16]                   |
