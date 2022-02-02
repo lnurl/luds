@@ -21,7 +21,7 @@ These are all the individual documents describing each small piece of protocol t
 | [14](14.md) | `balanceCheck`: reusable `withdrawRequest`s.                | [Alby][alby], [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot] |
 | [15](15.md) | `balanceNotify`: services hurrying up the withdraw process. | [LNbits][lnbits], [@lntxbot][lntxbot] |
 | [16](16.md) | Paying to static internet identifiers.                      | [Alby][alby], [Blixt][blixt], [BTCPayServer][btcp], [LNbits][lnbits], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
-| [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Blixt][blixt], [BTCPayServer][btcp], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
+| [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Alby][alby], [Blixt][blixt], [BTCPayServer][btcp], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [18](18.md) | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [19](19.md) | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [SimpleBitcoinWallet][sbw] |
 | [20](20.md) | Long payment description for pay protocol.                  | [Alby][alby], [Blixt][blixt], [@lntxbot][lntxbot], [Phoenix][phoenix] |
