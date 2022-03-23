@@ -10,7 +10,7 @@ These are all the individual documents describing each small piece of protocol t
 | [03](03.md) | `withdrawRequest` base spec.                                | [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Muun][muun], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [Zap Desktop][zap], [Zap iOS][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [04](04.md) | Auth base spec.                                             | [Alby][alby], [Blixt][blixt], [Breez][breez], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [SeedAuth](seedauth), [SeedAuthExtension](sae), [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Zap Desktop][zap], [Zeus][zeus] |
 | [05](05.md) | BIP32-based seed generation for auth protocol.              | [coinos][coinos] [SimpleBitcoinWallet][sbw] |
-| [06](06.md) | `payRequest` base spec.                                     | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Bottlepay][bottlepay], [Breez][breez], [BTCPayServer][btcp], [coinos][coinos], [Galoy][galoy], [LNbits][lnbits], [LNPay.co](lnpay), [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [06](06.md) | `payRequest` base spec.                                     | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Bottlepay][bottlepay], [Breez][breez], [BTCPayServer][btcp], [coinos][coinos], [Galoy][galoy], [LNbits][lnbits], [LNLink][lnlink], [LNPay.co](lnpay), [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [07](07.md) | `hostedChannelRequest` base spec.                           | [SimpleBitcoinWallet][sbw] |
 | [08](08.md) | Fast `withdrawRequest`.                                     | [@lntxbot][lntxbot], [SimpleBitcoinWallet][sbw], [ZBD Extension][zbd] |
 | [09](09.md) | `successAction` field for `payRequest`.                     | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
@@ -20,7 +20,7 @@ These are all the individual documents describing each small piece of protocol t
 | [13](13.md) | `signMessage`-based seed generation for auth protocol.      | [Alby][alby], [Blixt][blixt], [Zeus][zeus] |
 | [14](14.md) | `balanceCheck`: reusable `withdrawRequest`s.                | [Alby][alby], [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot] |
 | [15](15.md) | `balanceNotify`: services hurrying up the withdraw process. | [LNbits][lnbits], [@lntxbot][lntxbot] |
-| [16](16.md) | Paying to static internet identifiers.                      | [Alby][alby], [Blixt][blixt], [BTCPayServer][btcp], [LNbits][lnbits], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [16](16.md) | Paying to static internet identifiers.                      | [Alby][alby], [Blixt][blixt], [BTCPayServer][btcp], [LNbits][lnbits], [LNLink][lnlink], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Alby][alby], [Blixt][blixt], [BTCPayServer][btcp], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [18](18.md) | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [19](19.md) | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [SimpleBitcoinWallet][sbw] |
@@ -35,6 +35,7 @@ These are all the individual documents describing each small piece of protocol t
 [coinos]: https://coinos.io
 [galoy]: https://galoy.io
 [lnbits]: https://lnbits.org
+[lnlink]: https://lnlink.app
 [lnpay]: https://lnpay.co
 [lntxbot]: https://lntxbot.com
 [ltb]: https://ln.tips
