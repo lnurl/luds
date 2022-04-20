@@ -84,7 +84,7 @@ Services
 | [OpenNode](https://developers.opennode.com/reference/initiate-lnurl-withdrawal) | [01][01] [03][03]                                              |
 | [Paywall](https://paywall.link)                                                 | [01][01] [03][03]                                              |
 | [Rewards to Bitcoin](rtb)                                                       | [01][01] [03][03] [04][04]                                     |
-| [Satsback.com](https://satsback.com)                                            | [01][01] [03][03]                                              |
+| [Satsback.com](https://satsback.com)                                            | [01][01] [03][03] [06][06] [16][16]                            |
 | [SouthXchange](https://www.southxchange.com/)                                   | [01][01] [03][03]                                              |
 | [Surfcity Parking](https://surfcity.app/)                                       | [01][01] [03][03]                                              |
 | [Wheel of Fortune](https://fortune.lngames.net)                                 | [01][01] [03][03] [04][04]                                     |
