@@ -68,7 +68,6 @@ Services
 | [HangarSix](https://www.hangarsixgaming.com/)                                   | [01][01] [03][03]                                              |
 | [Infuse](https://zebedee.io/infuse/)                                            | [01][01] [03][03]                                              |
 | [Kollider](https://kollider.xyz/)                                               | [01][01] [03][03] [04][04]                                     |
-| [Kriptode](https://kriptode.com/)                                               | [01][01] [03][03] [04][04]                                     |
 | [LNBIG](https://lnbig.com/)                                                     | [01][01] [02][02]                                              |
 | [ln.cash](https://ln.cash)                                                      | [01][01] [03][03]                                              |
 | [LNMarkets](https://lnmarkets.com/)                                             | [01][01] [03][03] [04][04] [06][06] [16][16]                   |
@@ -83,8 +82,10 @@ Services
 | [Microlancer](https://microlancer.io/)                                          | [01][01] [03][03] [14][14]                                     |
 | [OpenNode](https://developers.opennode.com/reference/initiate-lnurl-withdrawal) | [01][01] [03][03]                                              |
 | [Paywall](https://paywall.link)                                                 | [01][01] [03][03]                                              |
-| [Rewards to Bitcoin](rtb)                                                       | [01][01] [03][03] [04][04]                                     |
+| [Rewards to Bitcoin](https://play.google.com/store/apps/details?id=com.pseudozach.rewardstobitcoin)                                                       | [01][01] [03][03] [04][04]                                     |
+| [Sats4Likes](https://sats4likes.com/)                                           | [01][01] [03][03] [14][14]                            |
 | [Satsback.com](https://satsback.com)                                            | [01][01] [03][03] [06][06] [16][16]                            |
+| [sms4sats](https://sms4sats.com/)                                               | [01][01] [03][03]                          |
 | [SouthXchange](https://www.southxchange.com/)                                   | [01][01] [03][03]                                              |
 | [Surfcity Parking](https://surfcity.app/)                                       | [01][01] [03][03]                                              |
 | [Wheel of Fortune](https://fortune.lngames.net)                                 | [01][01] [03][03] [04][04]                                     |
