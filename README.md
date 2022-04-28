@@ -138,6 +138,7 @@ Libraries
 | [lnurlauth](https://github.com/xplorfin/lnurlauth)    | [01][01] [04][04]                                                                                                             |
 | [php-lnurl](https://github.com/tkijewski/php-lnurl)   | [01][01]                                                                                                                      |
 | [python-lnurl](https://github.com/python-ln/lnurl)    | [01][01] [02][02] [03][03] [04][04] [06][06]                                                                                  |
+| [bitcoin-s](https://github.com/bitcoin-s/bitcoin-s)   | [01][01] [03][03] [06][06] [09][09]                                                                                           |
 | [rust-lnurl](rust)                                    | [01][01] [03][03] [04][04]                                                                                                    |
 | [spring-lnurl](springlnurl)                           | [01][01] [04][04]                                                                                                             |
 
