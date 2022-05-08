@@ -35,7 +35,7 @@ These are all the individual documents describing each small piece of protocol t
 [breez]: https://breez.technology
 [coinos]: https://coinos.io
 [galoy]: https://galoy.io
-[lnbits]: https://lnbits.org
+[lnbits]: https://lnbits.com
 [lnlink]: https://lnlink.app
 [lnpay]: https://lnpay.co
 [lntxbot]: https://lntxbot.com
