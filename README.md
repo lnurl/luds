@@ -69,6 +69,7 @@ Services
 | [Galoy](https://galoy.io/)                                                      | [01][01] [06][06]                                              |
 | [Going Dutch](https://goingdutch.pm/)                                           | [01][01] [03][03] [06][06]                                     |
 | [HangarSix](https://www.hangarsixgaming.com/)                                   | [01][01] [03][03]                                              |
+| [IBEXHub](https://ibexmercado.gitbook.io/ibex-hub-api/reference/api-reference)  | [01][01] [03][03] [16][16]                                     |
 | [Infuse](https://zebedee.io/infuse/)                                            | [01][01] [03][03]                                              |
 | [Kollider](https://kollider.xyz/)                                               | [01][01] [03][03] [04][04]                                     |
 | [LNBIG](https://lnbig.com/)                                                     | [01][01] [02][02]                                              |
