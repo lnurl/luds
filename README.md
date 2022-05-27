@@ -63,7 +63,7 @@ Services
 | [Bitcoin Bounce](https://thndr.games/)                                          | [01][01] [03][03] [08][08]                                     |
 | [Bitrefill](https://bitrefill.com/)                                             | [01][01] [02][02] [06][06] [16][16]                            |
 | [Bottlepay](https://bottlepay.com/)                                             | [01][01] [06][06]                                              |
-| [CoinCorner](https://www.coincorner.com)                                        | [01][01] [02][02] [03][03] [06][06] [16][16]                   |
+| [CoinCorner](https://www.coincorner.com)                                        | [01][01] [03][03] [06][06] [16][16] [17][17]                  |
 | [Etleneum](https://etleneum.com/)                                               | [01][01] [03][03] [04][04] [06][06] [09][09] [14][14] [15][15] |
 | [Fountain Podcasts](https://fountain.fm)                                        | [01][01] [03][03] [06][06] [09][09] [12][12] [16][16]          |
 | [Galoy](https://galoy.io/)                                                      | [01][01] [06][06]                                              |
