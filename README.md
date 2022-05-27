@@ -166,6 +166,7 @@ Tools for developers
 | [lnurl playground](https://lnurl.fiatjaf.com)                          | [01][01] [02][02] [03][03] [04][04] [06][06] [09][09] [10][10] [12][12] [14][14] [15][15] [18][18] [20][20] |
 | [lnurl-toolbox](https://lnurl-toolbox.degreesofzero.com/)              | [01][01] [02][02] [03][03] [04][04] [06][06]                                                                |
 | [passport-lnurl-auth](https://github.com/chill117/passport-lnurl-auth) | [01][01] [04][04]                                                                                           |
+| [Zerologin](https://github.com/zerologin/zerologin)                    | [04][04]                                                                                                   |
 
 [01]: 01.md
 [02]: 02.md
