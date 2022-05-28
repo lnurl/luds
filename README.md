@@ -19,7 +19,8 @@ These are all the individual documents describing each small piece of protocol t
 | [12](12.md) | Comments in `payRequest`.                                   | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [Fountain Podcasts][fountain], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [ThunderHub][thunderhub],  [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [13](13.md) | `signMessage`-based seed generation for auth protocol.      | [Alby][alby], [Balance of Satoshis][balanceofsatoshis], [Blixt][blixt], [Zeus][zeus] |
 | [14](14.md) | `balanceCheck`: reusable `withdrawRequest`s.                | [Alby][alby], [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot] |
-| [15](15.md) | `balanceNotify`: services hurrying up the withdraw process. | [LNbits][lnbits], [@lntxbot][lntxbot] |
+| [15](15.md) | `balanceNotify`: 
+hurrying up the withdraw process. | [LNbits][lnbits], [@lntxbot][lntxbot] |
 | [16](16.md) | Paying to static internet identifiers.                      | [Alby][alby], [Balance of Satoshis][balanceofsatoshis], [Blixt][blixt], [BTCPayServer][btcp], [Fountain Podcasts][fountain], [LNbits][lnbits], [LNLink][lnlink], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [17](17.md) | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Alby][alby], [Blixt][blixt], [BTCPayServer][btcp], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [18](18.md) | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
@@ -84,6 +85,7 @@ Services
 | [Lnurl-Pay Chat](https://chat.blixtwallet.com/)                                 | [01][01] [06][06] [11][11] [12][12] [18][18]                   |
 | [Loft](https://loft.trade/)                                                     | [01][01] [04][04]                                              |
 | [Microlancer](https://microlancer.io/)                                          | [01][01] [03][03] [14][14]                                     |
+| [Million Bitcoin Pixels](https://millionbitcoinpixels.com/)                                          | [01][01]                                     |
 | [OpenNode](https://developers.opennode.com/reference/initiate-lnurl-withdrawal) | [01][01] [03][03]                                              |
 | [Paywall](https://paywall.link)                                                 | [01][01] [03][03]                                              |
 | [Rewards to Bitcoin](https://play.google.com/store/apps/details?id=com.pseudozach.rewardstobitcoin)                                                       | [01][01] [03][03] [04][04]                                     |
