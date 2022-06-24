@@ -62,6 +62,7 @@ Services
 | [BTC Origin Stories](https://btcoriginstories.com/)                                                 | [01][01] [06][06]                                              |
 | [Bitcoin Bounce](https://thndr.games/)                                                              | [01][01] [03][03] [08][08]                                     |
 | [Bitrefill](https://bitrefill.com/)                                                                 | [01][01] [02][02] [06][06] [16][16]                            |
+| [Blocktank](https://synonym.to/blocktank/)                                                          | [01][01] [02][02]                                              |
 | [Bottlepay](https://bottlepay.com/)                                                                 | [01][01] [06][06]                                              |
 | [Bull Bitcoin](https://www.bullbitcoin.com/)                                                        | [01][01] [03][03]                                              |
 | [CoinCorner](https://www.coincorner.com)                                                            | [01][01] [03][03] [06][06] [16][16] [17][17]                   |
