@@ -20,7 +20,7 @@ These are all the individual documents describing each small piece of protocol t
 | [13][13] | `signMessage`-based seed generation for auth protocol.      | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [Zeus][zeus] |
 | [14][14] | `balanceCheck`: reusable `withdrawRequest`s.                | [Alby][alby], [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot] |
 | [15][15] | `balanceNotify`: services hurrying up the withdraw process. | [LNbits][lnbits], [@lntxbot][lntxbot] |
-| [16][16] | Paying to static internet identifiers.                      | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [BTCPayServer][btcp], [cliché][cliche], [Fountain][fountain], [LNbits][lnbits], [LNLink][lnlink], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [16][16] | Paying to static internet identifiers.                      | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [BTCPayServer][btcp], [cliché][cliche], [Fountain][fountain], [LNbits][lnbits], [LNLink][lnlink], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Machankura][machankura], [Phoenix][phoenix], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [17][17] | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Alby][alby], [Blixt][blixt], [BTCPayServer][btcp], [cliché][cliche], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [18][18] | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [cliché][cliche], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [19][19] | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [SimpleBitcoinWallet][sbw] |
@@ -87,7 +87,7 @@ Services
 | [@lntxbot](https://t.me/lntxbot)                                                                    | [01][01] [03][03] [06][06] [09][09] [12][12] [16][16] [18][18] |
 | [Lnurl-Pay Chat](https://chat.blixtwallet.com/)                                                     | [01][01] [06][06] [11][11] [12][12] [18][18]                   |
 | [Loft](https://loft.trade/)                                                                         | [01][01] [03][03] [04][04]                                              |
-| [Machankura](https://8333.mobi)                                                                         | [06][06] [16][16] ]                                              |
+| [Machankura](https://8333.mobi)                                                                     | [06][06] [16][16]                                              |
 | [Microlancer](https://microlancer.io/)                                                              | [01][01] [03][03] [14][14]                                     |
 | [OpenNode](https://developers.opennode.com/reference/initiate-lnurl-withdrawal)                     | [01][01] [03][03]                                              |
 | [Paywall](https://paywall.link)                                                                     | [01][01] [03][03]                                              |
