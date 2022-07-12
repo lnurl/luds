@@ -10,7 +10,7 @@ These are all the individual documents describing each small piece of protocol t
 | [03][03] | `withdrawRequest` base spec.                                | [Balance of Satoshis][bos], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [coinos][coinos], [Fountain][fountain], [LNbits][lnbits], [@lntxbot][lntxbot], [Muun][muun], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [Zap Desktop][zap], [Zap iOS][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [04][04] | Auth base spec.                                             | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [Breez][breez], [BlueWallet][bluewallet], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [SeedAuth][seedauth], [SeedAuthExtension][sae], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Zap Desktop][zap], [Zeus][zeus] |
 | [05][05] | BIP32-based seed generation for auth protocol.              | [coinos][coinos] [SimpleBitcoinWallet][sbw] |
-| [06][06] | `payRequest` base spec.                                     | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [BlueWallet][bluewallet], [Bottlepay][bottlepay], [Breez][breez], [BTCPayServer][btcp], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [Galoy][galoy], [LNbits][lnbits], [LNLink][lnlink], [LNPay.co][lnpay], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [06][06] | `payRequest` base spec.                                     | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [BlueWallet][bluewallet], [Bottlepay][bottlepay], [Breez][breez], [BTCPayServer][btcp], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [Galoy][galoy], [LNbits][lnbits], [LNLink][lnlink], [LNPay.co][lnpay], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Machankura][machankura], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [07][07] | `hostedChannelRequest` base spec.                           | [SimpleBitcoinWallet][sbw] |
 | [08][08] | Fast `withdrawRequest`.                                     | [cliché][cliche], [@lntxbot][lntxbot], [SimpleBitcoinWallet][sbw], [ZBD Extension][zbd] |
 | [09][09] | `successAction` field for `payRequest`.                     | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
@@ -20,7 +20,7 @@ These are all the individual documents describing each small piece of protocol t
 | [13][13] | `signMessage`-based seed generation for auth protocol.      | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [Zeus][zeus] |
 | [14][14] | `balanceCheck`: reusable `withdrawRequest`s.                | [Alby][alby], [Blixt][blixt], [LNbits][lnbits], [@lntxbot][lntxbot] |
 | [15][15] | `balanceNotify`: services hurrying up the withdraw process. | [LNbits][lnbits], [@lntxbot][lntxbot] |
-| [16][16] | Paying to static internet identifiers.                      | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [BTCPayServer][btcp], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [LNbits][lnbits], [LNLink][lnlink], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [16][16] | Paying to static internet identifiers.                      | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [BTCPayServer][btcp], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [LNbits][lnbits], [LNLink][lnlink], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Machankura][machankura], [Phoenix][phoenix], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [17][17] | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Alby][alby], [Blixt][blixt], [BTCPayServer][btcp], [cliché][cliche], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [18][18] | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [cliché][cliche], [@lntxbot][lntxbot], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [19][19] | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [SimpleBitcoinWallet][sbw] |
@@ -42,6 +42,7 @@ These are all the individual documents describing each small piece of protocol t
 [lnpay]: https://lnpay.co
 [lntxbot]: https://lntxbot.com
 [ltb]: https://ln.tips
+[machankura]: https://8333.mobi
 [muun]: https://muun.com
 [phoenix]: https://phoenix.acinq.co
 [sae]: https://github.com/pseudozach/seedauthextension
@@ -86,6 +87,7 @@ Services
 | [@lntxbot](https://t.me/lntxbot)                                                                    | [01][01] [03][03] [06][06] [09][09] [12][12] [16][16] [18][18] |
 | [Lnurl-Pay Chat](https://chat.blixtwallet.com/)                                                     | [01][01] [06][06] [11][11] [12][12] [18][18]                   |
 | [Loft](https://loft.trade/)                                                                         | [01][01] [03][03] [04][04]                                              |
+| [Machankura](https://8333.mobi)                                                                     | [06][06] [16][16]                                              |
 | [Microlancer](https://microlancer.io/)                                                              | [01][01] [03][03] [14][14]                                     |
 | [OpenNode](https://developers.opennode.com/reference/initiate-lnurl-withdrawal)                     | [01][01] [03][03]                                              |
 | [Paywall](https://paywall.link)                                                                     | [01][01] [03][03]                                              |
