@@ -86,8 +86,8 @@ Services
 | [LightningTipBot](https://ln.tips/)                                                                 | [01][01] [06][06] [09][09] [12][12] [16][16]                   |
 | [@lntxbot](https://t.me/lntxbot)                                                                    | [01][01] [03][03] [06][06] [09][09] [12][12] [16][16] [18][18] |
 | [Lnurl-Pay Chat](https://chat.blixtwallet.com/)                                                     | [01][01] [06][06] [11][11] [12][12] [18][18]                   |
-| [Loft](https://loft.trade/)                                                                         | [01][01] [03][03] [04][04]                                              |
-| [Machankura](https://8333.mobi)                                                                     | [06][06] [16][16]                                              |
+| [Loft](https://loft.trade/)                                                                         | [01][01] [03][03] [04][04]                                     |
+| [Machankura](https://8333.mobi)                                                                     | [01][01] [06][06] [16][16]                                     |
 | [Microlancer](https://microlancer.io/)                                                              | [01][01] [03][03] [14][14]                                     |
 | [OpenNode](https://developers.opennode.com/reference/initiate-lnurl-withdrawal)                     | [01][01] [03][03]                                              |
 | [Paywall](https://paywall.link)                                                                     | [01][01] [03][03]                                              |
