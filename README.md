@@ -8,7 +8,7 @@ These are all the individual documents describing each small piece of protocol t
 | [01][01] | Base LNURL encoding and decoding.                           | _all the ones listed below_ |
 | [02][02] | `channelRequest` base spec.                                 | [Balance of Satoshis][bos], [Blixt][blixt], [Breez][breez], [cliché][cliche], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [Zap Desktop][zap], [Zeus][zeus] |
 | [03][03] | `withdrawRequest` base spec.                                | [Balance of Satoshis][bos], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [coinos][coinos], [Fountain][fountain], [LNbits][lnbits], [@lntxbot][lntxbot], [Muun][muun], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [Zap Desktop][zap], [Zap iOS][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
-| [04][04] | Auth base spec.                                             | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [Breez][breez], [BlueWallet][bluewallet], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [SeedAuth][seedauth], [SeedAuthExtension][sae], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Zap Desktop][zap], [Zeus][zeus] |
+| [04][04] | Auth base spec.                                             | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [Breez][breez], [BlueWallet][bluewallet], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [SeedAuth][seedauth], [SeedAuthExtension][sae], [SimpleBitcoinWallet][sbw], [Sparrow Wallet][sparrow], [ThunderHub][thunderhub], [Zap Desktop][zap], [Zeus][zeus] |
 | [05][05] | BIP32-based seed generation for auth protocol.              | [coinos][coinos] [SimpleBitcoinWallet][sbw] |
 | [06][06] | `payRequest` base spec.                                     | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [BlueWallet][bluewallet], [Bottlepay][bottlepay], [Breez][breez], [BTCPayServer][btcp], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [Galoy][galoy], [LNbits][lnbits], [LNLink][lnlink], [LNPay.co][lnpay], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Machankura][machankura], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [07][07] | `hostedChannelRequest` base spec.                           | [SimpleBitcoinWallet][sbw] |
@@ -49,6 +49,7 @@ These are all the individual documents describing each small piece of protocol t
 [sbw]: https://lightning-wallet.com
 [seedauth]: https://seedauth.etleneum.com/
 [shockwallet]: https://shockwallet.app
+[sparrow]: https://sparrowwallet.com/
 [thunderhub]: https://www.thunderhub.io
 [wos]: https://www.walletofsatoshi.com
 [zap]: https://zaphq.io/
