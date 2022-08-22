@@ -8,9 +8,9 @@ These are all the individual documents describing each small piece of protocol t
 | [01][01] | Base LNURL encoding and decoding.                           | _all the ones listed below_ |
 | [02][02] | `channelRequest` base spec.                                 | [Balance of Satoshis][bos], [Blixt][blixt], [Breez][breez], [cliché][cliche], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [Zap Desktop][zap], [Zeus][zeus] |
 | [03][03] | `withdrawRequest` base spec.                                | [Balance of Satoshis][bos], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [coinos][coinos], [Fountain][fountain], [LNbits][lnbits], [@lntxbot][lntxbot], [Muun][muun], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [Zap Desktop][zap], [Zap iOS][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
-| [04][04] | Auth base spec.                                             | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [Breez][breez], [BlueWallet][bluewallet], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [SeedAuth][seedauth], [SeedAuthExtension][sae], [SimpleBitcoinWallet][sbw], [Sparrow Wallet][sparrow], [ThunderHub][thunderhub], [Zap Desktop][zap], [Zeus][zeus] |
+| [04][04] | Auth base spec.                                             | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [Breez][breez], [BlueWallet][bluewallet], [coinos][coinos], [Geyser][geyser], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [SeedAuth][seedauth], [SeedAuthExtension][sae], [SimpleBitcoinWallet][sbw], [Sparrow Wallet][sparrow], [ThunderHub][thunderhub], [Zap Desktop][zap], [Zeus][zeus] |
 | [05][05] | BIP32-based seed generation for auth protocol.              | [coinos][coinos] [SimpleBitcoinWallet][sbw] |
-| [06][06] | `payRequest` base spec.                                     | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [BlueWallet][bluewallet], [Bottlepay][bottlepay], [Breez][breez], [BTCPayServer][btcp], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [Galoy][galoy], [LNbits][lnbits], [LNLink][lnlink], [LNPay.co][lnpay], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Machankura][machankura], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [06][06] | `payRequest` base spec.                                     | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [BlueWallet][bluewallet], [Bottlepay][bottlepay], [Breez][breez], [BTCPayServer][btcp], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [Galoy][galoy], [Geyser][geyser], [LNbits][lnbits], [LNLink][lnlink], [LNPay.co][lnpay], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Machankura][machankura], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [07][07] | `hostedChannelRequest` base spec.                           | [SimpleBitcoinWallet][sbw] |
 | [08][08] | Fast `withdrawRequest`.                                     | [cliché][cliche], [@lntxbot][lntxbot], [SimpleBitcoinWallet][sbw], [ZBD Extension][zbd] |
 | [09][09] | `successAction` field for `payRequest`.                     | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
@@ -37,6 +37,7 @@ These are all the individual documents describing each small piece of protocol t
 [coinos]: https://coinos.io
 [fountain]: https://fountain.fm
 [galoy]: https://galoy.io
+[geyser]: https://geyser.fund
 [lnbits]: https://lnbits.com
 [lnlink]: https://lnlink.app
 [lnpay]: https://lnpay.co
@@ -71,7 +72,8 @@ Services
 | [CoinCorner](https://www.coincorner.com)                                                            | [01][01] [03][03] [06][06] [16][16] [17][17]                   |
 | [Etleneum](https://etleneum.com/)                                                                   | [01][01] [03][03] [04][04] [06][06] [09][09] [14][14] [15][15] |
 | [Fountain Podcasts](https://fountain.fm)                                                            | [01][01] [03][03] [06][06] [09][09] [12][12] [16][16]          |
-| [Galoy](https://galoy.io/)                                                                          | [01][01] [06][06]                                              |
+| [Galoy](https://galoy.io/)                                                                          | [01][01] [06][06]   |
+| [Geyser](https://geyser.fund/)                                                                      | [01][01] [04][04] [06][06]   |
 | [Going Dutch](https://goingdutch.pm/)                                                               | [01][01] [03][03] [06][06]                                     |
 | [HangarSix](https://www.hangarsixgaming.com/)                                                       | [01][01] [03][03]                                              |
 | [IBEXHub](https://ibexmercado.gitbook.io/ibex-hub-api/reference/api-reference)                      | [01][01] [03][03] [06][06] [16][16]                            |
