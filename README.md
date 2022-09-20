@@ -97,8 +97,7 @@ Services
 | [Microlancer](https://microlancer.io/)                                                              | [01][01] [03][03] [14][14]                                     |
 | [OpenNode](https://developers.opennode.com/reference/initiate-lnurl-withdrawal)                     | [01][01] [03][03]                                              |
 | [Paywall](https://paywall.link)                                                                     | [01][01] [03][03]                                              |
-| [Rewards to Bitcoin](https://play.google.com/store/apps/details?id=com.pseudozach.rewardstobitcoin) | [01][01] [03][03] [04][04]                                     |
-| [Sats4Likes](https://sats4likes.com/)                                                               | [01][01] [03][03] [14][14]                                     |
+| [Sats4Likes](https://sats4likes.com/)                                                               | [01][01] [03][03] [14][14] [16][16]                            |
 | [Satsback.com](https://satsback.com)                                                                | [01][01] [03][03] [06][06] [16][16]                            |
 | [sms4sats](https://sms4sats.com/)                                                                   | [01][01] [03][03]                                              |
 | [SouthXchange](https://www.southxchange.com/)                                                       | [01][01] [03][03]                                              |
