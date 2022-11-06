@@ -128,6 +128,7 @@ Self-hosted
 | [BTCPayServer](https://btcpayserver.org/)                                                  | [01][01] [06][06] [16][16] [17][17]          |
 | [Citadel Bitcoin Node](https://github.com/runcitadel)                                      | [01][01] [06][06] [16][16]                   |
 | [Cypherapp](https://github.com/SatoshiPortal/lnurl_cypherapp)                              | [01][01] [03][03]                            |
+| [LNURL Daemon](https://github.com/yanascz/lnurld)                                          | [01][01] [06][06] [09][09] [12][12] [16][16] |
 | [LNURLPoS](https://github.com/arcbtc/LNURLPoS)                                             | [01][01] [06][06] [09][09]                   |
 | [LNURLp](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/lnurlp)            | [01][01] [06][06] [12][12]                   |
 | [LNURLw](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/withdraw)          | [01][01] [03][03]                            |
