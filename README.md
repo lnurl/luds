@@ -162,11 +162,13 @@ Libraries
 | [php-lnurl](https://github.com/tkijewski/php-lnurl)   | [01][01]                                                                                                                                                 |
 | [python-lnurl](https://github.com/python-ln/lnurl)    | [01][01] [02][02] [03][03] [04][04] [06][06]                                                                                                             |
 | [bitcoin-s](https://github.com/bitcoin-s/bitcoin-s)   | [01][01] [03][03] [06][06] [09][09]                                                                                                                      |
+| [lnurl-rs][lnurl-rs]                                  | [01][01] [03][03] [06][06]                                                                                                                               |
 | [rust-lnurl][rust-lnurl]                              | [01][01] [03][03] [04][04]                                                                                                                               |
 | [spring-lnurl][springlnurl]                           | [01][01] [04][04]                                                                                                                                        |
 | [lnurl_client-ex][lnurl_client-ex]                    | [01][01] [06][06]                                                                                                                                        |
 
 [rust-lnurl]: https://github.com/edouardparis/rust-lnurl
+[lnurl-rs]: https://github.com/benthecarman/lnurl-rs
 [platformio]: https://github.com/chill117/lnurl-platformio
 [springlnurl]: https://github.com/theborakompanioni/bitcoin-spring-boot-starter#spring-lnurl
 [lnurl_client-ex]: https://github.com/ramontayag/lnurl_client-ex
