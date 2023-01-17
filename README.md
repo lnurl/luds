@@ -11,7 +11,7 @@ These are all the individual documents describing each small piece of protocol t
 | [04][04] | Auth base spec.                                             | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [Breez][breez], [BlueWallet][bluewallet], [coinos][coinos], [Geyser][geyser], [LifPay][lifpay], [LNbits][lnbits], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [SeedAuth][seedauth], [SeedAuthExtension][sae], [SimpleBitcoinWallet][sbw], [Sparrow Wallet][sparrow], [ThunderHub][thunderhub], [Zap Desktop][zap], [Zeus][zeus] |
 | [05][05] | BIP32-based seed generation for auth protocol.              | [coinos][coinos] [SimpleBitcoinWallet][sbw] |
 | [06][06] | `payRequest` base spec.                                     | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [BlueWallet][bluewallet], [Bottlepay][bottlepay], [Breez][breez], [BTCPayServer][btcp], [cliché][cliche], [CoinCorner][coincorner], [coinos][coinos], [Electrum][electrum], [Fountain][fountain], [Galoy][galoy], [Geyser][geyser], [LifPay][lifpay], [LNbits][lnbits], [LNLink][lnlink], [LNPay.co][lnpay], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Machankura][machankura], [Phoenix][phoenix], [Pouch Lite][pouchlite], [Pouch.ph][pouchph], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
-| [07][07] | `hostedChannelRequest` base spec.                           | [SimpleBitcoinWallet][sbw] |
+| [07][07] | `hostedChannelRequest` base spec.                           | [SimpleBitcoinWallet][sbw], [OpenBitcoinWallet][OBW] |
 | [08][08] | Fast `withdrawRequest`.                                     | [cliché][cliche], [@lntxbot][lntxbot], [SimpleBitcoinWallet][sbw], [ZBD Extension][zbd] |
 | [09][09] | `successAction` field for `payRequest`.                     | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [LNbits][lnbits], [@lntxbot][lntxbot], [LightningTipBot][ltb], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [10][10] | `aes` success action in `payRequest`.                       | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [cliché][cliche], [coinos][coinos], [LNbits][lnbits], [@lntxbot][lntxbot], [Phoenix][phoenix], [ShockWallet][shockwallet], [SimpleBitcoinWallet][sbw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [Zeus][zeus] |
@@ -48,6 +48,7 @@ These are all the individual documents describing each small piece of protocol t
 [ltb]: https://ln.tips
 [machankura]: https://8333.mobi
 [muun]: https://muun.com
+[OBW]: https://darthcoin.substack.com/p/obw-open-bitcoin-wallet
 [phoenix]: https://phoenix.acinq.co
 [pouchlite]: https://pouch.ph/lite
 [pouchph]: https://pouch.ph
