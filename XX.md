@@ -66,7 +66,7 @@ Please note that the `callback` property is optional in this variant. If specifi
 
 #### NAddr example
 
-Same as nevent, except that scanning for event requires using kind, author, and `d` identifier. 
+Same as nevent, except that scanning for event requires using kind, author, and `d` identifier. The benefits of using naddr over nevent, is that it allows you to update the parameters without needing to issue a new lnurl
 
 
 ### Npub can also be used using the identical flow of `nprofile`, though no relay can be provided to guide the wallet where to connect to and would be less likely to find the event.
