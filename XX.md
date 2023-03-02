@@ -1,82 +1,70 @@
-LUD-XX: LNURL Over Nostr.
-==============================================
+LUD-XX: LNURL Over Nostr
 
-`author: kukks`
+Author: kukks
 
 ---
 
-## Using LNURL over Nostr
+## Introduction
 
-Many opponents of LNURL always point to the DNS requirement of LNURL as its biggest weakness, as it makes wallets require a publicly accessible HTTP endpoint, often resulting in centralized custodial solutions offering dominantly offering LNURL support.
+LNURL has a requirement for DNS, which some see as a major weakness, as it can lead to centralized solutions. This LUD offers an alternative to LNURL by using [Nostr](https://github.com/nostr-protocol/nostr), which does not require an HTTP server.
 
-This LUD presents an alternative, where neither `SERVICE` nor `WALLET` requires even an HTTP server, using [Nostr](https://github.com/nostr-protocol).
+## LNURL over Nostr
 
-By utilizing [NIP-04](https://github.com/nostr-protocol/nips/blob/master/04.md)), [NIP-19](https://github.com/nostr-protocol/nips/blob/master/19.md)), [NIP-21](https://github.com/nostr-protocol/nips/blob/master/21.md)), and [NIP-33](https://github.com/nostr-protocol/nips/blob/master/33.md)), we can broadcast lnurl parameters and have its callbacks trigger the respective specification.
+By using Nostr [NIP-04](https://github.com/nostr-protocol/nips/blob/master/04.md), [NIP-19](https://github.com/nostr-protocol/nips/blob/master/19.md), [NIP-21](https://github.com/nostr-protocol/nips/blob/master/21.md), it is possible to broadcast LNURL parameters and trigger the relevant specifications. This can be done without requiring an HTTP server for either the service or wallet.
 
-  ### Various NIP19 scenarios
-  
-  NIP19 offers various note options that can point to public keys (`nprofile`), specific events (`nevent`), or parameters of a particular event (`naddr`). All 3 can be used to encode sufficient data to form a communication line for LNURL LUD-01 to function. We will also prefix with the uri `nostr:` scheme from NIP-21 to stay uri compliant within LNURL.
+### Using NIP-19 for LNURL
 
-#### Nprofile example
-When using `nprofile` for LNURL, it is assumed that the pubkey is exclusive for this lnurl usage.
+NIP-19 has several options, but for this proposal, we will focus on "nprofile," which includes a public key and relay hints. This is sufficient to establish a communication line for LNURL [LUD-01](01.md)  to function.
 
-* Generate a new key for nostr: `b7226fb958fc69906a20ee5029bb15500f92f47136a5a4fff653a1186cc4ef3b`
-* Derive its public key: `fce2b7c9aa3019e65e808f47fe8cf99ae465103737f294a0444e6c5b53dee0c7`
-* Create nprofile (specifying `wss://r.x.com` as a relay hint) `nprofile1qqs0ec4hex4rqx0xt6qg73l73nue4er9zqmn0u555pzyumzm200wp3cpp4mhxue69uhhytnc9e3k7mgj4um4e`
-* Create nip21 uri : `nostr:nprofile1qqs0ec4hex4rqx0xt6qg73l73nue4er9zqmn0u555pzyumzm200wp3cpp4mhxue69uhhytnc9e3k7mgj4um4e`
-* Encode it in bech32 as per LUD01 `lnurl1dehhxarj8fh8qun0ve5kcef3w9chxvr9vv6xsetcx3e8z7ps0p6rvut8xuekcdende6k2dr9wguh5utddcc82df4x4c857t4d4ax6v3sxpmhqvmrwpcrgmtg0p6k2d3ew45xs7t5de3njefndvmk6em2x36k6dr9ynmp4m`
-* or as a url as per LUD17 `lnurlp:nprofile1qqs0ec4hex4rqx0xt6qg73l73nue4er9zqmn0u555pzyumzm200wp3cpp4mhxue69uhhytnc9e3k7mgj4um4e`
+#### Example of Nprofile
+
+When using nprofile for LNURL, it is assumed that the public key is exclusive to this LNURL usage. Here are the steps to create a nprofile:
+
+1. Generate a new key for Nostr: `b7226fb958fc69906a20ee5029bb15500f92f47136a5a4fff653a1186cc4ef3b`.
+2. Derive its public key: `fce2b7c9aa3019e65e808f47fe8cf99ae465103737f294a0444e6c5b53dee0c7`.
+3. Create nprofile specifying `wss://r.x.com` as a relay hint: `nprofile1qqs0ec4hex4rqx0xt6qg73l73nue4er9zqmn0u555pzyumzm200wp3cpp4mhxue69uhhytnc9e3k7mgj4um4e`.
+4. Create a NIP-21 URI: `nostr:nprofile1qqs0ec4hex4rqx0xt6qg73l73nue4er9zqmn0u555pzyumzm200wp3cpp4mhxue69uhhytnc9e3k7mgj4um4e`.
+5. Encode it in bech32 as per [LUD-01](01.md) `lnurl1dehhxarj8fh8qun0ve5kcef3w9chxvr9vv6xsetcx3e8z7ps0p6rvut8xuekcdende6k2dr9wguh5utddcc82df4x4c857t4d4ax6v3sxpmhqvmrwpcrgmtg0p6k2d3ew45xs7t5de3njefndvmk6em2x36k6dr9ynmp4m`
+6. Alternatively, use a URL as per [LUD-17](17.md): `lnurlp:nprofile1qqs0ec4hex4rqx0xt6qg73l73nue4er9zqmn0u555pzyumzm200wp3cpp4mhxue69uhhytnc9e3k7mgj4um4e`.
 
 You can now advertise this LNURL.
 
-* Wallet scans/loads LNURL
-* Wallet connects to the relay specified in nprofile
-* Wallet creates a new key for nostr and send a NIP4 to pubkey specified in nprofile, with empty content or a randomly generated string (to discuss)
-* Wallet watches for a reply to event id created in previous step from nprofile pubkey
-* Service creates a NIP4 event replying to wallet nostr event, with json parameters. In this case 
-```
+### The Flow
+
+1. The wallet scans/loads the LNURL.
+2. The wallet connects to the relay specified in nprofile.
+3. The wallet creates a new key for Nostr and sends a NIP-4 to the public key specified in nprofile, with empty content or a randomly generated string.
+4. The wallet watches for a reply to the event ID created in the previous step from the nprofile public key.
+5. The service creates a NIP-4 event replying to the wallet Nostr event, with JSON parameters. For example:
+```json
 {
-  "callback": "nostr:nprofile1qqs0ec4hex4rqx0xt6qg73l73nue4er9zqmn0u555pzyumzm200wp3cpp4mhxue69uhhytnc9e3k7mgj4um4e",
-  "metadata": "[[\"text/plain\",\"hello world\"]]",
-  "tag": "payRequest",
-  "minSendable": 1000,
-  "maxSendable": 1000000,
-  "commentAllowed": 200
+"callback": "nostr:nprofile1qqs0ec4hex4rqx0xt6qg73l73nue4er9zqmn0u555pzyumzm200wp3cpp4mhxue69uhhytnc9e3k7mgj4um4e",
+"metadata": "[["text/plain","hello world"]]",
+"tag": "payRequest",
+"minSendable": 1000,
+"maxSendable": 1000000,
+"commentAllowed": 200
 }
 ```
-Please note that the `callback` property is optional in this variant. If specified that next step is addressed to it, else it is addressed to service nostr event itself.
-* Wallet detects the event, reads parameters, and generates the query string parameters in the same format as usual, meaning `amount=1010&comment=whatever`
-* Wallet creates a new nostr event, with the query string parameters as its content. and replies to either the wallet nostr event, or to the callback nostr note definition. This callback helps prevent metadata leakage of public lnurl usage.
-* Service detects event, and send the lnurl response json back in NIP4 as a reply.
-* Wallet handles it as per lnurl specs
+Note that the `callback` property is optional in this variant. If specified, the next step is addressed to it; otherwise, it is addressed to the same Nostr LNURL.
+6. The wallet detects the event, reads the parameters, and generates the query string parameters in the same format as usual. For example: `amount=1010&comment=whatever`
+7. The wallet creates a new NIP-4 Nostr event with the query string parameters as its content and replies to either the wallet Nostr event or the callback Nostr note definition. This callback helps prevent metadata leakage of public LNURL usage. Tagging the previous event from the service is also optional and helps reduce the metadata leakage.
+8. The service detects the event and sends the LNURL response JSON back in a NIP-4 reply.
+9. The wallet handles it as per LNURL specs.
 
-#### NEvent example
-* Service creates a nostr event, where its content is the lnurl json, with event id being `c0e9e10110659220b25f83961d297194e596d2188943153918663d4904c478c7`
-* Services encodes it to nevent, `nevent1qqsvp60pqygxty3qkf0c89sa99cefevk6gvgjsc48yvxv02fqnz833cpp4mhxue69uhhytnc9e3k7mgalulyu` 
-* Create nip21 uri : `nostr:nevent1qqsvp60pqygxty3qkf0c89sa99cefevk6gvgjsc48yvxv02fqnz833cpp4mhxue69uhhytnc9e3k7mgalulyu`
-* Encode to lnurl bech32 or LUD17
-* Wallet scans/loads LNURL
-* Wallet connects to the relay specified in nevent
-* Wallet creates a new key for nostr
-* Wallet scans for event with id from nevent
-* Wallet detects the event, reads parameters, and generates the query string parameters in the same format as usual, meaning `amount=1010&comment=whatever`
-* Wallet creates a new nostr event, with the query string parameters as its content. and replies to either the wallet nostr event, or to the callback nostr note definition. This callback helps prevent metadata leakage of public lnurl usage.
-* Service detects event and sends the lnurl response json back in NIP4 as a reply.
-* Wallet handles it as per lnurl specs
+### Using Npub
 
-#### NAddr example
+Npub can also be used using the same flow as nprofile, but without providing a relay to guide the wallet where to connect. Supporting only one note reduces overall complexity.
 
-Same as nevent, except that scanning for event requires using kind, author, and `d` identifier. The benefits of using naddr over nevent, is that it allows you to update the parameters without needing to issue a new lnurl
+### The Callback Property
 
+The `callback` (or other similar properties found in lnurl-auth) property is optional. If left out, the callback property is the original nostr lnurl URI. If included, it could be set to an `nprofile` note. This allows the service to decouple the LNURL callback events, which works well when the LNURL is of npub or nprofile and reduces possible analysis of usage metrics.
 
-### Npub can also be used using the identical flow of `nprofile`, though no relay can be provided to guide the wallet where to connect to and would be less likely to find the event.
+### Asynchronous
 
-### Callback property
+As Nostr is asynchronous in nature, lnurl protocols also become asynchronous. When an lnurl "provider" is offline, a lnurl "taker" may still send his request. Once the provider is back online, they can query all events relating to the lnurl pubkey that were broadcast since they last processed.
 
-As mentioned, the `callback` (or other similar properties found for example in lnurl-auth) property is optional, and if left out, the callback mechanism is to tag the event that gave the parameters. 
-If however it is included, it could be set to an `nevent`, `nprofile`, `naddr`, `npub`. If the note had a public key, it would tag it in the event, if it had an event, it would tag it. This allows the Service to decouple the lnurl callback events, which works well when the lnurl is of npub or nprofile and reduces possible analysis of usage metrics.
+## To Discuss
 
+Should we replace NIP-4 with an ephemeral event? (this voids the async functionality mentioned above)
 
-### To Discuss
-* Replace NIP4 with an ephemeral event?
-* Should we reduce the options as many duplicate functionality? To what?
