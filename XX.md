@@ -39,7 +39,7 @@ You can now advertise this LNURL.
 ```json
 {
 "callback": "nostr:nprofile1qqs0ec4hex4rqx0xt6qg73l73nue4er9zqmn0u555pzyumzm200wp3cpp4mhxue69uhhytnc9e3k7mgj4um4e",
-"metadata": "[["text/plain","hello world"]]",
+"metadata": "[[\"text/plain\",\"hello world\"]]",
 "tag": "payRequest",
 "minSendable": 1000,
 "maxSendable": 1000000,
