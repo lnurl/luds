@@ -23,7 +23,7 @@ Payers' clients would check the verification hash against the SHA1 hash of the d
 
 In a way this ruins the human readability of LN addresses, but it will be optional, even for users who want to use these types of services. For fully custodial services, this is redundant. For self-hosted users, this is largely unnecessary. Furthermore in the context of something like Nostr zaps, the UX is hardly degraded, if at all.
 
-This solution does not explicitly work with blinded paths as the final destination is not embedded in the invoice, but perhaps the introduction point can be used for a similar effect.
+This solution does not explicitly work with blinded paths as the final destination is not embedded in the invoice.
 
 ## Acknowledgements
 
