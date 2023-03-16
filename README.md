@@ -94,7 +94,7 @@ Services
 | [LNbits.com](https://lnbits.com/)                                                                   | [01][01] [03][03] [04][04] [14][14] [15][15]                   |
 | [Lightning.Video](https://lightning.video/)                                                         | [01][01] [04][04]                                              |
 | [Lightning Gifts](https://lightning.gifts/)                                                         | [01][01] [03][03] [06][06] [12][12]                            |
-| [LightningTipBot](https://ln.tips/)                                                                 | [01][01] [03][03] [06][06] [09][09] [12][12] [16][16]                   |
+| [LightningTipBot](https://ln.tips/)                                                                 | [01][01] [03][03] [06][06] [09][09] [12][12] [16][16] [18][18] |
 | [Lnurl-Pay Chat](https://chat.blixtwallet.com/)                                                     | [01][01] [06][06] [11][11] [12][12] [18][18]                   |
 | [Loft](https://loft.trade/)                                                                         | [01][01] [03][03] [04][04]                                     |
 | [Machankura](https://8333.mobi)                                                                     | [01][01] [06][06] [16][16]                                     |
