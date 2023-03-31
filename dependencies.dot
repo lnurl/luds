@@ -19,7 +19,7 @@ digraph {
   18[label="18 payer identity"]
   19[label="19 mutual discoverability"]
   20[label="20 long description"]
-  21[label="21 pay in a different currency"]
+  21[label="21 pay in local unit of account"]
 
   { 01 17 } -> { 02 03 04 06 07 } // base protocols depend on URL format
   04 -> { 05 13 } // lnurl-auth seed generation methods
@@ -31,7 +31,7 @@ digraph {
   06 -> 16 // paying to user@domain.com
   06 -> 18 // lnurl-pay payer ids
   06 -> 20 // long description
-  06 -> 21 // pay in a different currency
+  06 -> 21 // pay in local unit of account
   { 04 16 } -> 18 [style="dotted"] // loose relationship of payer id with lnurl-auth and lightning address
   { 06 14 } -> 19 // mutually discoverable pay and withdraw links
 }
