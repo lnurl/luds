@@ -25,7 +25,7 @@ These are all the individual documents describing each small piece of protocol t
 | [18][18] | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [cliché][cliche], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [19][19] | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [CoinCorner][coincorner], [SimpleBitcoinWallet][sbw] |
 | [20][20] | Long payment description for pay protocol.                  | [Alby][alby], [Blixt][blixt], [Clams][clams], [cliché][cliche], [Phoenix][phoenix] |
-| [21][21] | Pay in local unit of account.                               | [Pouch.ph][pouchph]
+| [21][21] | Pay in local unit of account                                | [Pouch.ph][pouchph]
 
 [alby]: https://github.com/getAlby/lightning-browser-extension
 [bos]: https://github.com/alexbosworth/balanceofsatoshis
