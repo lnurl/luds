@@ -22,7 +22,7 @@ These are all the individual documents describing each small piece of protocol t
 | [15][15] | `balanceNotify`: services hurrying up the withdraw process. | [LNbits][lnbits] |
 | [16][16] | Paying to static internet identifiers.                      | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [BTCPayServer][btcp], [Clams][clams], [cliché][cliche], [CoinCorner][coincorner], [coinos][coinos], [Fountain][fountain], [LifPay][lifpay], [LNbits][lnbits], [LNLink][lnlink], [LightningTipBot][ltb], [Machankura][machankura], [Phoenix][phoenix], [Pouch.ph][pouchph], [SimpleBitcoinWallet][sbw], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [17][17] | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Alby][alby], [Blixt][blixt], [BTCPayServer][btcp], [Clams][clams], [cliché][cliche], [CoinCorner][coincorner], [ZBD Discord][zbd], [ZBD Telegram][zbd] | [Wallet of Satoshi][wos] |
-| [18][18] | Payer identity in `payRequest` protocol.                    | [Blixt][blixt], [cliché][cliche], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
+| [18][18] | Payer identity in `payRequest` protocol.                    | [Alby][alby], [Blixt][blixt], [cliché][cliche], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [19][19] | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [CoinCorner][coincorner], [SimpleBitcoinWallet][sbw] |
 | [20][20] | Long payment description for pay protocol.                  | [Alby][alby], [Blixt][blixt], [Clams][clams], [cliché][cliche], [Phoenix][phoenix] |
 
