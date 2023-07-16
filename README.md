@@ -24,7 +24,7 @@ These are all the individual documents describing each small piece of protocol t
 | [17][17] | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [BTCPayServer][btcp], [Clams][clams], [cliché][cliche], [CoinCorner][coincorner], [ZBD Discord][zbd], [ZBD Telegram][zbd] | [Wallet of Satoshi][wos] |
 | [18][18] | Payer identity in `payRequest` protocol.                    | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [cliché][cliche], [OBW][obw], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [19][19] | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [CoinCorner][coincorner], [OBW][obw] |
-| [20][20] | Long payment description for pay protocol.                  | [Alby][alby], [Blixt][blixt], [Clams][clams], [cliché][cliche], [Phoenix][phoenix] |
+| [20][20] | Long payment description for pay protocol.                  | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [Clams][clams], [cliché][cliche], [Phoenix][phoenix] |
 
 [alby]: https://github.com/getAlby/lightning-browser-extension
 [bitbanana]: https://bitbanana.app
