@@ -25,7 +25,7 @@ These are all the individual documents describing each small piece of protocol t
 | [18][18] | Payer identity in `payRequest` protocol.                    | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [cliché][cliche], [OBW][obw], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [19][19] | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [CoinCorner][coincorner], [OBW][obw] |
 | [20][20] | Long payment description for pay protocol.                  | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [Clams][clams], [cliché][cliche], [Mash][mash], [OneKey][onekey], [Phoenix][phoenix] |
-| [21][21] | pinLimit for withdrawRequest                                | [Bolt Card Wallet][boltcardwallet] |
+| [21][21] | pinLimit for withdrawRequest                                | [Bolt Card Wallet][boltcardwallet], [Bolt Card PoS][boltcardwallet] |
 
 [alby]: https://github.com/getAlby/lightning-browser-extension
 [bitbanana]: https://bitbanana.app
