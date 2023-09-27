@@ -7,27 +7,27 @@ These are all the individual documents describing each small piece of protocol t
 |----------|-------------------------------------------------------------|---------|
 | [01][01] | Base LNURL encoding and decoding.                           | _all the ones listed below_ |
 | [02][02] | `channelRequest` base spec.                                 | [Balance of Satoshis][bos], [BitBanana][bitbanana], [Blixt][blixt], [Breez][breez], [cliché][cliche], [OBW][obw], [Zap Android][zap], [Zap Desktop][zap], [Zeus][zeus] |
-| [03][03] | `withdrawRequest` base spec.                                | [Balance of Satoshis][bos], [BitBanana][bitbanana], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [Clams][clams], [CoinCorner][coincorner], [coinos][coinos], [Fountain][fountain], [LifPay][lifpay], [LNbits][lnbits], [LightningTipBot][ltb], [Muun][muun], [Phoenix][phoenix], [Pouch.ph][pouchph], [ShockWallet][shockwallet], [OBW][obw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [Zap Desktop][zap], [Zap iOS][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
-| [04][04] | Auth base spec.                                             | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [Breez][breez], [BlueWallet][bluewallet], [Clams][clams], [coinos][coinos], [Geyser][geyser], [LifPay][lifpay], [LNbits][lnbits], [LightningTipBot][ltb], [Phoenix][phoenix], [SeedAuth][seedauth], [SeedAuthExtension][sae], [OBW][obw], [Sparrow Wallet][sparrow], [ThunderHub][thunderhub], [Zap Desktop][zap], [Zeus][zeus] |
-| [05][05] | BIP32-based seed generation for auth protocol.              | [coinos][coinos] [OBW][obw] |
-| [06][06] | `payRequest` base spec.                                     | [Alby][alby], [Balance of Satoshis][bos], [BitBanana][bitbanana], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [BTCPayServer][btcp], [Clams][clams], [cliché][cliche], [CoinCorner][coincorner], [coinos][coinos], [Electrum][electrum], [Fountain][fountain], [Galoy][galoy], [Geyser][geyser], [LifPay][lifpay], [LNbits][lnbits], [LNLink][lnlink], [LNPay.co][lnpay], [LightningTipBot][ltb], [Machankura][machankura], [Phoenix][phoenix], [Pouch.ph][pouchph], [ShockWallet][shockwallet], [OBW][obw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [03][03] | `withdrawRequest` base spec.                                | [Alby][alby], [Balance of Satoshis][bos], [BitBanana][bitbanana], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [Clams][clams], [CoinCorner][coincorner], [coinos][coinos], [Fountain][fountain], [LifPay][lifpay], [LNbits][lnbits], [LightningTipBot][ltb], [Mash][mash], [Muun][muun], [Phoenix][phoenix], [Pouch.ph][pouchph], [ShockWallet][shockwallet], [OBW][obw], [OneKey][onekey], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [Zap Desktop][zap], [Zap iOS][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [04][04] | Auth base spec.                                             | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [Breez][breez], [BlueWallet][bluewallet], [Clams][clams], [coinos][coinos], [Geyser][geyser], [LifPay][lifpay], [LNbits][lnbits], [LightningTipBot][ltb], [Phoenix][phoenix], [SeedAuth][seedauth], [SeedAuthExtension][sae], [OBW][obw], [OneKey][onekey], [Sparrow Wallet][sparrow], [ThunderHub][thunderhub], [Zap Desktop][zap], [Zeus][zeus] |
+| [05][05] | BIP32-based seed generation for auth protocol.              | [Alby][alby], [coinos][coinos], [OBW][obw], [OneKey][onekey], [Phoenix][phoenix] |
+| [06][06] | `payRequest` base spec.                                     | [Alby][alby], [Balance of Satoshis][bos], [BitBanana][bitbanana], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [BTCPayServer][btcp], [Clams][clams], [cliché][cliche], [CoinCorner][coincorner], [coinos][coinos], [Electrum][electrum], [Fountain][fountain], [Galoy][galoy], [Geyser][geyser], [LifPay][lifpay], [LNbits][lnbits], [LNLink][lnlink], [LNPay.co][lnpay], [LightningTipBot][ltb], [Machankura][machankura], [Mash][mash], [Phoenix][phoenix], [Pouch.ph][pouchph], [ShockWallet][shockwallet], [OBW][obw], [OneKey][onekey], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [07][07] | `hostedChannelRequest` base spec.                           | [OBW][obw] |
 | [08][08] | Fast `withdrawRequest`.                                     | [cliché][cliche], [OBW][obw], [ZBD Extension][zbd] |
-| [09][09] | `successAction` field for `payRequest`.                     | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [Clams][clams], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [LNbits][lnbits], [LightningTipBot][ltb], [Phoenix][phoenix], [ShockWallet][shockwallet], [OBW][obw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [09][09] | `successAction` field for `payRequest`.                     | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [Clams][clams], [cliché][cliche], [coinos][coinos], [Fountain][fountain], [LNbits][lnbits], [LightningTipBot][ltb], [Phoenix][phoenix], [ShockWallet][shockwallet], [OBW][obw], [OneKey][onekey], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [10][10] | `aes` success action in `payRequest`.                       | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [Clams][clams], [cliché][cliche], [coinos][coinos], [LNbits][lnbits], [Phoenix][phoenix], [ShockWallet][shockwallet], [OBW][obw], [ThunderHub][thunderhub], [Wallet of Satoshi][wos], [Zap Android][zap], [Zeus][zeus] |
 | [11][11] | Disposable and storeable `payRequest`s.                     | [Blixt][blixt], [OBW][obw], [ZBD Extension][zbd] |
-| [12][12] | Comments in `payRequest`.                                   | [Alby][alby], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [Clams][clams], [Fountain][fountain], [LNbits][lnbits], [LightningTipBot][ltb], [Phoenix][phoenix], [ThunderHub][thunderhub],  [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [12][12] | Comments in `payRequest`.                                   | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [BlueWallet][bluewallet], [Breez][breez], [Clams][clams], [Fountain][fountain], [LNbits][lnbits], [LightningTipBot][ltb], [OneKey][onekey], [Phoenix][phoenix], [ThunderHub][thunderhub],  [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
 | [13][13] | `signMessage`-based seed generation for auth protocol.      | [Alby][alby], [Balance of Satoshis][bos], [Blixt][blixt], [Clams][clams], [Zeus][zeus] |
 | [14][14] | `balanceCheck`: reusable `withdrawRequest`s.                | [Alby][alby], [Blixt][blixt], [LNbits][lnbits], |
 | [15][15] | `balanceNotify`: services hurrying up the withdraw process. | [LNbits][lnbits] |
-| [16][16] | Paying to static internet identifiers.                      | [Alby][alby], [Balance of Satoshis][bos], [BitBanana][bitbanana], [Blixt][blixt], [BTCPayServer][btcp], [Clams][clams], [cliché][cliche], [CoinCorner][coincorner], [coinos][coinos], [Fountain][fountain], [LifPay][lifpay], [LNbits][lnbits], [LNLink][lnlink], [LightningTipBot][ltb], [Machankura][machankura], [Phoenix][phoenix], [Pouch.ph][pouchph], [OBW][obw], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
-| [17][17] | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Alby][alby], [Blixt][blixt], [BTCPayServer][btcp], [Clams][clams], [cliché][cliche], [CoinCorner][coincorner], [ZBD Discord][zbd], [ZBD Telegram][zbd] | [Wallet of Satoshi][wos] |
-| [18][18] | Payer identity in `payRequest` protocol.                    | [Alby][alby], [Blixt][blixt], [cliché][cliche], [OBW][obw], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
+| [16][16] | Paying to static internet identifiers.                      | [Alby][alby], [Balance of Satoshis][bos], [BitBanana][bitbanana], [Blixt][blixt], [BTCPayServer][btcp], [Clams][clams], [cliché][cliche], [CoinCorner][coincorner], [coinos][coinos], [Fountain][fountain], [LifPay][lifpay], [LNbits][lnbits], [LNLink][lnlink], [LightningTipBot][ltb], [Machankura][machankura], [Mash][mash], [Phoenix][phoenix], [Pouch.ph][pouchph], [OBW][obw], [OneKey][onekey], [Zap Android][zap], [ZBD Discord][zbd], [ZBD Extension][zbd], [ZBD Telegram][zbd], [ZEBEDEE][zbd], [Zeus][zeus] |
+| [17][17] | Scheme prefixes and raw (non bech32-encoded) URLs.          | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [BTCPayServer][btcp], [Clams][clams], [cliché][cliche], [CoinCorner][coincorner], [Mash][mash], [OneKey][onekey], [ZBD Discord][zbd], [ZBD Telegram][zbd] | [Wallet of Satoshi][wos] |
+| [18][18] | Payer identity in `payRequest` protocol.                    | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [cliché][cliche], [OBW][obw], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [19][19] | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [CoinCorner][coincorner], [OBW][obw] |
-| [20][20] | Long payment description for pay protocol.                  | [Alby][alby], [Blixt][blixt], [Clams][clams], [cliché][cliche], [Phoenix][phoenix] |
+| [20][20] | Long payment description for pay protocol.                  | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [Clams][clams], [cliché][cliche], [Mash][mash], [OneKey][onekey], [Phoenix][phoenix] |
 
 [alby]: https://github.com/getAlby/lightning-browser-extension
-[bitbanana]: https://github.com/michaelWuensch/BitBanana
+[bitbanana]: https://bitbanana.app
 [bos]: https://github.com/alexbosworth/balanceofsatoshis
 [blixt]: https://blixtwallet.github.io
 [bluewallet]: https://bluewallet.io
@@ -47,12 +47,13 @@ These are all the individual documents describing each small piece of protocol t
 [lnpay]: https://lnpay.co
 [ltb]: https://ln.tips
 [machankura]: https://8333.mobi
+[mash]: https://mash.com/consumer-experience/
 [muun]: https://muun.com
 [OBW]: https://darthcoin.substack.com/p/obw-open-bitcoin-wallet
+[OneKey]: https://onekey.so
 [phoenix]: https://phoenix.acinq.co
 [pouchlite]: https://pouch.ph/lite
 [pouchph]: https://pouch.ph
-
 [sae]: https://github.com/pseudozach/seedauthextension
 [sbw]: https://lightning-wallet.com
 [seedauth]: https://seedauth.etleneum.com/
@@ -96,6 +97,7 @@ Services
 | [Lnurl-Pay Chat](https://chat.blixtwallet.com/)                                                     | [01][01] [06][06] [11][11] [12][12] [18][18]                   |
 | [Loft](https://loft.trade/)                                                                         | [01][01] [03][03] [04][04]                                     |
 | [Machankura](https://8333.mobi)                                                                     | [01][01] [06][06] [16][16]                                     |
+| [Mash](https://mash.com)                                                                            | [01][01] [03][03] [06][06] [16][16]                                     |
 | [Microlancer](https://microlancer.io/)                                                              | [01][01] [03][03] [14][14]                                     |
 | [OpenNode](https://developers.opennode.com/reference/initiate-lnurl-withdrawal)                     | [01][01] [03][03]                                              |
 | [Paywall](https://paywall.link)                                                                     | [01][01] [03][03]                                              |
