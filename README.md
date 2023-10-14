@@ -25,6 +25,7 @@ These are all the individual documents describing each small piece of protocol t
 | [18][18] | Payer identity in `payRequest` protocol.                    | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [cliché][cliche], [OBW][obw], [ZBD Discord][zbd], [ZBD Telegram][zbd] |
 | [19][19] | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [CoinCorner][coincorner], [OBW][obw] |
 | [20][20] | Long payment description for pay protocol.                  | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [Clams][clams], [cliché][cliche], [Mash][mash], [OneKey][onekey], [Phoenix][phoenix] |
+| [21][21] | Onchain Address in `payRequest` Response.                   | |
 
 [alby]: https://github.com/getAlby/lightning-browser-extension
 [bitbanana]: https://bitbanana.app
@@ -214,6 +215,7 @@ Tools for developers
 [18]: 18.md
 [19]: 19.md
 [20]: 20.md
+[21]: 21.md
 
 Dependency Tree
 ---------------
