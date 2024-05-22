@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@Thales-de-Miles
+    - uses: actions/checkout@v1
 
     - name: configure
       run: ./configure
