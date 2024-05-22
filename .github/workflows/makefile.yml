@@ -3,9 +3,9 @@ name: Makefile CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "luds" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "luds" ]
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@Thales-de-Miles
 
     - name: configure
       run: ./configure
