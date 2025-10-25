@@ -26,6 +26,7 @@ These are all the individual documents describing each small piece of protocol t
 | [19][19] | Pay link discoverable from withdraw link.                   | [Blixt][blixt], [CoinCorner][coincorner], [OBW][obw], [LifPay][lifpay], [LNbits][lnbits] |
 | [20][20] | Long payment description for pay protocol.                  | [Alby][alby], [BitBanana][bitbanana], [Blixt][blixt], [Clams][clams], [cliché][cliche], [Mash][mash], [OneKey][onekey], [Phoenix][phoenix], [Piggy][piggy] |
 | [21][21] | `verify` LNURL-pay payments                                 | [Alby][alby], [LifPay][lifpay], [Mutiny][mutiny], [Stacker.News][stacker.news], [Zaprite][zaprite] |
+| [22][22] | Request user's Lightning address                            | _implementation pending_ |
 
 [alby]: https://github.com/getAlby/lightning-browser-extension
 [bipa]: https://bipa.app
@@ -227,6 +228,7 @@ Tools for developers
 [19]: 19.md
 [20]: 20.md
 [21]: 21.md
+[22]: 22.md
 
 Dependency Tree
 ---------------
