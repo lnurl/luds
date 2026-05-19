@@ -15,8 +15,13 @@ from the user before authorizing a withdrawal at or above a given amount.
 and no screen, where a lost or stolen device could otherwise be drained without
 the owner's knowledge.
 
-This extension is **fully backward-compatible**: wallets that do not implement
-`pinLimit` simply ignore the field and proceed as defined in LUD-03.
+**For services:** `pinLimit` is optional to deploy. Services that do not set it
+behave exactly as defined in LUD-03.
+
+**For wallets:** If `pinLimit` is present in the response and `amount >= pinLimit`,
+PIN entry is **mandatory**. A wallet or terminal that does not support PIN entry
+will send the callback without a `pin` parameter — the `SERVICE` MUST reject
+that request. There is no fallback or bypass once the threshold is met.
 
 ---
 
@@ -124,8 +129,11 @@ https://ln-example.com/withdraw?k1=abc123&pr=lnbc...&pin=1234
 
 ## Service Implementation Requirements
 
-1. If `pinLimit` is present in the response, the `SERVICE` MUST validate the
-   `pin` query parameter for withdrawals at or above the threshold.
+1. If `pinLimit` is present in the response and the withdrawal amount is at or
+   above the threshold, the `SERVICE` MUST require the `pin` query parameter.
+   If `pin` is absent or invalid, the `SERVICE` MUST reject the request with
+   an error response. There is no fallback — terminals without PIN support will
+   be rejected.
 2. The `SERVICE` MUST invalidate the LNURL link after **3 consecutive PIN
    failures** to prevent brute-force attacks.
 3. This document makes no assumption about whether PINs are static or one-time
