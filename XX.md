@@ -171,15 +171,17 @@ Both follow the standard LUD-03 error format:
 
 ## Known Implementations
 
-The following implementations exist prior to this LUD being assigned a number,
-demonstrating production readiness:
+The following open-source implementations exist prior to this LUD being assigned
+a number, demonstrating production readiness:
 
-| Project | Role | Notes |
+| Project | Role | Evidence |
 |---|---|---|
-| [Bolt Card Wallet](https://github.com/boltcard/boltcard-wallet) | Wallet | Full support |
-| [Bolt Card PoS](https://github.com/boltcard/boltcard-pos) | Wallet/PoS | Full support |
-| [SwissBitcoinPay boltcard-tools](https://github.com/SwissBitcoinPay/boltcard-tools-terminal) | Service | Full support |
-| [LifPay](https://lifpay.me) | Service | Supports 4–12 digit PINs |
+| [boltcard-tools-terminal](https://github.com/SwissBitcoinPay/boltcard-tools-terminal) | PoS terminal | [PR #33](https://github.com/SwissBitcoinPay/boltcard-tools-terminal/pull/33) merged 2024-05-26: PIN pad appears when `amount >= pinLimit`, sends 4-digit PIN |
+| [boltcard-lndhub](https://github.com/boltcard/boltcard-lndhub) | Service/backend | Release v0.2.0 (2023-08-06): "PIN feature added" |
+
+Additional projects are reported to implement PIN support in PR #200 discussion
+(boltcard-wallet, LifPay) but could not be independently verified via public
+source at the time of writing.
 
 ---
 
