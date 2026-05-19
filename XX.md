@@ -52,31 +52,34 @@ intended withdrawal amount is **equal to or greater than** `pinLimit`, the
 ```mermaid
 sequenceDiagram
     actor User
-    participant Wallet
+    participant Terminal as Terminal (Wallet)
     participant LN Service
 
-    Wallet->>LN Service: GET decoded LNURL
-    LN Service--)Wallet: withdrawRequest JSON (with optional pinLimit)
+    User->>Terminal: taps NFC device (e.g. Bolt Card)
+    Note over Terminal: reads LNURL from NFC
+    Note over Terminal: decodes LNURL
+
+    Terminal->>LN Service: GET decoded LNURL
+    LN Service--)Terminal: withdrawRequest JSON (with optional pinLimit)
 
     alt pinLimit not present OR amount < pinLimit
-        Wallet->>User: display withdrawal dialog
-        User->>Wallet: confirm amount
-        Wallet->>LN Service: GET callback?k1=<k1>&pr=<invoice>
+        Terminal->>LN Service: GET callback?k1=<k1>&pr=<invoice>
     else amount >= pinLimit
-        Wallet->>User: display withdrawal dialog + PIN entry (show amount)
-        User->>Wallet: confirm amount + enter PIN
-        Wallet->>LN Service: GET callback?k1=<k1>&pr=<invoice>&pin=<pin>
+        LN Service--)Terminal: pinLimit threshold reached
+        Terminal->>User: display amount + PIN entry screen
+        User->>Terminal: enter 4-digit PIN
+        Terminal->>LN Service: GET callback?k1=<k1>&pr=<invoice>&pin=<pin>
     end
 
     alt Success
-        LN Service--)Wallet: {"status": "OK"}
-        Wallet->>User: withdrawal successful
+        LN Service--)Terminal: {"status": "OK"}
+        Terminal->>User: withdrawal successful
     else Wrong PIN
-        LN Service--)Wallet: {"status": "ERROR", "reason": "Invalid PIN"}
-        Wallet->>User: notify failure
-    else Link invalidated
-        LN Service--)Wallet: {"status": "ERROR", "reason": "Card blocked: too many incorrect PIN attempts"}
-        Wallet->>User: notify failure, card is blocked
+        LN Service--)Terminal: {"status": "ERROR", "reason": "Invalid PIN"}
+        Terminal->>User: notify failure (attempts remaining)
+    else Card blocked
+        LN Service--)Terminal: {"status": "ERROR", "reason": "Card blocked: too many incorrect PIN attempts"}
+        Terminal->>User: notify failure, card is blocked
     end
 ```
 
