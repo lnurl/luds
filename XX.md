@@ -1,7 +1,7 @@
 LUD-XX: `pinLimit` for `withdrawRequest`
 ========================================
 
-`author: titusz` `supersedes: PR #200` `discussion: https://github.com/lnurl/luds/issues/NEW`
+`author: titusz` `co-author: AxelHamburch` `supersedes: PR #200` `discussion: https://github.com/lnurl/luds/issues/289`
 
 ---
 
@@ -91,14 +91,14 @@ When a PIN is required, the `WALLET` appends it as a query parameter:
 
 **Example:**
 ```
-https://ln-example.com/withdraw?k1=abc123&pr=lnbc...&pin=123456
+https://ln-example.com/withdraw?k1=abc123&pr=lnbc...&pin=1234
 ```
 
 ---
 
 ## PIN Specification
 
-- **Length:** 4 to 8 digits (numeric only)
+- **Length:** exactly 4 digits (numeric only)
 - **Transmission:** appended to callback URL as plaintext `pin=` parameter
 - **Transport security:** HTTPS is REQUIRED for all callbacks involving `pinLimit`
 - The `WALLET` MUST display the invoice amount on the same screen as the PIN entry
@@ -116,7 +116,7 @@ https://ln-example.com/withdraw?k1=abc123&pr=lnbc...&pin=123456
    PIN before sending the callback.
 2. The `WALLET` MUST NOT auto-propose an amount solely based on `pinLimit`.
 3. The PIN entry screen MUST display the invoice amount.
-4. The `WALLET` MUST support PIN lengths of 4 to 8 digits.
+4. The `WALLET` MUST collect exactly 4 digits as the PIN.
 5. If `pinLimit` is absent, or `amount < pinLimit`, the `WALLET` proceeds per
    LUD-03 without any PIN step.
 
