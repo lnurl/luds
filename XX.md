@@ -147,7 +147,7 @@ https://ln-example.com/withdraw?k1=abc123&pr=lnbc...&pin=1234
 | Condition | `reason` string |
 |---|---|
 | Wrong PIN (attempts remaining) | `"Invalid PIN"` |
-| Link invalidated after 3 failures | `"Link invalidated"` |
+| Link invalidated after 3 failures | `"Card blocked: too many incorrect PIN attempts"` |
 
 Both follow the standard LUD-03 error format:
 ```json
