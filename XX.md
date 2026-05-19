@@ -60,26 +60,33 @@ sequenceDiagram
     Note over Terminal: decodes LNURL
 
     Terminal->>LN Service: GET decoded LNURL
-    LN Service--)Terminal: withdrawRequest JSON (with optional pinLimit)
-
-    alt pinLimit not present OR amount < pinLimit
-        Terminal->>LN Service: GET callback?k1=<k1>&pr=<invoice>
-    else amount >= pinLimit
-        LN Service--)Terminal: pinLimit threshold reached
-        Terminal->>User: display amount + PIN entry screen
-        User->>Terminal: enter 4-digit PIN
-        Terminal->>LN Service: GET callback?k1=<k1>&pr=<invoice>&pin=<pin>
-    end
 
     alt Success
-        LN Service--)Terminal: {"status": "OK"}
-        Terminal->>User: withdrawal successful
-    else Wrong PIN
-        LN Service--)Terminal: {"status": "ERROR", "reason": "Invalid PIN"}
-        Terminal->>User: notify failure (attempts remaining)
-    else Card blocked
-        LN Service--)Terminal: {"status": "ERROR", "reason": "Card blocked: too many incorrect PIN attempts"}
-        Terminal->>User: notify failure, card is blocked
+        LN Service--)Terminal: withdrawRequest JSON (with optional pinLimit)
+        Note over Terminal: creates BOLT-11 invoice
+
+        alt pinLimit not present OR amount < pinLimit
+            Terminal->>LN Service: GET callback?k1=<k1>&pr=<invoice>
+        else amount >= pinLimit
+            Terminal->>User: display amount + PIN entry screen
+            User->>Terminal: enter 4-digit PIN
+            Terminal->>LN Service: GET callback?k1=<k1>&pr=<invoice>&pin=<pin>
+        end
+
+        alt Success
+            LN Service--)Terminal: {"status": "OK"}
+            Terminal--)Terminal: awaits incoming payment
+            Terminal->>User: withdrawal successful
+        else Wrong PIN
+            LN Service--)Terminal: {"status": "ERROR", "reason": "Invalid PIN"}
+            Terminal->>User: notify failure (attempts remaining)
+        else Card blocked
+            LN Service--)Terminal: {"status": "ERROR", "reason": "Card blocked: too many incorrect PIN attempts"}
+            Terminal->>User: notify failure, card is blocked
+        end
+    else Failure
+        LN Service--)Terminal: {"status": "ERROR", "reason": string}
+        Terminal->>User: notifies of unsuccessful withdrawal
     end
 ```
 
@@ -196,4 +203,4 @@ source at the time of writing.
   and unresolved governance questions.
 - This document is a clean resubmission of that work, with updated PIN length
   range, explicit HTTPS requirement, and alignment with the governance discussion
-  in issue #NEW.
+  in issue #289.
