@@ -75,8 +75,8 @@ sequenceDiagram
         LN Service--)Wallet: {"status": "ERROR", "reason": "Invalid PIN"}
         Wallet->>User: notify failure
     else Link invalidated
-        LN Service--)Wallet: {"status": "ERROR", "reason": "Link invalidated"}
-        Wallet->>User: notify failure
+        LN Service--)Wallet: {"status": "ERROR", "reason": "Card blocked: too many incorrect PIN attempts"}
+        Wallet->>User: notify failure, card is blocked
     end
 ```
 
