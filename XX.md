@@ -47,6 +47,25 @@ intended withdrawal amount is **equal to or greater than** `pinLimit`, the
 
 ---
 
+## Interaction Steps
+
+1. User taps an NFC device (e.g. Bolt Card) to a `TERMINAL`. The `TERMINAL` reads
+   and decodes the LNURL.
+2. `TERMINAL` makes a GET request to `LN SERVICE` using the decoded LNURL.
+3. `TERMINAL` receives a JSON response from `LN SERVICE` as defined in LUD-03,
+   optionally extended with `pinLimit`.
+4. `TERMINAL` creates a BOLT-11 invoice for the intended withdrawal amount.
+5. If `pinLimit` is **not present**, or the amount is **below** `pinLimit`:
+   `TERMINAL` sends a GET to `LN SERVICE` with `k1` and `pr` as per LUD-03.
+6. If the amount is **equal to or greater than** `pinLimit`:
+   `TERMINAL` displays the invoice amount and prompts the user for a 4-digit PIN.
+   Once entered, `TERMINAL` sends a GET to `LN SERVICE` with `k1`, `pr`, and `pin`.
+7. `LN SERVICE` validates the PIN (if required) and responds with
+   `{"status": "OK"}` or `{"status": "ERROR", "reason": "..."}`.
+8. On success, `TERMINAL` awaits the incoming Lightning payment.
+
+---
+
 ## Wallet to Service Interaction Flow
 
 ```mermaid
@@ -89,25 +108,6 @@ sequenceDiagram
         Terminal->>User: notifies of unsuccessful withdrawal
     end
 ```
-
----
-
-## Interaction Steps
-
-1. User taps an NFC device (e.g. Bolt Card) to a `TERMINAL`. The `TERMINAL` reads
-   and decodes the LNURL.
-2. `TERMINAL` makes a GET request to `LN SERVICE` using the decoded LNURL.
-3. `TERMINAL` receives a JSON response from `LN SERVICE` as defined in LUD-03,
-   optionally extended with `pinLimit`.
-4. `TERMINAL` creates a BOLT-11 invoice for the intended withdrawal amount.
-5. If `pinLimit` is **not present**, or the amount is **below** `pinLimit`:
-   `TERMINAL` sends a GET to `LN SERVICE` with `k1` and `pr` as per LUD-03.
-6. If the amount is **equal to or greater than** `pinLimit`:
-   `TERMINAL` displays the invoice amount and prompts the user for a 4-digit PIN.
-   Once entered, `TERMINAL` sends a GET to `LN SERVICE` with `k1`, `pr`, and `pin`.
-7. `LN SERVICE` validates the PIN (if required) and responds with
-   `{"status": "OK"}` or `{"status": "ERROR", "reason": "..."}`.
-8. On success, `TERMINAL` awaits the incoming Lightning payment.
 
 ---
 
