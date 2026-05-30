@@ -26,6 +26,7 @@ These are all the individual documents describing each small piece of protocol t
 | [19][19] | Pay link discoverable from withdraw link.                   |
 | [20][20] | Long payment description for pay protocol.                  |
 | [21][21] | `verify` LNURL-pay payments                                 |
+| [23][23] | Request user's Lightning address                            |
 
 Self-hosted
 -----------
@@ -118,6 +119,7 @@ Tools for developers
 [19]: 19.md
 [20]: 20.md
 [21]: 21.md
+[23]: 23.md
 
 Dependency Tree
 ---------------
