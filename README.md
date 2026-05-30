@@ -158,6 +158,7 @@ Self-hosted
 | [OfflineShop](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/offlineshop)  | [01][01] [06][06] [09][09]                                     |
 | [Satdress](https://github.com/fiatjaf/satdress)                                            | [01][01] [06][06] [09][09] [16][16]                            |
 | [Streamer Copilot](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/copilot) | [01][01] [06][06] [12][12]                                     |
+| [electrum-lnurl-server](https://plugins.electrum.org/plugin/lnurl-server/)                 | [06][06] [16][16]                                              |
 | [go-host-lnaddr](https://github.com/hieblmi/go-host-lnaddr)                                | [01][01] [06][06] [09][09] [16][16]                            |
 | [ligess](https://github.com/Dolu89/ligess/)                                                | [01][01] [06][06] [09][09] [16][16]                            |
 | [lnme](https://github.com/bumi/lnme)                                                       | [01][01] [06][06] [09][09] [16][16]                            |
