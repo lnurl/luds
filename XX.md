@@ -1,7 +1,7 @@
 LUD-XX: `paymentOptions` for `payRequest`.
 ===========================================
 
-`author: andrerfneves` `discussion: TBD`
+`author: andrerfneves` `discussion: https://github.com/lnurl/luds/pull/303`
 
 ---
 
