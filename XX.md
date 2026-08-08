@@ -28,6 +28,8 @@ A `payLink` ([LUD-06](06.md)) may advertise that paying it mints an `LNURLcash` 
 
 * `withdrawLink` is a raw, non bech32-encoded URL as described in [LUD-17](17.md), pointing at the `SERVICE`'s `withdrawRequest` LNURL endpoint (the informational one, not the mutating `callback` defined below). Appending `?k1=<preimage>&amount=<msat>` to it yields a bearer note.
 
+`SERVICE` MAY additionally signal a fee it withholds on minting, so a `WALLET` can warn the payer up front that the note it ends up holding may be worth less than the invoice it just paid. It does so with an extra `["text/plain", "Mint fees: <base_fee_msat>,<fee_percent_ppm>"]` entry in the `metadata` array. `base_fee_msat` is a flat amount withheld from every mint, `fee_percent_ppm` is withheld on top of it in parts-per-million of the amount paid, e.g. `Mint fees: 1000,2000` means a flat 1 sat plus 0.2% of the invoice amount. A `WALLET` that recognizes the `Mint fees: ` prefix can display the expected note value before paying: `amount - base_fee_msat - amount * fee_percent_ppm / 1_000_000`. The authoritative value is only known once `P` is claimed, though: `SERVICE` credits `k1=P` with the amount paid minus this fee, and the `WALLET` confirms it the same way it confirms the value of any note, from `maxWithdrawable` at the informational GET, then locks it in by rotating `P` into a fresh `k1'` of that same net value (see the minting diagram). This is meant to cover whatever routing cost `SERVICE` incurs paying out this note when it is eventually melted and gives operators an incentive to run a mint. A `SERVICE` that omits this entry is assumed fee-free.
+
 ```mermaid
 sequenceDiagram
     actor Alice
@@ -37,7 +39,7 @@ sequenceDiagram
     SERVICE--)Wallet: {..., "withdrawLink": "https://mint.example/w"}
     Wallet->>SERVICE: pays BOLT-11 invoice
     Note over Wallet: obtains payment preimage P
-    Note over SERVICE: credits k1=P with value = amount paid
+    Note over SERVICE: credits k1=P with value = amount paid<br/>minus any advertised mint fee
     Note over Wallet: P is now a valid bearer note,<br/>encodable as lnurlw://mint.example/w?k1=P&amount=21000
     opt WALLET implements LNURLcash
         Note over Wallet: rotates immediately rather than holding P (see Security considerations)
@@ -49,7 +51,7 @@ sequenceDiagram
     end
 ```
 
-Once payment settles, `SERVICE` MUST record `P` (the payment preimage) as an outstanding bearer note worth the amount paid, and MUST accept `k1=P` at `withdrawLink` exactly as it would accept any other `withdrawRequest` `k1`. `P` requires no further encoding step: prefixed with the `lnurlw://` scheme ([LUD-17](17.md)) or bech32-encoded as an ordinary LNURL, `lnurlw://mint.example/w?k1=<P>&amount=<msat>` *is* the bearer note.
+Once payment settles, `SERVICE` MUST record `P` (the payment preimage) as an outstanding bearer note worth the amount paid, minus any advertised mint fee, and MUST accept `k1=P` at `withdrawLink` exactly as it would accept any other `withdrawRequest` `k1`. `P` requires no further encoding step: prefixed with the `lnurlw://` scheme ([LUD-17](17.md)) or bech32-encoded as an ordinary LNURL, `lnurlw://mint.example/w?k1=<P>&amount=<msat>` *is* the bearer note.
 
 The `amount` parameter declares the note's value so that any recipient can display it without contacting `SERVICE`. At the informational LNURL endpoint it MUST be ignored by `SERVICE` (it only has meaning at the `callback`, for splits), the authoritative value is always `maxWithdrawable` from the informational GET, and only a signature (see Offline verification) makes the declared amount trustworthy offline.
 
