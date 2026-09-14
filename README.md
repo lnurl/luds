@@ -31,27 +31,28 @@ These are all the individual documents describing each small piece of protocol t
 Self-hosted
 -----------
 
-| Name                                                                                       | LUDs                                                           |
-| ----                                                                                       | ----                                                           |
-| [Addressless](https://github.com/futurepaul/addressless)                                   | [01][01] [06][06] [09][09] [16][16]                            |
-| [Bleskomat](https://github.com/samotari/bleskomat)                                         | [01][01] [03][03]                                              |
-| [BTCPayServer](https://btcpayserver.org/)                                                  | [01][01] [06][06] [16][16] [17][17]                            |
-| [Citadel Bitcoin Node](https://github.com/runcitadel)                                      | [01][01] [06][06] [16][16]                                     |
-| [Cypherapp](https://github.com/SatoshiPortal/lnurl_cypherapp)                              | [01][01] [03][03]                                              |
-| [LNURL Daemon](https://github.com/yanascz/lnurld)                                          | [01][01] [03][03] [04][04] [06][06] [09][09] [12][12] [16][16] |
-| [LNURLPoS](https://github.com/arcbtc/LNURLPoS)                                             | [01][01] [06][06] [09][09]                                     |
-| [LNURLp](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/lnurlp)            | [01][01] [06][06] [12][12]                                     |
-| [LNURLw](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/withdraw)          | [01][01] [03][03]                                              |
-| [LNbits.com](https://github.com/fiatjaf/lnbits)                                            | [01][01] [03][03] [04][04] [14][14] [15][15]                   |
-| [LightningATM](https://github.com/21isenough/LightningATM)                                 | [01][01] [03][03]                                              |
-| [NextPay](https://github.com/apotdevin/NextPay)                                            | [01][01] [06][06] [16][16]                                     |
-| [OfflineShop](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/offlineshop)  | [01][01] [06][06] [09][09]                                     |
-| [Satdress](https://github.com/fiatjaf/satdress)                                            | [01][01] [06][06] [09][09] [16][16]                            |
-| [Streamer Copilot](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/copilot) | [01][01] [06][06] [12][12]                                     |
-| [electrum-lnurl-server](https://plugins.electrum.org/plugin/lnurl-server/)                 | [06][06] [16][16]                                              |
-| [go-host-lnaddr](https://github.com/hieblmi/go-host-lnaddr)                                | [01][01] [06][06] [09][09] [16][16]                            |
-| [ligess](https://github.com/Dolu89/ligess/)                                                | [01][01] [06][06] [09][09] [16][16]                            |
-| [lnme](https://github.com/bumi/lnme)                                                       | [01][01] [06][06] [09][09] [16][16]                            |
+| Name                                                                                       | LUDs                                                                                      |
+| ----                                                                                       | ----                                                                                      |
+| [Addressless](https://github.com/futurepaul/addressless)                                   | [01][01] [06][06] [09][09] [16][16]                                                       |
+| [Bleskomat](https://github.com/samotari/bleskomat)                                         | [01][01] [03][03]                                                                         |
+| [BTCPayServer](https://btcpayserver.org/)                                                  | [01][01] [06][06] [16][16] [17][17]                                                       |
+| [Citadel Bitcoin Node](https://github.com/runcitadel)                                      | [01][01] [06][06] [16][16]                                                                |
+| [Cypherapp](https://github.com/SatoshiPortal/lnurl_cypherapp)                              | [01][01] [03][03]                                                                         |
+| [LNURL Daemon](https://github.com/yanascz/lnurld)                                          | [01][01] [03][03] [04][04] [06][06] [09][09] [12][12] [16][16]                            |
+| [LNURLPoS](https://github.com/arcbtc/LNURLPoS)                                             | [01][01] [06][06] [09][09]                                                                |
+| [LNURLp](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/lnurlp)            | [01][01] [06][06] [12][12]                                                                |
+| [LNURLw](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/withdraw)          | [01][01] [03][03]                                                                         |
+| [LNbits.com](https://github.com/fiatjaf/lnbits)                                            | [01][01] [03][03] [04][04] [14][14] [15][15]                                              |
+| [LightningATM](https://github.com/21isenough/LightningATM)                                 | [01][01] [03][03]                                                                         |
+| [NextPay](https://github.com/apotdevin/NextPay)                                            | [01][01] [06][06] [16][16]                                                                |
+| [OfflineShop](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/offlineshop)  | [01][01] [06][06] [09][09]                                                                |
+| [Satdress](https://github.com/fiatjaf/satdress)                                            | [01][01] [06][06] [09][09] [16][16]                                                       |
+| [Streamer Copilot](https://github.com/lnbits/lnbits/tree/master/lnbits/extensions/copilot) | [01][01] [06][06] [12][12]                                                                |
+| [electrum-lnurl-server](https://plugins.electrum.org/plugin/lnurl-server/)                 | [06][06] [16][16]                                                                         |
+| [go-host-lnaddr](https://github.com/hieblmi/go-host-lnaddr)                                | [01][01] [06][06] [09][09] [16][16]                                                       |
+| [ligess](https://github.com/Dolu89/ligess/)                                                | [01][01] [06][06] [09][09] [16][16]                                                       |
+| [ligess v2](https://git.mutatrum.com/mutatrum/ligess)                                      | [01][01] [06][06] [09][09] [11][11] [12][12] [16][16] [17][17] [18][18] [20][20] [21][21] |
+| [lnme](https://github.com/bumi/lnme)                                                       | [01][01] [06][06] [09][09] [16][16]                                                       |
 
 Libraries
 ---------
