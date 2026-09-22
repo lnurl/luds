@@ -9,7 +9,7 @@ LUD-XX: `verifyBatch`: batched and streamed settlement checking.
 
 LUD-21 issues one `verify` URL per invoice, checked with one GET. A `SERVICE` tracking N pending invoices makes N requests per poll cycle, and detection latency is bounded below by the poll interval. For a merchant payment processor backed by an LNURL-pay endpoint (e.g. a BTCPay Server instance configured with a Lightning address), N can be many concurrently pending invoices against a single `LN SERVICE`, and checkout UX wants sub-second settlement. Polling makes that O(N) requests per interval for rarely-changing state, and still leaves a latency floor.
 
-`verifyBatch` is a single endpoint that checks many invoices at once and can be read either as a one-shot response or as a live stream. One GET covers a whole set of pending invoices; kept open, it pushes settlements as they happen. It is optional and strictly additive, and inherits LUD-21's trust model exactly: a caller only ever learns about `verify` URLs it already holds. There is no endpoint-wide or unauthenticated exposure. The per-invoice LUD-21 `verify` GET is unchanged and remains the source of truth. This spec extends LUD-06 (`payRequest`) and LUD-21 (`verify`).
+`verifyBatch` is a single endpoint that checks many invoices at once and can be read either as a one-shot response or as a live stream. One GET covers a whole set of pending invoices; kept open as a stream, it pushes settlements as they happen, and the tracked set grows and shrinks in place with plain GET requests to the same endpoint, without reopening the connection. It is optional and strictly additive, and inherits LUD-21's trust model exactly: a caller only ever learns about `verify` URLs it already holds. There is no endpoint-wide or unauthenticated exposure. The per-invoice LUD-21 `verify` GET is unchanged and remains the source of truth. This spec extends LUD-06 (`payRequest`) and LUD-21 (`verify`).
 
 A separately proposed long-held-request extension to LUD-21 `verify` (see [lnurl/luds#281](https://github.com/lnurl/luds/pull/281)) removes the latency floor for a *single* invoice by holding one request open per `verify` URL. `verifyBatch` generalises that to a whole pending set on one connection, and additionally collapses the N-requests-per-poll cost that long-polling a single endpoint does not address. The two are compatible: an `LN SERVICE` MAY offer either, both, or neither, and a single invoice always reduces to a plain LUD-21 `verify` GET.
 
@@ -28,12 +28,15 @@ sequenceDiagram
     S->>LS: GET verifyBatch with verify=A, verify=B
     LS-->>S: results for A and B
 
-    Note over S,LS: Stream (Accept text/event-stream)
+    Note over S,LS: Stream with a session (Accept text/event-stream)
     S->>LS: GET verifyBatch with verify=A, verify=B
+    LS-->>S: session frame
     LS-->>S: snapshot frame A (settled false)
     LS-->>S: snapshot frame B (settled false)
+    S->>LS: GET verifyBatch?session=... add C, remove B
+    LS-->>S: removed frame B, snapshot frame C (settled false)
     Note right of LS: invoice B settles
-    LS-->>S: frame B (settled true, preimage)
+    LS-->>S: frame C (settled true, preimage)
 ```
 
 ## Discovery
@@ -140,7 +143,7 @@ Per-item failures never change the top-level status: a well-formed request is `2
 
 With `Accept: text/event-stream`, the endpoint covers exactly the presented set: current state first, live settlements after, on one connection.
 
-- The `LN SERVICE` first emits one `data:` frame per presented `verify` URL carrying its current state (this burst is the snapshot; it includes still-pending invoices as `settled: false` and unknown URLs as `ERROR`). It then holds the connection open and emits a further frame only when a still-pending presented invoice settles.
+- The `LN SERVICE` first emits the session frame (see Stream sessions below), then one `data:` frame per presented `verify` URL carrying its current state (this burst is the snapshot; it includes still-pending invoices as `settled: false` and unknown URLs as `ERROR`). It then holds the connection open and emits a further frame only when a still-pending presented invoice settles.
 - Stream frames arrive individually and cannot share a map key, so each frame is a single result object that MUST include its `verify` field for correlation:
 
 ```
@@ -161,9 +164,60 @@ As a TypeScript-style definition, each frame's JSON is a `VerifyResult` or `Veri
 { verify: string } & (VerifyResult | VerifyError)
 ```
 
-- The presented set is fixed for the life of the connection; the transport is server-to-client only, so there is no in-stream way to add invoices. To watch newly created invoices the client opens a fresh stream with its current pending set; that reopen's snapshot also serves as its reconciliation. An `LN SERVICE` MUST NOT expect or require an upstream side channel to mutate a live stream.
-- The `LN SERVICE` MAY close the connection once every presented invoice is settled or expired, or after a maximum duration; the client reopens as needed. It SHOULD send an SSE comment line (`: keepalive`) periodically (RECOMMENDED at least every 30 seconds) so intermediaries do not drop idle connections.
+- The tracked set starts as the presented set and MAY be updated in place while the connection stays open, using the stream's session (see Stream sessions below). An `LN SERVICE` that does not offer sessions simply sends no session frame; the client then falls back to reopening with its current pending set, whose snapshot also serves as reconciliation. An `LN SERVICE` MUST NOT require any mechanism other than the session update GET to mutate a live stream.
+- The `LN SERVICE` MAY close the connection once every tracked invoice is settled or expired, or after a maximum duration; the client reopens as needed. It SHOULD send an SSE comment line (`: keepalive`) periodically (RECOMMENDED at least every 30 seconds) so intermediaries do not drop idle connections.
 - Invoice expiry is not streamed; the client already holds each invoice's expiry time and drops expired ones locally.
+
+### Stream sessions
+
+Every stream has a session identifying the set it tracks. The first frame of any stream is the session frame:
+
+```
+event: session
+data: {"session": "d41d8cd9..."}
+```
+
+A client listens for `session`; a client whose first received frame is a `data:` result frame knows the stream cannot be updated and falls back to reopening with its current pending set. The `session` value is an unguessable bearer capability usable only while the connection it belongs to is open: the `LN SERVICE` MUST generate it with at least 128 bits of entropy and MUST NOT accept it once the stream has closed. The session is created by the streamed GET itself.
+
+While the stream stays open, the client mutates the tracked set with:
+
+```
+GET https://example.com/verify/batch?session=d41d8cd9...&add=https%3A%2F%2Fexample.com%2Fverify%2Fcd01ef45...&remove=https%3A%2F%2Fexample.com%2Fverify%2Fab01cd23...
+```
+
+As TypeScript-style definitions, the update request and its response are:
+
+```Typescript
+// first frame of a stream that supports updates
+type SessionFrame = {
+  session: string
+}
+
+// GET verifyBatch?session=... request
+{
+  add?: string[],
+  remove?: string[]
+}
+
+// GET verifyBatch?session=... response
+{
+  status: "OK"
+}
+```
+
+Update rules:
+
+- The request MUST include `add`, `remove`, or both as query parameters; a request with `session` and neither of them is malformed and answered with a top-level `ERROR` and an appropriate `4xx`, like the one-shot case. The update GET itself answers as an LNURL-style JSON response, `200` with `{"status": "OK"}`; the effects arrive as frames on the live stream, never in the update response. Updates are idempotent: replaying one (for example after an interrupted request) causes no duplicate frames.
+- For each added URL that is not already tracked, exactly one frame is emitted on the stream: the snapshot result, or an error frame for a URL the `LN SERVICE` did not issue. Live settlement frames follow for it as usual. A URL the session already tracks is a no-op and emits nothing.
+- For each removed URL that is tracked, exactly one removal frame is emitted, and the `LN SERVICE` stops tracking it, so no settlement frames follow. A URL the session does not track is a no-op. The removal frame is emitted even if the invoice had already settled; the client MAY ignore it. The frame echoes the `verify` URL byte-for-byte like every other frame:
+
+```
+event: removed
+data: {"verify": "https://example.com/verify/ab01cd23..."}
+```
+
+- Clients SHOULD remove expired or cancelled invoices from the session instead of leaving them tracked until expiry, keeping the service's per-connection state minimal. One connection per batch endpoint then serves a merchant indefinitely: new invoices are appended with one session update, never with a reopen.
+- An `LN SERVICE` MAY cap the size of a session's tracked set or the rate of updates; a rejected update is answered with a top-level `ERROR` (`4xx`) and changes nothing.
 
 ## Rules (both response types)
 
@@ -175,16 +229,17 @@ As a TypeScript-style definition, each frame's JSON is a `VerifyResult` or `Veri
 ## Client behavior
 
 1. Track `(paymentHash -> verify URL)` per invoice as in LUD-21.
-2. Group pending invoices by the `verifyBatch` URL advertised alongside each `verify` URL. For each distinct `verifyBatch` URL, request its group. If a group's URL grows too long and the `SERVICE` returns `414`, split it across more than one request (or, for the stream, more than one connection). Whether the grouped `verify` URLs share a host with the batch endpoint is the `LN SERVICE`'s concern, not the client's.
-3. To poll: GET without the event-stream `Accept`, read the `results`, repeat on an interval. To receive push: GET with `Accept: text/event-stream` (via `EventSource` in a browser), process snapshot frames then live frames, and reopen with the current pending set when new invoices appear or the connection closes (the reopen snapshot is also the reconciliation).
+2. Group pending invoices by the `verifyBatch` URL advertised alongside each `verify` URL. For each distinct `verifyBatch` URL, request its group. If a group's URL grows too long and the `SERVICE` returns `414` or `431`, split it across more than one request (or, for the stream, more than one connection); a stream can alternatively be opened with its first chunk and grown to the full set by successive session update requests, so no single URL has to carry the whole set. Whether the grouped `verify` URLs share a host with the batch endpoint is the `LN SERVICE`'s concern, not the client's.
+3. To poll: GET without the event-stream `Accept`, read the `results`, repeat on an interval. To receive push: GET with `Accept: text/event-stream` (via `EventSource` in a browser) over the group's set, process the session frame then snapshot frames then live frames. While the connection stays open and a session frame was received, add and remove invoices with session update GETs instead of reopening. Reopen only when the connection closes, when the service provides no session, or when the tracked set outgrows the service's session cap (the reopen snapshot is also the reconciliation).
 4. For any `settled: true` result or frame, validate `SHA256(preimage) == paymentHash` and mark the invoice paid.
 5. If `verifyBatch` is absent, fall back to plain per-invoice LUD-21 polling. A client MAY mix: batch or stream the endpoints that support it, poll the rest. For a single invoice, plain LUD-21 GET `verify` is sufficient.
 
-For a merchant whose pending set fits one request, this is one request per poll, or one open connection with settlement latency at roughly network round-trip. Larger sets split across a few requests or connections, still far below one request per invoice.
+For a merchant whose pending set fits one request, this is one request per poll, or one open connection matching its pending stream, updated in place as new invoices appear. Settlement latency on a stream is roughly network round-trip. Larger sets split across a few requests or grow incrementally from one stream, still far below one request per invoice.
 
 ## Backwards compatibility
 
 - The `verifyBatch` field and the streamed representation are optional. A LUD-21-only `LN SERVICE` or client is unaffected.
+- Stream sessions are optional. A client that reopens streams instead of updating them is unaffected: a service without sessions sends no session frame.
 - `verify` GET semantics are unchanged and authoritative.
 - A client that ignores `verifyBatch` keeps working exactly as today.
 - An `LN SERVICE` can roll out incrementally: add the one-shot response first, add the stream later, advertise `verifyBatch` only on new invoices or retrofit it into `verify` responses.
@@ -194,5 +249,6 @@ For a merchant whose pending set fits one request, this is one request per poll,
 - Every mechanism here inherits LUD-21's trust model. A caller learns only about `verify` URLs it already holds, whether it asks one at a time, in a batch, or over a stream. There is no aggregate exposure: a caller cannot enumerate, observe, or subscribe to invoices it did not create. (This is why the stream is scoped to presented capabilities rather than offered as an endpoint-wide feed, which would leak settlement activity to anyone able to create an invoice at a public address.)
 - No mechanism fetches a caller-supplied URL, so none introduces a request-forgery surface (see the issuance rule).
 - Preimages appear only in results gated by a presented `verify` capability, and MUST always be validated against the payment hash by the client.
+- The `session` identity is a bearer capability: possession lets a caller track the stream's future settlement frames, including preimages, and add or remove its tracked `verify` URLs. Possessing a session is therefore equivalent to possessing every `verify` URL tracked by it, and it MUST be high-entropy and unguessable. Because updates accept only `verify` URLs the `LN SERVICE` itself issued, a leaked session cannot enumerate other invoices; it can only watch or disturb invoices already tracked by it.
 - An `LN SERVICE` MAY rotate its `verifyBatch` URL by returning the new URL in subsequent `callback`/`verify` responses; clients migrate on next discovery.
-- Endpoints SHOULD be rate limited like any other public endpoint. Splitting a large set across many requests, or reopening streams rapidly, is not bounded by any single request; an `LN SERVICE` MAY additionally rate limit by caller and cap concurrent streams.
+- Endpoints SHOULD be rate limited like any other public endpoint. Splitting a large set across many requests, opening sessions rapidly, or sending frequent session updates is not bounded by any single request; an `LN SERVICE` MAY additionally rate limit by caller, cap concurrent streams, and cap updates per session.
