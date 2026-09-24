@@ -82,6 +82,8 @@ A client wanting a plain batch poll uses the default. A client wanting push uses
 
 Only `verify` URLs the `LN SERVICE` itself issued are answerable; see the issuance rule below. `verify` URLs are opaque to the client, so it sends each one whole rather than a derived identifier. A `verify` URL supplied more than once in a single request is treated once: the one-shot response keys collapse duplicates and the stream emits one snapshot frame per distinct URL.
 
+An `LN SERVICE` that caps how many `verify` URLs one request may carry SHOULD answer a request over its cap with `414`, the status clients already split on (see Client behavior), rather than a generic `400` a client cannot act on.
+
 ### Detecting stream support
 
 There is no capability field; support is discovered by content negotiation on the response. The client sends `Accept: text/event-stream` and inspects the response `Content-Type`:
@@ -222,7 +224,7 @@ data: {"verify": "https://example.com/verify/ab01cd23..."}
 ## Rules (both response types)
 
 - Auth is by capability, exactly as LUD-21: possession of a `verify` URL is what authorizes reading its settlement state and `preimage`. Because the caller presents each `verify` URL, results MAY include `preimage`/`pr`, identical to the single-invoice `verify` response.
-- The `LN SERVICE` MUST treat each supplied `verify` URL as an identifier to look up against the verify records it itself issued, NOT as a URL to fetch. It performs no outbound request for a supplied URL. For any URL it did not issue, it returns `{"status": "ERROR", "reason": "unknown verify url"}` for that item. Because the input is never fetched, there is no server-side request forgery surface. This is an issuance check, not an origin check: an `LN SERVICE` reachable under multiple hostnames, or one honouring verify URLs from a prior domain, MAY recognise all of them as its own; it just has to have issued the exact URL.
+- The `LN SERVICE` MUST treat each supplied `verify` URL as an identifier to look up against the verify records it itself issued, NOT as a URL to fetch. It performs no outbound request for a supplied URL. For any URL it did not issue, it returns `{"status": "ERROR", "reason": "unknown verify url"}` for that item. Because the input is never fetched, there is no server-side request forgery surface. This is an issuance check, not an origin check: an `LN SERVICE` reachable under multiple hostnames, or one honouring verify URLs from a prior domain, MAY recognise all of them as its own. It MAY decide issuance by the identifier it embedded in the URL (for example a payment hash in the path) rather than by the whole string, provided that identifier alone is what authorizes its single-invoice `verify` GET: answering a variant spelling then discloses nothing that URL's own `verify` GET would not.
 - Every `verify` value returned (map key in one-shot, `verify` field in a frame) MUST be the exact string the client sent, echoed byte-for-byte. `verify` URLs are opaque strings stored verbatim from the `callback`/`verify` response, so the server MUST NOT canonicalise them (trailing slash, host case, query order); a rewritten value would not match the client's lookup.
 - A client MUST validate `SHA256(preimage) == paymentHash` for any returned preimage before treating an invoice as proven, the same as it would for a single `verify` response.
 
