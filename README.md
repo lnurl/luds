@@ -27,6 +27,7 @@ These are all the individual documents describing each small piece of protocol t
 | [20][20] | Long payment description for pay protocol.                  |
 | [21][21] | `verify` LNURL-pay payments                                 |
 | [23][23] | Request user's Lightning address                            |
+| [25][25] | `LNURLcash`: Bearer assets.                                 |
 
 Self-hosted
 -----------
@@ -120,6 +121,7 @@ Tools for developers
 [20]: 20.md
 [21]: 21.md
 [23]: 23.md
+[25]: 25.md
 
 Dependency Tree
 ---------------
