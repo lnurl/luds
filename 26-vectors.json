@@ -1,0 +1,118 @@
+{
+  "description": "LUD-26 test vectors. Hex values are big-endian byte strings unless noted. Seeds are BIP-32's test vectors 1 and 2; their branch keys P have opposite y parity, so both sk formulas are exercised. Every raw tagged_hash below is already < n, but implementations MUST still reduce mod n.",
+  "derivation": [
+    {
+      "seed": "000102030405060708090a0b0c0d0e0f",
+      "domain": "mint.example",
+      "cashHashingKey": "45a46de715668a4250ddb7420e71f8cb2a165047095edda920c0bfeb7c4ab7a6",
+      "d": [2728808236, 3900943163, 3604736224, 1452184550],
+      "p": "7bbab40e4a022ea909cfee28eb1c7a9f56cf746feea94ff73f155a14f2c57d1e",
+      "P": "03b783d2930dc053a971f019054ca43e7c9de50e0769de872dd1ddde5d0bf4c9d1",
+      "chaincode": "ab91cc11aea395ea6b62292a6147f51ef4150ebea04e745137b68719e238f904",
+      "P_y": "odd",
+      "cx1": "cx1k7pa9ycdcpf6ju0sryz5efp70jw72rs8d80gwtw3mh096zl5e8g6hywvzxh28902dd3zj2npgl63aaq4p6l2qnn52ymmdpceugu0jpqes280t",
+      "notes": [
+        {
+          "purpose": 0,
+          "i": 0,
+          "t": "b1d16430daa362837db746ce38dc6c5ebb092876692b5cac5bbdce0f3cd92688",
+          "Q": "02690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f",
+          "sk": "3616b02290a133da73e758a54dbff1bf6439b4067a820cb51ca873fa4a13a96a",
+          "cp1": "cp1dy9vxwyjce922wr5kqrx4vfn9u80gh9hcrsp06hqs2y3daf24x0sxpcl6z"
+        },
+        {
+          "purpose": 0,
+          "i": 1,
+          "t": "1120c64b536e09cf1f08dad93edb7161682c739773a1330b4e137f3eb1cb9e48",
+          "Q": "023e76b56c1a90bc64c4bf594be91a3cb8861a150232da92705cff6ee3714bb384",
+          "sk": "9566123d096bdb261538ecb053bef6c0cc0bdc0e3440834fced083b68f3c626b",
+          "cp1": "cp18emt2mq6jz7xf39lt997jx3uhzrp59gzxtdfyuzulahwxu2tkwzqjttard"
+        },
+        {
+          "purpose": 0,
+          "i": 2,
+          "t": "da4160b271948f81059ca631c4bdae0eed617f6f39d531d082c9472b795aa4c5",
+          "Q": "0220146298f9b6439027ead2b4a15738a10721b26c425b58c634baac6147ee7fc7",
+          "sk": "5e86aca4279260d7fbccb808d9a1336f96920aff4b2be1d943b3ed16869527a7",
+          "cp1": "cp1yq2x9x8ekepeqfl26262z4ec5yrjrvnvgfd43335h2kxz3lw0lrss2e4g5"
+        },
+        {
+          "purpose": 0,
+          "i": 5,
+          "t": "8cf628fcc47354f9c3a2a072f108b41da79792d8300bf8c9d8c74de61897d0a7",
+          "Q": "02c64ed8f1cd0f4d23aba8ddd739d9ae7e1a7ba2719cb54437384498fbc73788b3",
+          "sk": "113b74ee7a712650b9d2b24a05ec397e50c81e684162a8d299b1f3d125d25389",
+          "cp1": "cp1ce8d3uwdpaxj82agmhtnnkdw0cd8hgn3nj65gdecgjv0h3eh3zes4mxg2k"
+        },
+        {
+          "purpose": 1,
+          "i": 0,
+          "t": "d17f99715d669d21e4172e3dee64d176b3a2ff18cfc56f9d359213fb5a016023",
+          "Q": "03e9a2d71a45a4a5a22d3378bdd761f0b3b2622b6a939d24c779668379352d8274",
+          "sk": "55c4e56313646e78da474015034856d75cd38aa8e11c1fa5f67cb9e6673be305",
+          "cp1": "cp1ax3dwxj95jj6ytfn0z7awc0skwexy2m2jwwjf3mev6phjdfdsf6qx02dpd"
+        },
+        {
+          "purpose": 2,
+          "i": 0,
+          "t": "00194391b44f24f7a5d3c8e2bd2854adcc536e3f2ddcdf5e8091f56117913685",
+          "Q": "02acff3482453b4671e410d2158fd93ab7d4c3e8c1b9554ce1190deb021fd2cd4c",
+          "sk": "845e8f836a4cf64e9c03dab9d20bda0d3032d6b5ee7c2fa3014ef9d8f501faa8",
+          "cp1": "cp14nlnfqj98dr8reqs6g2clkf6kl2v86xph925ecgeph4sy87je4xqrl557f"
+        }
+      ]
+    },
+    {
+      "seed": "fffcf9f6f3f0edeae7e4e1dedbd8d5d2cfccc9c6c3c0bdbab7b4b1aeaba8a5a29f9c999693908d8a8784817e7b7875726f6c696663605d5a5754514e4b484542",
+      "domain": "cash.example.com",
+      "cashHashingKey": "7d6d06012307b130432c5ab845fc746f72d4703a91981a6c012a420b83176dd8",
+      "d": [2886871684, 4226627351, 2748717696, 1002847463],
+      "p": "6f1d381ccdda9a69f966b492b19de687930c19b19e7f8d581088402d6a3b7818",
+      "P": "0264885a9cab93ec051761b8a0b80e1854a61865878d58f72a365dfd640850f675",
+      "chaincode": "6b95795f9807ada85c8ca50ec93c921483a183abfed4a3b4abe6b95c89880306",
+      "P_y": "even",
+      "cx1": "cx1vjy9489tj0kq29mphzstsrsc2jnpsev834v0w23kth7kgzzs7e6kh9tet7vq0tdgtjx22rkf8jfpfqapsw4la49rkj47dw2u3xyqxpspgvxpa",
+      "notes": [
+        {
+          "purpose": 0,
+          "i": 0,
+          "t": "3867f7253bf0d9b02bb522625e3ae902b2d46896c199a62ea64b97d4dc2ad230",
+          "Q": "0201fee34e378bf66de6afa1bfa6e30f5c89551fd92bc1b089dca93c52b7ab61bc",
+          "sk": "a7852f4209cb741a251bd6f50fd8cf8a45e0824860193386b6d3d80246664a48",
+          "cp1": "cp1q8lwxn3h30mxme405xl6dcc0tjy4287e90qmpzwu4y799datvx7q0uv35q"
+        },
+        {
+          "purpose": 0,
+          "i": 1,
+          "t": "82d50d21bffa50acf24a242b550df20925493cc425c9e25e28049d2824298e79",
+          "Q": "037c5434c33d25bc24d98c35b2610dd484cb2a3d4a7854de354f7747e9b10597b8",
+          "sk": "f1f2453e8dd4eb16ebb0d8be06abd890b8555675c4496fb6388cdd558e650691",
+          "cp1": "cp1032rfseayk7zfkvvxkexzrw5sn9j50220p2dud20war7nvg9j7uqsksqqz"
+        },
+        {
+          "purpose": 0,
+          "i": 2,
+          "t": "fcf834f455a2a184581dc705400bce64ac19dda82e17d8e77b50482cdce746c9",
+          "Q": "032517f8221468e33cb7aafdffde313950446da0cf4d790c9b758b373dc67a5686",
+          "sk": "6c156d11237d3bee51847b97f1a9b4ed84771a731d4ec603cc0629cd76ec7da0",
+          "cp1": "cp1y5tlsgs5dr3neda2lhlauvfe2pzxmgx0f4usexm43vmnm3n626rqslqkvr"
+        }
+      ]
+    }
+  ],
+  "registration": {
+    "description": "Registration proof for username alice against derivation[1]'s cx1, signed with its purpose-0 index-0 sk (BIP-340).",
+    "username": "alice",
+    "domain": "cash.example.com",
+    "register": {
+      "message": "LNURLcash:register:cash.example.com:alice",
+      "digest": "be730f1fc4a81feea4bc0464d9f6adff04dfe652687e39cba30eac9caa73fcdd",
+      "sig": "9169a81db3372d8bb8a080f271f8036192131d4ed02596c0baa181613fdc5d6e17b3230b01f510a759fdb6c46b53671e57678f57ac0a6a3deb6300761225adc7"
+    },
+    "unregister": {
+      "message": "LNURLcash:unregister:cash.example.com:alice",
+      "digest": "dc12e80f7d0486fab791c743688e54bcc759111722d80dfa5fa70586a7d9d9d9",
+      "sig": "fcc6a96f560d6505bfc475d8c2d4383047f2ece6593412af9b2834913af60f108b6e194cef31c377a23a051f8c80c1660efc2313b7876a2f80bc1f0f423c7835"
+    }
+  }
+}

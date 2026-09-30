@@ -20,6 +20,7 @@ digraph {
   19[label="19 mutual discoverability"]
   20[label="20 long description"]
   25[label="25 LNURLcash"]
+  26[label="26 LNURLcash derivation"]
 
   { 01 17 } -> { 02 03 04 06 07 } // base protocols depend on URL format
   04 -> { 05 13 } // lnurl-auth seed generation methods
@@ -34,4 +35,5 @@ digraph {
   06 -> 16 // paying to user@domain.com
   { 06 14 } -> 19 // mutually discoverable pay and withdraw links
   { 03 06 17 } -> 25 // LNURLcash bearer notes built on withdraw/pay/raw-url
+  { 05 16 25 } -> 26 // LNURLcash seed derivation and lightning address auto-mint
 }
