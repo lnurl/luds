@@ -1,7 +1,7 @@
 {
   "description": "LUD-25 test vectors. Hex values are big-endian byte strings unless noted. Every spend was accepted by Bitcoin Core's interpreter (libbitcoinkernel) against the canonical spend transaction.",
   "key_path_spend": {
-    "description": "ck1 for Q = pk_0 of LUD-26 vector 1 (purpose 0, index 0), signed with an all-zero aux_rand. The same ck1 fails at any other domain.",
+    "description": "ck1 for an arbitrary key-path note, signed with an all-zero aux_rand. The same ck1 fails at any other domain.",
     "sk": "3616b02290a133da73e758a54dbff1bf6439b4067a820cb51ca873fa4a13a96a",
     "Q": "690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f",
     "cp1": "cp1dy9vxwyjce922wr5kqrx4vfn9u80gh9hcrsp06hqs2y3daf24x0sxpcl6z",
