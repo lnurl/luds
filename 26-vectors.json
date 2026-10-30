@@ -1,0 +1,264 @@
+{
+  "description": "LUD-26 test vectors. Hex values are big-endian byte strings unless noted. Seeds are BIP-32's test vectors 1 and 2. S = m/139'/d1/d2/d3/d4 is the SERVICE's root and a the account. Wallet notes are S/a'/0/i and change notes S/a'/1/i, never exported. Share n is S/a'/2/n', exported as cx1 = bech32m(chaincode || P) with P compressed; its notes S/a'/2/n'/i are ordinary BIP-32 public derivation from the cx1. Every note's Q is x(sk*G); Q is listed compressed so its y parity is visible, and a BIP-340 signer negates sk whenever it is odd. cp1 encodes x(Q).",
+  "derivation": [
+    {
+      "seed": "000102030405060708090a0b0c0d0e0f",
+      "domain": "mint.example",
+      "cashHashingKey": "45a46de715668a4250ddb7420e71f8cb2a165047095edda920c0bfeb7c4ab7a6",
+      "d": [
+        2728808236,
+        3900943163,
+        3604736224,
+        1452184550
+      ],
+      "accounts": [
+        {
+          "account": 0,
+          "wallet": {
+            "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/0/i",
+            "notes": [
+              {
+                "i": 0,
+                "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/0/0",
+                "sk": "4b57716c3af9d206444e4bcc7639388e704baff255d17f4cabfaa0d421ab7dc9",
+                "Q": "033becaf115ef659239bb7fbcf780c3e66e3c5aa2da58e52ccc9a7c1ca4ffb6b32",
+                "cp1": "cp180k27y277evj8xahl08hsrp7vm3ut23d5k899nxf5lqu5nlmdveq6saf3d"
+              },
+              {
+                "i": 1,
+                "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/0/1",
+                "sk": "38d1f6e40e734c3b5ee378848d2542b2cae8ab0798fe5fc534a899bba63e3f9d",
+                "Q": "0322072b95c07b87e2d88aa6cc8c7ca01a173063b7e63a5a803e275ff71f9371da",
+                "cp1": "cp1ygrjh9wq0wr79ky25mxgcl9qrgtnqcahuca94qp7ya0lw8unw8dquznaxm"
+              },
+              {
+                "i": 2,
+                "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/0/2",
+                "sk": "72cacd0042542e73c8492768ef9457458599c160c8cf70c2fad249bc82f89885",
+                "Q": "027f7c626d8e2ad67ee157aac1e6fcf62191ac36a9340642cfae9e85a6a8ff4156",
+                "cp1": "cp10a7xymvw9tt8ac2h4tq7dl8kyxg6cd4fxsry9nawn6z6d28lg9tqrurdac"
+              },
+              {
+                "i": 5,
+                "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/0/5",
+                "sk": "60ce4d7a4eb8caa8a8620471588960b6c6161a9869bb4014a60f524ea004efb8",
+                "Q": "039e7cfc972990c38720a01bd6c0137d5638cf15af12df59074474f89bb5085b34",
+                "cp1": "cp1ne70e9efjrpcwg9qr0tvqyma2cuv79d0zt04jp6ywnufhdggtv6qx5s85h"
+              }
+            ]
+          },
+          "change": {
+            "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/1/i",
+            "notes": [
+              {
+                "i": 0,
+                "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/1/0",
+                "sk": "2a31ad9218e318e7c1134f075e275ebfe38c9d4e5fe242d10d87a9cc24d81658",
+                "Q": "027bf2904a94871bbf1c6fd125e56ae56614d4b5ab412682caa1207f74e8beac71",
+                "cp1": "cp100efqj55sudm78r06yj726h9vc2dfddtgyng9j4pyplhf69743cs0t7jek"
+              },
+              {
+                "i": 1,
+                "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/1/1",
+                "sk": "8491ec28563137017c43a76fb4dabb116dd542dee3c0acca3489b351892346f4",
+                "Q": "02262607d38548053436577623e6decf10e2a1baa7e49365ed3cf9bd91ac1cd2c4",
+                "cp1": "cp1ycnq05u9fqzngdjhwc37dhk0zr32rw48ujfktmfulx7ertqu6tzqpfmacr"
+              }
+            ]
+          },
+          "shareable": [
+            {
+              "share": 0,
+              "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/2/0'",
+              "p": "d7c4ca52ab82fb703fac9bed86e3bc9aa4f7ae7f8bdbd9a1ce21052c0b65f0ab",
+              "P": "035e1038c42b1637fb8f46564fedd1c762fc88b7e7cc7546ae66d1fbab7e44aff9",
+              "chaincode": "779abff5759d056b4775dc0ee4a3738cb4d26ccf18b548b1ed0317bad9e61d1b",
+              "cx1": "cx1w7dtlat4n5zkk3m4ms8wfgmn3j6dymx0rz653v0dqvtm4k0xr5dsxhss8rzzk93hlw85v4j0ahguwchu3zm70nr4g6hxd50m4dlyftle95ayjt",
+              "notes": [
+                {
+                  "i": 0,
+                  "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/2/0'/0",
+                  "sk": "14aaf002ec04305f35248de5822f7fba8796e3a7f5c417c638edc5649420c20e",
+                  "Q": "0379229b06ef97a698a3564feb254a929b9391ae3d561b7512dcf3cea0d3d4a219",
+                  "cp1": "cp10y3fkph0j7nf3g6kfl4j2j5jnwfert3a2cdh2yku7082p5755gvs4rzyz9"
+                },
+                {
+                  "i": 1,
+                  "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/2/0'/1",
+                  "sk": "dd01a2888c5fb3fed30f7cf682e34f362b2b14b916509a59063f764e19c3d2a9",
+                  "Q": "02d088174773908433d2db732e1a60e456d4aa2c8533b131f0784192905b3adab2",
+                  "cp1": "cp16zypw3mnjzzr85kmwvhp5c8y2m225ty9xwcnrurcgxffqke6m2eq9lngdy"
+                },
+                {
+                  "i": 2,
+                  "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/2/0'/2",
+                  "sk": "80e246fa89d82c518bbb01ffc65eaec435e1e2e754128290bb7e193cf591dcd1",
+                  "Q": "02e3c2f89e017002daef79cda882d3674baff54681756ff532f16d0c4db0e957b1",
+                  "cp1": "cp1u0p038spwqpd4mmeek5g95m8fwhl235pw4hl2vh3d5xymv8f27cs27w2gh"
+                }
+              ]
+            },
+            {
+              "share": 1,
+              "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/2/1'",
+              "p": "cc30835941399fd552bff4a8e588c2dd37ed1cf93cfc694d69ed8b48809049f9",
+              "P": "0239b39f7df7e611aaac13a99f96d08c02c14b27ebf64741d88bddf8d18db7f7b4",
+              "chaincode": "4e51086e12394cc38692a64de57f2babef01cad96132dc82560f74f14083cf82",
+              "cx1": "cx1fegssmsj89xv8p5j5ex72let40hsrjkevyedeqjkpa60zsyre7pqywdnna7l0es342kp82vljmggcqkpfvn7haj8g8vghh0c6xxm0aa55y0rvh",
+              "notes": [
+                {
+                  "i": 0,
+                  "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/2/1'/0",
+                  "sk": "62e746eebeb03499e7650ef84a72abb0909573cba30f299df3a1433aeefdfd02",
+                  "Q": "03507bac36105e2fc0a55f4f6fe299610305805791d775d4c5a1828e53cd41e5bd",
+                  "cp1": "cp12pa6cdsstchupf2lfah79xtpqvzcq4u36a6af3dps2898n2puk7stwsnpl"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "account": 1,
+          "wallet": {
+            "path": "m/139'/2728808236/3900943163/3604736224/1452184550/1'/0/i",
+            "notes": [
+              {
+                "i": 0,
+                "path": "m/139'/2728808236/3900943163/3604736224/1452184550/1'/0/0",
+                "sk": "a7ac822aa65ca64476e02be03dd29770c758523b6574230d92224ce3cdb94d8c",
+                "Q": "028557848d3c5b3a38de43ed78ddedf7669c74af9f5f272c4f601e113451e22efc",
+                "cp1": "cp1s4tcfrfutvar3hjra4udmm0hv6w8ftultunjcnmqrcgng50z9m7qyfvpyp"
+              }
+            ]
+          },
+          "change": {
+            "path": "m/139'/2728808236/3900943163/3604736224/1452184550/1'/1/i",
+            "notes": [
+              {
+                "i": 0,
+                "path": "m/139'/2728808236/3900943163/3604736224/1452184550/1'/1/0",
+                "sk": "46d63c895226ec17d296a32227b374210601912955edf462cd62a00e33edae90",
+                "Q": "02654d2fced9b8bdbfa1fa15eb5ad5cf77a743f1db402c4b98b212d54588b5f72e",
+                "cp1": "cp1v4xjlnkehz7mlg06zh4444w0w7n58uwmgqkyhx9jzt25tz947uhqxu3r4l"
+              }
+            ]
+          },
+          "shareable": [
+            {
+              "share": 0,
+              "path": "m/139'/2728808236/3900943163/3604736224/1452184550/1'/2/0'",
+              "p": "039359660105348998f838df12f417e1f073cc25e72af8917d440ec3189b50c9",
+              "P": "03adf71fceb525bac49b1ddb370a86d7c1ec6e607b1d135bbb90ebbca0b06ba225",
+              "chaincode": "ff7aa3e2d6bf69e544e3f71b685d8ad91b1e433de18e416a0a62b7dcdcbe0e27",
+              "cx1": "cx1laa28ckkha57238r7udkshv2myd3useaux8yz6s2v2maeh97pcns8t0hrl8t2fd6cjd3mkehp2rd0s0vdes8k8gntwaep6au5zcxhg39nsql5m",
+              "notes": [
+                {
+                  "i": 0,
+                  "path": "m/139'/2728808236/3900943163/3604736224/1452184550/1'/2/0'/0",
+                  "sk": "f2149d7e2e3a00d95edd63485695419bf182675ce8d0e88044aac7c685561757",
+                  "Q": "0283ec52d7ea51d163efc6d84b0f6a03b64b65a535c2d55b5f6b73526995fd363a",
+                  "cp1": "cp1s0k994l228gk8m7xmp9s76srke9ktff4ct24khmtwdfxn90axcaqrqg53y"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": "fffcf9f6f3f0edeae7e4e1dedbd8d5d2cfccc9c6c3c0bdbab7b4b1aeaba8a5a29f9c999693908d8a8784817e7b7875726f6c696663605d5a5754514e4b484542",
+      "domain": "cash.example.com",
+      "cashHashingKey": "7d6d06012307b130432c5ab845fc746f72d4703a91981a6c012a420b83176dd8",
+      "d": [
+        2886871684,
+        4226627351,
+        2748717696,
+        1002847463
+      ],
+      "accounts": [
+        {
+          "account": 0,
+          "wallet": {
+            "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/0/i",
+            "notes": [
+              {
+                "i": 0,
+                "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/0/0",
+                "sk": "15a71f42def88f6cafae522f6012b72113678916013b90ac81f89c35bf18d10f",
+                "Q": "03737fbadccffc41a017fc8b3a2e1d51d4fe4b390d753a432553eb82a2504df68b",
+                "cp1": "cp1wdlm4hx0l3q6q9lu3vazu8236nlykwgdw5ayxf2nawp2y5zd769s5jy0hl"
+              },
+              {
+                "i": 1,
+                "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/0/1",
+                "sk": "ae696c8989fef50168b26eaa3a8f8ad121df0b5e4cfd3ad04faccefdeb8ac063",
+                "Q": "02f94b7c3a63034371f16cf6de1713a4d2799d8d863f05b347ea8a8917d3d72aef",
+                "cp1": "cp1l99hcwnrqdphrutv7m0pwyay6fuemrvx8uzmx3l232y3057h9thsr4rzlv"
+              },
+              {
+                "i": 2,
+                "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/0/2",
+                "sk": "f34603777243398f65e163a1c2d405bc7498768acb6f8d6a3b9291e0dac157d6",
+                "Q": "039b7c37d24baaff90651d5cedb4876cbd73084d7c66421580d25f2f242b229903",
+                "cp1": "cp1nd7r05jt4tleqegatnkmfpmvh4essntuvepptqxjtuhjg2eznyps8shj0z"
+              }
+            ]
+          },
+          "change": {
+            "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/1/i",
+            "notes": [
+              {
+                "i": 0,
+                "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/1/0",
+                "sk": "02108c08d17e074c8b4992502e6c784d999af32196859e3d76b288380b86e8d0",
+                "Q": "026718d945026ad0263613baff9f3ada6cc6118da9bcca9c18a57f1b89e615e88c",
+                "cp1": "cp1vuvdj3gzdtgzvdsnhtle7wk6dnrprrdfhn9fcx990udcnes4azxqsjfhj8"
+              }
+            ]
+          },
+          "shareable": [
+            {
+              "share": 0,
+              "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/2/0'",
+              "p": "860dac849b6fc77454fdd6008ef51eabba0586b09451457fae6af3784d0f518b",
+              "P": "03faffb9f3b91435da23bb0c0405ffc4de4afd9e194d3c4b9a729851c08bf5bf10",
+              "chaincode": "3f517c5ad7eb3ca7f78aa1de31082a55d6ebd8b1fd953ec332867edd1a7f8393",
+              "cx1": "cx18aghckkhav720au2580rzzp22htwhk93lk2nasejseld6xnlswfs87hlh8emj9p4mg3mkrqyqhlufhj2lk0pjnfufwd89xz3cz9lt0csjgye9y",
+              "notes": [
+                {
+                  "i": 0,
+                  "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/2/0'/0",
+                  "sk": "eea72e60497bd611624ea6d8e28322e92471a433d4db45bdec77147b48c1d290",
+                  "Q": "034381a98c04c9473a7647fc1d6fc05becc1870cc5033c1fe0f41730b51e572c88",
+                  "cp1": "cp1gwq6nrqye9rn5aj8lswklszmanqcwrx9qv7plc85zuct28jh9jyq3dqnl8"
+                },
+                {
+                  "i": 1,
+                  "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/2/0'/1",
+                  "sk": "c2b7d8f3306d30beb4b84b57afce2afae3c0465ba5725d00d1b22e48f255f59b",
+                  "Q": "025a91cbf2093fb9295e9b0826c801d9037dcd54c7e0df7e8b7c5d743abe7a6f04",
+                  "cp1": "cp1t2guhusf87ujjh5mpqnvsqweqd7u64x8ur0hazmut46r40n6duzqvdtc2c"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "registration": {
+    "description": "Registration proof for username alice against derivation[1]'s account 0 share 0 cx1, signed (BIP-340, all-zero aux_rand) with that share's own key p, verified against x(P) of the cx1.",
+    "username": "alice",
+    "domain": "cash.example.com",
+    "register": {
+      "message": "LNURLcash:register:cash.example.com:alice",
+      "digest": "be730f1fc4a81feea4bc0464d9f6adff04dfe652687e39cba30eac9caa73fcdd",
+      "sig": "c61e83483e1cbed8e994e4eccb83723c3fa9e367ec97ef5b34865a3fd5eeebdc3f1f29411aac17c1156c09026cc24fd0dd4677d5e1f1a20edb8f354f9b0e76ae"
+    },
+    "unregister": {
+      "message": "LNURLcash:unregister:cash.example.com:alice",
+      "digest": "dc12e80f7d0486fab791c743688e54bcc759111722d80dfa5fa70586a7d9d9d9",
+      "sig": "682d2eec51f17830ae592d5ad230fa7e8eb06e5b684645510af0ae9f34f0ab1ec07dc6dd0d4829aa6385237bf56ee8496aa018986d99bc1c82eebf83776d2a70"
+    }
+  }
+}
