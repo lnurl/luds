@@ -240,6 +240,23 @@
                   "cp1": "cp1t2guhusf87ujjh5mpqnvsqweqd7u64x8ur0hazmut46r40n6duzqvdtc2c"
                 }
               ]
+            },
+            {
+              "share": 1,
+              "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/2/1'",
+              "p": "e53b0fff371ab55012358bbcbdcc506a5d8f3020d6c495d9ab66ec655fb0730b",
+              "P": "0279c34b8fdcfc7f744df508b0acf3de8b6e0ebda4c06b89e4abe8367a336cce6c",
+              "chaincode": "f6d408b75ae7f7ca270b963722f243cb844c30d2c9f5ed863f931abd97a426be",
+              "cx1": "cx17m2q3d66ulmu5fctjcmj9ujrewzycvxje867mp3ljvdtm9ayy6lqy7wrfw8aelrlw3xl2z9s4neaazmwp676fsrt38j2h6pk0gekennv3tgm8h",
+              "notes": [
+                {
+                  "i": 0,
+                  "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/2/1'/0",
+                  "sk": "55a85c334a05fc3a7891cd0409f3bfef02d5e0da01751bc7c2bf981c3da91a56",
+                  "Q": "03649333a2bf325090e109539e85257c457b17ffe65cafb7958e99ccf0940869bb",
+                  "cp1": "cp1vjfn8g4lxfgfpcgf2w0g2ftug4a30llxtjhm09vwn8x0p9qgdxascpltff"
+                }
+              ]
             }
           ]
         }
@@ -247,18 +264,32 @@
     }
   ],
   "registration": {
-    "description": "Registration proof for username alice against derivation[1]'s account 0 share 0 cx1, signed (BIP-340, all-zero aux_rand) with that share's own key p, verified against x(P) of the cx1.",
+    "description": "Proofs for username alice at derivation[1]'s domain, in order: register against account 0 share 0's cx1, update to share 1's cx1 (sig by the key on file, newsig by the new cx1's key over the register message), then unregister with share 1's key, now on file. Signed BIP-340 with an all-zero aux_rand by each share's own key p, verified against x(P) of its cx1.",
     "username": "alice",
     "domain": "cash.example.com",
+    "cx1": "cx18aghckkhav720au2580rzzp22htwhk93lk2nasejseld6xnlswfs87hlh8emj9p4mg3mkrqyqhlufhj2lk0pjnfufwd89xz3cz9lt0csjgye9y",
+    "new_cx1": "cx17m2q3d66ulmu5fctjcmj9ujrewzycvxje867mp3ljvdtm9ayy6lqy7wrfw8aelrlw3xl2z9s4neaazmwp676fsrt38j2h6pk0gekennv3tgm8h",
     "register": {
       "message": "LNURLcash:register:cash.example.com:alice",
       "digest": "be730f1fc4a81feea4bc0464d9f6adff04dfe652687e39cba30eac9caa73fcdd",
       "sig": "c61e83483e1cbed8e994e4eccb83723c3fa9e367ec97ef5b34865a3fd5eeebdc3f1f29411aac17c1156c09026cc24fd0dd4677d5e1f1a20edb8f354f9b0e76ae"
     },
+    "update": {
+      "sig": {
+        "message": "LNURLcash:update:cash.example.com:alice:cx17m2q3d66ulmu5fctjcmj9ujrewzycvxje867mp3ljvdtm9ayy6lqy7wrfw8aelrlw3xl2z9s4neaazmwp676fsrt38j2h6pk0gekennv3tgm8h",
+        "digest": "dcfde04912ad46c3a73e3b65b6f0c2c6833241029c42f715c34ab5eb5b8d662c",
+        "sig": "76fe3e93bae7e28290613fe1c068527850fedf0e482917e87e12f84035fe3b5aacbeee3d34b79306c2c7bdb7899da3c472b6fe9050d204b46433b17325aa062f"
+      },
+      "newsig": {
+        "message": "LNURLcash:register:cash.example.com:alice",
+        "digest": "be730f1fc4a81feea4bc0464d9f6adff04dfe652687e39cba30eac9caa73fcdd",
+        "sig": "8c0d586c9b41faf22ae8cefeb1a55ac6f4fa9bc1f70d83455c7cfe642cc30f53ec7c7ca086643e22c61c9bb675ce4ceb9b9fb9d22334b638ae8760b2cb41b0ab"
+      }
+    },
     "unregister": {
       "message": "LNURLcash:unregister:cash.example.com:alice",
       "digest": "dc12e80f7d0486fab791c743688e54bcc759111722d80dfa5fa70586a7d9d9d9",
-      "sig": "682d2eec51f17830ae592d5ad230fa7e8eb06e5b684645510af0ae9f34f0ab1ec07dc6dd0d4829aa6385237bf56ee8496aa018986d99bc1c82eebf83776d2a70"
+      "sig": "99211b14bc49b0c188f5be8743db4a7885de83755fa88804ff39c9ffeabe48a6ce61b677d6c7faa9794e90302f888afd2c74dbc33d08e41c905d4276b4e4f831"
     }
   }
 }
