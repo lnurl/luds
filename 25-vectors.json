@@ -28,24 +28,25 @@
     "ck1": "ck1dy9vxwyjce922wr5kqrx4vfn9u80gh9hcrsp06hqs2y3daf24x0lcdy378rtefeae4mt8r7xk75z4mc0r7n8yykwkltlvndug8ytlem7pkmqwa3yhughhtdktmlqg30rs2kf7nx4stm6tnpkd3awk3vq6smm20wz"
   },
   "certificates": {
-    "description": "cs1 certificates from an arbitrary SERVICE key. The amount changes both the signed message and cs1's human-readable part. Signatures are r || s || recovery-id.",
+    "description": "cs1 certificates from an arbitrary SERVICE key. Signed for domain mint.example. The amount changes both the signed message and cs1's human-readable part; the domain changes the signed message. Signatures are r || s || recovery-id.",
     "service_sk": "a8358061952ee158b42ffe1607c00adda3e63098247f837f08a4ef9492b4f798",
     "mintPubkey": "035acdbd57663f858be6d61ec4bfcbc99492699010f1451e30a6550f26295e813d",
     "Q": "690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f",
+    "domain": "mint.example",
     "cases": [
       {
         "amount_msat": 1000,
-        "message": "LNURLcash:1000:690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f",
-        "digest": "516ed4b15e18e8e23e6f7d36a8d7eb88505997b5b6ab537939d22127cf69594c",
-        "signature": "30d2250a5a97e7aee8de9f0296cbe550f4c88dc2ef2004b9731009c7dcd2df4f4ddd974c04971d09d9f22a3ff0a7c9a249cc52673dc1ba6c5071815889be995100",
-        "cs1": "cs10n1xrfz2zj6jln6a6x7nupfdjl92r6v3rwzausqfwtnzqyu0hxjma85mhvhfszfw8gfm8ez50ls5ly6yjwv2fnnmsd6d3g8rq2c3xlfj5gqqstd9v"
+        "message": "LNURLcash:mint.example:1000:690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f",
+        "digest": "084dbb1bf4c84e6bb08da9c283208f07c546305855e74f06834adc7257c3644b",
+        "signature": "8863e702d6a676cde369439645104dc793106eec12d1bde8f13a7d95d3079c560fe39eff7edf0b7b4ccee16a7273b7373b04c813b0cfd1e297e2d7a9ba0bce9901",
+        "cs1": "cs10n13p37wqkk5emvmcmfgwty2yzdc7f3qmhvztgmm6838f7et5c8n3tqlcu7lald7zmmfn8wz6njwwmnwwcyeqfmpn73u2t794afhg9uaxgpyam087"
       },
       {
         "amount_msat": 21000000,
-        "message": "LNURLcash:21000000:690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f",
-        "digest": "30d8b4219483353c7c9286dbf630070439712aaaf06460afa4eca93c4864eeaa",
-        "signature": "cd0e543690ae62c1fa70279bd6d406733739803c361bce8ca633b935db59246a08db7f25ebf6da82a4b42ecc8baf9e97cf9213477a628910bd50a0d2092959b301",
-        "cs1": "cs210u1e589gd5s4e3vr7nsy7dad4qxwvmnnqpuxcduar9xxwuntk6ey34q3kmlyh4ldk5z5j6zanyt470f0nujzdrh5c5fzz74pgxjpy54nvcpd0rph6"
+        "message": "LNURLcash:mint.example:21000000:690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f",
+        "digest": "cdda839535b2705e17d5587c1cfde7ae50df8afaeba822a9ea898cc7fdc86049",
+        "signature": "2b3b440e3befbf3632f006b497d0a57fcb23eca47bc33531b7baf74f4d922cc863fff6a9cd1c5deda86751509b57c68da6a51a92e1d3ab6acb5a3eca369f365000",
+        "cs1": "cs210u19va5gr3ma7lnvvhsq66f05990l9j8m9y00pn2vdhhtm57nvj9nyx8llk48x3ch0d4pn4z5ym2lrgmf49r2fwr5atdt9450k2x60nv5qqt2u5km"
       }
     ]
   },
@@ -63,11 +64,11 @@
     "cw1": "cw1qqqqqq8lllll7qpr4qsxxrwd99nvgvmxjyf9gj9mkfd5laqj5jw8xtdjez4urwzcr0t3phv8qqsuq5yjnd6vrgzf2jmckjmqxh5h5hs83fdq728vjm2500lwnt8gqwkqqqsqqqgzqvzq2ps8pqys5zcvp58q7yq3zgf3g9gkzuvpjxsmrsw3u8c6x6a4c",
     "certificate": {
       "amount_msat": 1000,
-      "message": "LNURLcash:1000:d18b619687343df2fc7a47e1daf25260b909bb563fb4b4b11e59e2bd64880982",
-      "digest": "e44e0e215367429a8a503ee0095e070cfb215b8e8b3af523b75e54138e75ee84",
-      "signature": "c74d78b8c9ebd0a11a5afacaf1fed061da8ced7d6625e6809b624ddf68f16ab47df5cd830886bf7d1f1eaa88b9badaca242be6e038adec7b38c51a392d234a7800",
-      "cs1": "cs10n1caxh3wxfa0g2zxj6lt90rlksv8dgemtavcj7dqymvfxa7683d268mawdsvygd0maru024z9ehtdv5fptumsr3t0v0vuv2x3e953557qq5c70z5"
+      "message": "LNURLcash:mint.example:1000:d18b619687343df2fc7a47e1daf25260b909bb563fb4b4b11e59e2bd64880982",
+      "digest": "ea40ba003bab3fc5f12418e8eb55ce8cc55fdc18ae69450d5f6a9ebd9221ff0f",
+      "signature": "338e4b8b887407414bd604b4398249b1325db817471499dff3dfc4152a6d81dc54229d61706a0ef8ed79b142e1799b597d2f07b55ffb268df4a00404ac9fd53201",
+      "cs1": "cs10n1xw8yhzugwsr5zj7kqj6rnqjfkye9mwqhgu2fnhlnmlzp22nds8w9gg5av9cx5rhca4umzshp0xd4jlf0q764l7ex3h62qpqy4j0a2vsp2kjsk5"
     },
-    "note_url": "lnurlw://mint.example/w?k1=000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f&c=cs10n1caxh3wxfa0g2zxj6lt90rlksv8dgemtavcj7dqymvfxa7683d268mawdsvygd0maru024z9ehtdv5fptumsr3t0v0vuv2x3e953557qq5c70z5"
+    "note_url": "lnurlw://mint.example/w?k1=000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f&c=cs10n1xw8yhzugwsr5zj7kqj6rnqjfkye9mwqhgu2fnhlnmlzp22nds8w9gg5av9cx5rhca4umzshp0xd4jlf0q764l7ex3h62qpqy4j0a2vsp2kjsk5"
   }
 }

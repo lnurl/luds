@@ -34,6 +34,6 @@ digraph {
   { 04 16 } -> 18 [style="dotted"] // loose relationship of payer id with lnurl-auth and lightning address
   06 -> 16 // paying to user@domain.com
   { 06 14 } -> 19 // mutually discoverable pay and withdraw links
-  { 03 06 17 } -> 25 // LNURLcash bearer notes built on withdraw/pay/raw-url
+  { 03 06 12 17 } -> 25 // LNURLcash bearer notes built on withdraw/pay/comments/raw-url
   { 05 16 25 } -> 26 // LNURLcash seed derivation and lightning address auto-mint
 }
