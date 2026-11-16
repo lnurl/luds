@@ -1,5 +1,5 @@
 {
-  "description": "LUD-25 test vectors. Hex values are big-endian byte strings unless noted. Every spend was accepted by Bitcoin Core's interpreter (libbitcoinkernel) against the canonical spend transaction.",
+  "description": "LUD-25 test vectors. Hex values are big-endian byte strings unless noted. Every spend was accepted, or refused where marked, by Bitcoin Core's interpreter (libbitcoinkernel) against the canonical spend transaction.",
   "key_path_spend": {
     "description": "ck1 for an arbitrary key-path note, signed with an all-zero aux_rand. The same ck1 fails at any other domain.",
     "sk": "3616b02290a133da73e758a54dbff1bf6439b4067a820cb51ca873fa4a13a96a",
@@ -28,7 +28,7 @@
     "ck1": "ck1dy9vxwyjce922wr5kqrx4vfn9u80gh9hcrsp06hqs2y3daf24x0lcdy378rtefeae4mt8r7xk75z4mc0r7n8yykwkltlvndug8ytlem7pkmqwa3yhughhtdktmlqg30rs2kf7nx4stm6tnpkd3awk3vq6smm20wz"
   },
   "certificates": {
-    "description": "cs1 certificates from an arbitrary SERVICE key. Signed for domain mint.example. The amount changes both the signed message and cs1's human-readable part; the domain changes the signed message. Signatures are r || s || recovery-id.",
+    "description": "cs1 certificates from an arbitrary SERVICE key, signed for domain mint.example at t = 1800000000. The amount changes both the signed message and cs1's human-readable part; the domain and t change the signed message. Signatures are r || s || recovery-id; the cs1 payload appends u32 t, big-endian.",
     "service_sk": "a8358061952ee158b42ffe1607c00adda3e63098247f837f08a4ef9492b4f798",
     "mintPubkey": "035acdbd57663f858be6d61ec4bfcbc99492699010f1451e30a6550f26295e813d",
     "Q": "690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f",
@@ -36,17 +36,19 @@
     "cases": [
       {
         "amount_msat": 1000,
-        "message": "LNURLcash:mint.example:1000:690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f",
-        "digest": "084dbb1bf4c84e6bb08da9c283208f07c546305855e74f06834adc7257c3644b",
-        "signature": "8863e702d6a676cde369439645104dc793106eec12d1bde8f13a7d95d3079c560fe39eff7edf0b7b4ccee16a7273b7373b04c813b0cfd1e297e2d7a9ba0bce9901",
-        "cs1": "cs10n13p37wqkk5emvmcmfgwty2yzdc7f3qmhvztgmm6838f7et5c8n3tqlcu7lald7zmmfn8wz6njwwmnwwcyeqfmpn73u2t794afhg9uaxgpyam087"
+        "t": 1800000000,
+        "message": "LNURLcash:mint.example:1000:690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f:1800000000",
+        "digest": "1ff4881667ef059710c587252a6f120799378b829203adedc4da069ababb8c61",
+        "signature": "02c99b22fbe120d567910396841595f5cdf87755fe1aaff98a1cc7807518c7cf05ab1d657b05072e9a2f9fbf7b7f0e707d40fe5f116904e46b73d5909eac4d7901",
+        "cs1": "cs10n1qtyekghmuysd2eu3qwtgg9v47hxlsa64lcd2l7v2rnrcqagccl8st2cav4as2pewnghel0mm0u88ql2qle03z6gyu34h84vsn6ky67gpddyayqqmjlftw"
       },
       {
         "amount_msat": 21000000,
-        "message": "LNURLcash:mint.example:21000000:690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f",
-        "digest": "cdda839535b2705e17d5587c1cfde7ae50df8afaeba822a9ea898cc7fdc86049",
-        "signature": "2b3b440e3befbf3632f006b497d0a57fcb23eca47bc33531b7baf74f4d922cc863fff6a9cd1c5deda86751509b57c68da6a51a92e1d3ab6acb5a3eca369f365000",
-        "cs1": "cs210u19va5gr3ma7lnvvhsq66f05990l9j8m9y00pn2vdhhtm57nvj9nyx8llk48x3ch0d4pn4z5ym2lrgmf49r2fwr5atdt9450k2x60nv5qqt2u5km"
+        "t": 1800000000,
+        "message": "LNURLcash:mint.example:21000000:690ac33892c64aa53874b0066ab1332f0ef45cb7c0e017eae0828916f52aa99f:1800000000",
+        "digest": "608927850988ef8d40aed2fb3c7f615e04ffe107e4f385c4786603eadf96f67e",
+        "signature": "4e72df8e2024cdb6e6e1a031306d48327aae0b4dce0b11ca959a3ee2cc69931f5e78d03c462983a2238ccbacd47722f8881eb65c89a3b0f8f4dcc67cc49a1f2d01",
+        "cs1": "cs210u1feedlr3qynxmdehp5qcnqm2gxfa2uz6dec93rj54nglw9nrfjv04u7xs83rznqazywxvhtx5wu303zq7kewgngaslr6de3nucjdp7tgpddyayqqergmft"
       }
     ]
   },
@@ -64,11 +66,235 @@
     "cw1": "cw1qqqqqq8lllll7qpr4qsxxrwd99nvgvmxjyf9gj9mkfd5laqj5jw8xtdjez4urwzcr0t3phv8qqsuq5yjnd6vrgzf2jmckjmqxh5h5hs83fdq728vjm2500lwnt8gqwkqqqsqqqgzqvzq2ps8pqys5zcvp58q7yq3zgf3g9gkzuvpjxsmrsw3u8c6x6a4c",
     "certificate": {
       "amount_msat": 1000,
-      "message": "LNURLcash:mint.example:1000:d18b619687343df2fc7a47e1daf25260b909bb563fb4b4b11e59e2bd64880982",
-      "digest": "ea40ba003bab3fc5f12418e8eb55ce8cc55fdc18ae69450d5f6a9ebd9221ff0f",
-      "signature": "338e4b8b887407414bd604b4398249b1325db817471499dff3dfc4152a6d81dc54229d61706a0ef8ed79b142e1799b597d2f07b55ffb268df4a00404ac9fd53201",
-      "cs1": "cs10n1xw8yhzugwsr5zj7kqj6rnqjfkye9mwqhgu2fnhlnmlzp22nds8w9gg5av9cx5rhca4umzshp0xd4jlf0q764l7ex3h62qpqy4j0a2vsp2kjsk5"
+      "t": 1800000000,
+      "message": "LNURLcash:mint.example:1000:d18b619687343df2fc7a47e1daf25260b909bb563fb4b4b11e59e2bd64880982:1800000000",
+      "digest": "0f330f1194f9f5627b38f332742ebacb075eaf634a0d9c6add243e8b9460e098",
+      "signature": "3057392135669d5cbb19397762fb5a16a3fbe23a684f8d2a0848858dd4bc72ff4727d441ec50a0a987450a090533067dd4ff870a7928ad9bb96845f06890074301",
+      "cs1": "cs10n1xptnjgf4v6w4ewce89mk9766z63lhc36dp8c62sgfzzcm49uwtl5wf75g8k9pg9fsazs5zg9xvr8m48lsu98j29dnwuks30sdzgqwscpddyayqqc3yf72"
     },
-    "note_url": "lnurlw://mint.example/w?k1=000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f&c=cs10n1xw8yhzugwsr5zj7kqj6rnqjfkye9mwqhgu2fnhlnmlzp22nds8w9gg5av9cx5rhca4umzshp0xd4jlf0q764l7ex3h62qpqy4j0a2vsp2kjsk5"
+    "note_url": "lnurlw://mint.example/w?k1=000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f&c=cs10n1xptnjgf4v6w4ewce89mk9766z63lhc36dp8c62sgfzzcm49uwtl5wf75g8k9pg9fsazs5zg9xvr8m48lsu98j29dnwuks30sdzgqwscpddyayqqc3yf72"
+  },
+  "timelock_note": {
+    "description": "Leaf <T> OP_CHECKLOCKTIMEVERIFY OP_DROP <pk> OP_CHECKSIG under BIP-341's NUMS key, T = 1800000000, signed with an all-zero aux_rand. expect maps the SERVICE's clock to its verdict: the first spend claims T, the second a time before it, which the script refuses.",
+    "T": 1800000000,
+    "sk": "19f49017fb2e30f0d4deb83d14eacd2715abc95dd8ca3d8e063af35a833047de",
+    "leaf": "0400d2496bb1752048711c155a7403e2b10da4a69803a0efb6aa5324e8a25fa774fed47e8da2da88ac",
+    "Q": "c0f5569495465776e2b57e7aac87d2d3141a68c4045acac9d8aadb849504b2d3",
+    "control_block": "c150929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0",
+    "cp1": "cp1cr64d9y4gethdc440ea2ep7j6v2p56xyq3dv4jwc4tdcf9gyktfsw40rxl",
+    "domain": "mint.example",
+    "spends": [
+      {
+        "locktime": 1800000000,
+        "sequence": 4294967294,
+        "sighash": "1c0a4ca9e031d0460b7bddfeceed7ec370738a46d15ac7d8dd907798f149d32a",
+        "cw1": "cw1ddyayq8llllluqpfqsqdyjttk96jqjr3rs245aqru2csmf9xnqp6pmak4ffjf69zt7nhflk506x69k5g4sqzrs2sj2dhfsdqf92t0z6tvq67j7j7q7995regajtd23ala6dvaqp6cqqyq9gzecqsd4klp7l7jrtmh2lmm42jh9dcazla80s35useymun2q0kz6358qn2ydtsu8yn9jgtyvv9kpuft0ntyucyhsnwt9kgf43vg2nq0k8sdn",
+        "expect": {
+          "1799999999": "refused",
+          "1800000000": "accepted"
+        }
+      },
+      {
+        "locktime": 1799999999,
+        "sequence": 4294967294,
+        "sighash": "7d7374267253145015d02a2fdd8a360458c1bf20e63122aa4fd064c39830b7c8",
+        "cw1": "cw1ddyarllllllluqpfqsqdyjttk96jqjr3rs245aqru2csmf9xnqp6pmak4ffjf69zt7nhflk506x69k5g4sqzrs2sj2dhfsdqf92t0z6tvq67j7j7q7995regajtd23ala6dvaqp6cqqyqmptt4zwr470rc9yxj9frer2hxx3klf7dn5yez5rhwaufukjpdg3lsa2w4ytj77ux3t2fu7srg7jvtdkhvanjxw5jpk6jcggwtw5glyqscqjx7",
+        "expect": {
+          "1799999999": "refused",
+          "1800000000": "refused"
+        }
+      }
+    ]
+  },
+  "domains": {
+    "description": "withdrawLink to domain.",
+    "cases": {
+      "https://Mint.Example.:443/w": "mint.example",
+      "https://mint.example:8443/w": "mint.example",
+      "https://user:pass@mint.example/w": "mint.example",
+      "lnurlw://mint.example/w": "mint.example",
+      "LNURL1DP68GURN8GHJ7MTFDE6ZUETCV9KHQMR99AMST60YTL": "mint.example",
+      "https://Bücher.example/w": "xn--bcher-kva.example",
+      "http://MINTMINTMINTMINTMINTMINTMINTMINTMINTMINTMINTMINTMINT4AD.onion/w": "mintmintmintmintmintmintmintmintmintmintmintmintmint4ad.onion"
+    }
+  },
+  "fees": {
+    "description": "Mint fees parsing (null: the fee is unknown), the credit at minting, and a split's and a merge's outputs (error true: any reason).",
+    "parse": [
+      {
+        "text_plain": "a mint",
+        "expect": {
+          "base_fee_msat": 0,
+          "fee_ppm": 0
+        }
+      },
+      {
+        "text_plain": "a mint. Mint fees: 1000,2000 and more",
+        "expect": {
+          "base_fee_msat": 1000,
+          "fee_ppm": 2000
+        }
+      },
+      {
+        "text_plain": "Mint fees: 1000,10,21000",
+        "expect": {
+          "base_fee_msat": 1000,
+          "fee_ppm": 10
+        }
+      },
+      {
+        "text_plain": "Mint fees: 1000 , 2000",
+        "expect": null
+      },
+      {
+        "text_plain": "Mint fees: 1k,2000",
+        "expect": null
+      }
+    ],
+    "mint": [
+      {
+        "amount_msat": 100500,
+        "base_fee_msat": 0,
+        "fee_ppm": 0,
+        "credited_msat": 100000
+      },
+      {
+        "amount_msat": 100000,
+        "base_fee_msat": 1000,
+        "fee_ppm": 2000,
+        "credited_msat": 98000
+      },
+      {
+        "amount_msat": 21000999,
+        "base_fee_msat": 1000,
+        "fee_ppm": 10,
+        "credited_msat": 20999000
+      },
+      {
+        "amount_msat": 2100000000000000,
+        "base_fee_msat": 0,
+        "fee_ppm": 999999,
+        "credited_msat": 2100000000
+      }
+    ],
+    "split": [
+      {
+        "value_in_msat": 10000000,
+        "amount_msat": 4000000,
+        "base_fee_msat": 1000,
+        "p1_msat": 4000000,
+        "p2_msat": 5999000
+      },
+      {
+        "value_in_msat": 10000000,
+        "amount_msat": 4000500,
+        "base_fee_msat": 1000,
+        "error": true
+      },
+      {
+        "value_in_msat": 10000000,
+        "amount_msat": 9999000,
+        "base_fee_msat": 1000,
+        "error": "insufficient value"
+      }
+    ],
+    "merge": [
+      {
+        "values_in_msat": [
+          1000000,
+          2000000,
+          3000000
+        ],
+        "base_fee_msat": 1000,
+        "value_out_msat": 6002000
+      }
+    ]
+  },
+  "transcripts": {
+    "description": "In order, at a SERVICE on mint.example with Mint fees: 1000,0, whose bearer note holds 10000000 msat. Certificates are by the certificates key at t = 1800000000; <pr> is any BOLT-11 invoice for the note's value. Key-path notes are A (key_path_spend's) and B, C, D, unknown, each with sk sha256(\"LUD-25 transcript note <name>\").",
+    "steps": [
+      {
+        "request": "GET https://mint.example/.well-known/lnurlp/mint",
+        "response": {
+          "tag": "payRequest",
+          "callback": "https://mint.example/lnurlp/mint/cb",
+          "minSendable": 2000,
+          "maxSendable": 100000000000,
+          "metadata": "[[\"text/plain\",\"Mint fees: 1000,0\"]]",
+          "withdrawLink": "https://mint.example/w",
+          "commentAllowed": 64,
+          "mintPubkey": "035acdbd57663f858be6d61ec4bfcbc99492699010f1451e30a6550f26295e813d"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w?k1=000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "response": {
+          "tag": "withdrawRequest",
+          "callback": "https://mint.example/w/cb",
+          "k1": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+          "defaultDescription": "",
+          "minWithdrawable": 10000000,
+          "maxWithdrawable": 10000000,
+          "payLink": "https://mint.example/.well-known/lnurlp/mint",
+          "mintPubkey": "035acdbd57663f858be6d61ec4bfcbc99492699010f1451e30a6550f26295e813d",
+          "c": "cs100u1jgcktr828wf8y9e7g7q2pm0uwwtyrsu37qqmly6hhe5qh8t3eg64lswgpydavu2vswe70lflhqm0cfcuk8g3lc072qvy7lhh9uxwd6spddyayqqmawudu"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w?p=cp13nscqrztv4pwlf6gjewfzzpsz9sm8jx4cjenn3mtz4wdhudzc9qq88m6c9",
+        "response": {
+          "status": "ERROR",
+          "reason": "unknown note"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w/cb?k1=000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f&p1=cp1dy9vxwyjce922wr5kqrx4vfn9u80gh9hcrsp06hqs2y3daf24x0sxpcl6z",
+        "response": {
+          "status": "OK",
+          "c": "cs100u1ldlaj5t66rvrd4y2m799xusp89yw4n6g54wyj7l2czv8tjtc46w84jk252fl2h7wtgzxs5ud37wkmc8f9lzd0crluktf8wp9j7l7klspddyayqqr63f6k"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w/cb?k1=000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f&p1=cp1dy9vxwyjce922wr5kqrx4vfn9u80gh9hcrsp06hqs2y3daf24x0sxpcl6z",
+        "response": {
+          "status": "OK",
+          "c": "cs100u1ldlaj5t66rvrd4y2m799xusp89yw4n6g54wyj7l2czv8tjtc46w84jk252fl2h7wtgzxs5ud37wkmc8f9lzd0crluktf8wp9j7l7klspddyayqqr63f6k"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w/cb?k1=ck1dy9vxwyjce922wr5kqrx4vfn9u80gh9hcrsp06hqs2y3daf24x0lcdy378rtefeae4mt8r7xk75z4mc0r7n8yykwkltlvndug8ytlem7pkmqwa3yhughhtdktmlqg30rs2kf7nx4stm6tnpkd3awk3vq6smm20wz&amount=4000000&p1=cp1tnjczm80mm4kmwjkhfdn9m2wevx828wqz87zv2zqzswayhmnczzqqw55gm&p2=cp1qzzqnrusuc52fxrepgd2kjqadsdj56lf4jfwuppsn93rvprrqvhqplgfz3",
+        "response": {
+          "status": "OK",
+          "c": "cs40u1qj42vlx485a9mrtafpf2e4fzc5ny4ng806vmqnv0sj8yktukp3shcyqw79u77ezj0wv4z0xp6u95586t7y04hvaul0awmtn6c2kk6fgpddyayqquyq8ev",
+          "c2": "cs59990n14dhjhl4tz9yeg6qlqustzzvulg25hwnz7q82525kzwf55q8wjr295enchcty379jf3t8mxnxs4rsct9rzhn2q5ytc3khmrvgtvtmkdgpddyayqq0a0cnw"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w/cb?k1=ck1tnjczm80mm4kmwjkhfdn9m2wevx828wqz87zv2zqzswayhmnczzz5r6guhdk9722shf42f44vjuzlvlxrt4eurjrl5gx7n25gwq06kv8aqknwxpakzrlll274aahsxqv7q3qx047tlvu2pvk5ltpl5js5gqaqxph&k1=ck1qzzqnrusuc52fxrepgd2kjqadsdj56lf4jfwuppsn93rvprrqvhd097j8nnj0unw6dczh9zmtf8xk94cmusz3muqndvg973y4tlvalqmjay290hegkmrutgrzewqylxrhx05xjptguq8wtjwc2yxpd63d5480eel&p1=cp1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59shmg4ny",
+        "response": {
+          "status": "OK",
+          "c": "cs100u1eccz60ln0cmxphq7p7jzu7cj9enrxn6qalsustatrggja3w82ws8ehjnkr2y69tcn23evcn93pcsrpq03tht89ej9n8chqk6k4r0qnqpddyayqq79adug"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w/cb?k1=ck1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59jetzmzm4469nhghpz8r8ky8grfwmatlp3fja4nmljn3y6l6h5fl3czn0tfz35mlzxy8hu7wcm9r7vcvjrkrwlr4sz8lfyzyndswwmsq0w6z77&pr=<pr>",
+        "response": {
+          "status": "OK"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w/cb?k1=ck1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59jetzmzm4469nhghpz8r8ky8grfwmatlp3fja4nmljn3y6l6h5fl3czn0tfz35mlzxy8hu7wcm9r7vcvjrkrwlr4sz8lfyzyndswwmsq0w6z77&pr=<pr>",
+        "response": {
+          "status": "OK"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w?k1=ck1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59jetzmzm4469nhghpz8r8ky8grfwmatlp3fja4nmljn3y6l6h5fl3czn0tfz35mlzxy8hu7wcm9r7vcvjrkrwlr4sz8lfyzyndswwmsq0w6z77",
+        "response": {
+          "status": "ERROR",
+          "reason": "already in use"
+        }
+      }
+    ]
   }
 }

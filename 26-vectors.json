@@ -1,5 +1,5 @@
 {
-  "description": "LUD-26 test vectors. Hex values are big-endian byte strings unless noted. Seeds are BIP-32's test vectors 1 and 2. S = m/139'/d1/d2/d3/d4 is the SERVICE's root and a the account. Wallet notes are S/a'/0/i and change notes S/a'/1/i, never exported. Share n is S/a'/2/n', exported as cx1 = bech32m(chaincode || P) with P compressed; its notes S/a'/2/n'/i are ordinary BIP-32 public derivation from the cx1. Every note lists pk = sk*G compressed, so its y parity is visible, and Q = x(pk), 32 bytes as in LUD-25; a BIP-340 signer negates sk whenever pk has odd y. cp1 encodes Q.",
+  "description": "LUD-26 test vectors. Hex values are big-endian byte strings unless noted. Seeds are BIP-32's test vectors 1 and 2. S = m/139'/d1/d2/d3/d4 is the SERVICE's root and a the account. Wallet notes are S/a'/0/i and change notes S/a'/1/i, never exported. Share n is S/a'/2/n', exported as cx1 = bech32m(chaincode || P) with P compressed; its notes S/a'/2/n'/i are ordinary BIP-32 public derivation from the cx1. Every note lists pk = sk*G compressed, so its y parity is visible, and Q = x(pk), 32 bytes as in LUD-25; a BIP-340 signer negates sk whenever pk has odd y. cp1 encodes Q. Each chain and share carries its BIP-386 descriptor.",
   "derivation": [
     {
       "seed": "000102030405060708090a0b0c0d0e0f",
@@ -16,6 +16,7 @@
           "account": 0,
           "wallet": {
             "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/0/i",
+            "descriptor": "rawtr(xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi/139h/581324588h/1753459515h/1457252576h/1452184550/0h/0/*)#ckqlyhxt",
             "notes": [
               {
                 "i": 0,
@@ -53,6 +54,7 @@
           },
           "change": {
             "path": "m/139'/2728808236/3900943163/3604736224/1452184550/0'/1/i",
+            "descriptor": "rawtr(xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi/139h/581324588h/1753459515h/1457252576h/1452184550/0h/1/*)#fz97ezkn",
             "notes": [
               {
                 "i": 0,
@@ -80,6 +82,7 @@
               "P": "035e1038c42b1637fb8f46564fedd1c762fc88b7e7cc7546ae66d1fbab7e44aff9",
               "chaincode": "779abff5759d056b4775dc0ee4a3738cb4d26ccf18b548b1ed0317bad9e61d1b",
               "cx1": "cx1w7dtlat4n5zkk3m4ms8wfgmn3j6dymx0rz653v0dqvtm4k0xr5dsxhss8rzzk93hlw85v4j0ahguwchu3zm70nr4g6hxd50m4dlyftle95ayjt",
+              "descriptor": "rawtr(xpub661MyMwAqRbcFjVwabhSB8sWmfWnGBkFGFZngQBtWu8VrqTsgpwLeRuxAM1HdmGSkShvb1PwgNmB3wyg4B4xzWGRjK5ekxfbPVqSzRrToox/*)#g8e2e3aj",
               "notes": [
                 {
                   "i": 0,
@@ -114,6 +117,7 @@
               "P": "0239b39f7df7e611aaac13a99f96d08c02c14b27ebf64741d88bddf8d18db7f7b4",
               "chaincode": "4e51086e12394cc38692a64de57f2babef01cad96132dc82560f74f14083cf82",
               "cx1": "cx1fegssmsj89xv8p5j5ex72let40hsrjkevyedeqjkpa60zsyre7pqywdnna7l0es342kp82vljmggcqkpfvn7haj8g8vghh0c6xxm0aa55y0rvh",
+              "descriptor": "rawtr(xpub661MyMwAqRbcFKf82RWXHrC4WXmoxjVVz7oeyESyFnFrvVqwzLZsVvCy5tQmnfYHBUowins8AZgRtEZFWJwMYvX31TibFC4PpU9M1B3oSmZ/*)#3u5qqx7u",
               "notes": [
                 {
                   "i": 0,
@@ -131,6 +135,7 @@
           "account": 1,
           "wallet": {
             "path": "m/139'/2728808236/3900943163/3604736224/1452184550/1'/0/i",
+            "descriptor": "rawtr(xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi/139h/581324588h/1753459515h/1457252576h/1452184550/1h/0/*)#jdheseqk",
             "notes": [
               {
                 "i": 0,
@@ -144,6 +149,7 @@
           },
           "change": {
             "path": "m/139'/2728808236/3900943163/3604736224/1452184550/1'/1/i",
+            "descriptor": "rawtr(xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi/139h/581324588h/1753459515h/1457252576h/1452184550/1h/1/*)#rejcdvsw",
             "notes": [
               {
                 "i": 0,
@@ -163,6 +169,7 @@
               "P": "03adf71fceb525bac49b1ddb370a86d7c1ec6e607b1d135bbb90ebbca0b06ba225",
               "chaincode": "ff7aa3e2d6bf69e544e3f71b685d8ad91b1e433de18e416a0a62b7dcdcbe0e27",
               "cx1": "cx1laa28ckkha57238r7udkshv2myd3useaux8yz6s2v2maeh97pcns8t0hrl8t2fd6cjd3mkehp2rd0s0vdes8k8gntwaep6au5zcxhg39nsql5m",
+              "descriptor": "rawtr(xpub661MyMwAqRbcH5xfXVDDw2wYdAF4FbjdCv7CJBTyKhhcVrUNNzfz54BYDyFj1iUTrythCjcqrMFWwvQ4nEUoAGioZX7w9BU31MHTHw5dvbH/*)#g26dq3gs",
               "notes": [
                 {
                   "i": 0,
@@ -193,6 +200,7 @@
           "account": 0,
           "wallet": {
             "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/0/i",
+            "descriptor": "rawtr(xprv9s21ZrQH143K31xYSDQpPDxsXRTUcvj2iNHm5NUtrGiGG5e2DtALGdso3pGz6ssrdK4PFmM8NSpSBHNqPqm55Qn3LqFtT2emdEXVYsCzC2U/139h/739388036h/2079143703h/601234048h/1002847463/0h/0/*)#mmncnsya",
             "notes": [
               {
                 "i": 0,
@@ -222,6 +230,7 @@
           },
           "change": {
             "path": "m/139'/2886871684/4226627351/2748717696/1002847463/0'/1/i",
+            "descriptor": "rawtr(xprv9s21ZrQH143K31xYSDQpPDxsXRTUcvj2iNHm5NUtrGiGG5e2DtALGdso3pGz6ssrdK4PFmM8NSpSBHNqPqm55Qn3LqFtT2emdEXVYsCzC2U/139h/739388036h/2079143703h/601234048h/1002847463/0h/1/*)#20kew959",
             "notes": [
               {
                 "i": 0,
@@ -241,6 +250,7 @@
               "P": "03faffb9f3b91435da23bb0c0405ffc4de4afd9e194d3c4b9a729851c08bf5bf10",
               "chaincode": "3f517c5ad7eb3ca7f78aa1de31082a55d6ebd8b1fd953ec332867edd1a7f8393",
               "cx1": "cx18aghckkhav720au2580rzzp22htwhk93lk2nasejseld6xnlswfs87hlh8emj9p4mg3mkrqyqhlufhj2lk0pjnfufwd89xz3cz9lt0csjgye9y",
+              "descriptor": "rawtr(xpub661MyMwAqRbcFAzoLvGW8kwCmMYaBUKQGEVQBvnSRVT5rm7cBPEDowhgN1iGjQGqEdUVpn49LRnw1hm4JkB3JEPzBHTrESH16WBnMWQZhG1/*)#8mf7md6x",
               "notes": [
                 {
                   "i": 0,
@@ -267,6 +277,7 @@
               "P": "0279c34b8fdcfc7f744df508b0acf3de8b6e0ebda4c06b89e4abe8367a336cce6c",
               "chaincode": "f6d408b75ae7f7ca270b963722f243cb844c30d2c9f5ed863f931abd97a426be",
               "cx1": "cx17m2q3d66ulmu5fctjcmj9ujrewzycvxje867mp3ljvdtm9ayy6lqy7wrfw8aelrlw3xl2z9s4neaazmwp676fsrt38j2h6pk0gekennv3tgm8h",
+              "descriptor": "rawtr(xpub661MyMwAqRbcGzxvysbXoTeBfxz8BjiXkLSK8TEUXUWT15orNDJYinPB9CmEUcVyTU2a41DVfrvsRGEk6TXJDj9YYbPEi8gsN6DEMBUT8v4/*)#vg90457q",
               "notes": [
                 {
                   "i": 0,
