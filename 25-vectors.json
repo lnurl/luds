@@ -291,6 +291,19 @@
       {
         "request": "GET https://mint.example/w?k1=ck1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59jetzmzm4469nhghpz8r8ky8grfwmatlp3fja4nmljn3y6l6h5fl3czn0tfz35mlzxy8hu7wcm9r7vcvjrkrwlr4sz8lfyzyndswwmsq0w6z77",
         "response": {
+          "tag": "withdrawRequest",
+          "callback": "https://mint.example/w/cb",
+          "k1": "ck1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59jetzmzm4469nhghpz8r8ky8grfwmatlp3fja4nmljn3y6l6h5fl3czn0tfz35mlzxy8hu7wcm9r7vcvjrkrwlr4sz8lfyzyndswwmsq0w6z77",
+          "defaultDescription": "",
+          "minWithdrawable": 0,
+          "maxWithdrawable": 0,
+          "payLink": "https://mint.example/.well-known/lnurlp/mint",
+          "mintPubkey": "035acdbd57663f858be6d61ec4bfcbc99492699010f1451e30a6550f26295e813d"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w/cb?k1=ck1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59jetzmzm4469nhghpz8r8ky8grfwmatlp3fja4nmljn3y6l6h5fl3czn0tfz35mlzxy8hu7wcm9r7vcvjrkrwlr4sz8lfyzyndswwmsq0w6z77&p1=cp13nscqrztv4pwlf6gjewfzzpsz9sm8jx4cjenn3mtz4wdhudzc9qq88m6c9",
+        "response": {
           "status": "ERROR",
           "reason": "already in use"
         }
