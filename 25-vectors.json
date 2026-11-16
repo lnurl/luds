@@ -211,7 +211,7 @@
     ]
   },
   "transcripts": {
-    "description": "In order, at a SERVICE on mint.example with Mint fees: 1000,0, whose bearer note holds 10000000 msat. Certificates are by the certificates key at t = 1800000000; <pr> is any BOLT-11 invoice for the note's value. Key-path notes are A (key_path_spend's) and B, C, D, unknown, each with sk sha256(\"LUD-25 transcript note <name>\").",
+    "description": "In order, at a SERVICE on mint.example with Mint fees: 1000,0, whose bearer note holds 10000000 msat. Certificates are by the certificates key at t = 1800000000; <pr> is any BOLT-11 invoice for the note's value, <verify> the unguessable verify URL its melt returns and <preimage> the preimage of <pr>; an event step marks something that happens outside the requests. Key-path notes are A (key_path_spend's) and B, C, D, unknown, each with sk sha256(\"LUD-25 transcript note <name>\").",
     "steps": [
       {
         "request": "GET https://mint.example/.well-known/lnurlp/mint",
@@ -279,13 +279,56 @@
       {
         "request": "GET https://mint.example/w/cb?k1=ck1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59jetzmzm4469nhghpz8r8ky8grfwmatlp3fja4nmljn3y6l6h5fl3czn0tfz35mlzxy8hu7wcm9r7vcvjrkrwlr4sz8lfyzyndswwmsq0w6z77&pr=<pr>",
         "response": {
-          "status": "OK"
+          "status": "OK",
+          "verify": "<verify>"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w?k1=ck1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59jetzmzm4469nhghpz8r8ky8grfwmatlp3fja4nmljn3y6l6h5fl3czn0tfz35mlzxy8hu7wcm9r7vcvjrkrwlr4sz8lfyzyndswwmsq0w6z77",
+        "response": {
+          "tag": "withdrawRequest",
+          "callback": "https://mint.example/w/cb",
+          "k1": "ck1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59jetzmzm4469nhghpz8r8ky8grfwmatlp3fja4nmljn3y6l6h5fl3czn0tfz35mlzxy8hu7wcm9r7vcvjrkrwlr4sz8lfyzyndswwmsq0w6z77",
+          "defaultDescription": "",
+          "minWithdrawable": 0,
+          "maxWithdrawable": 0,
+          "payLink": "https://mint.example/.well-known/lnurlp/mint",
+          "mintPubkey": "035acdbd57663f858be6d61ec4bfcbc99492699010f1451e30a6550f26295e813d"
+        }
+      },
+      {
+        "request": "GET https://mint.example/w/cb?k1=ck1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59jetzmzm4469nhghpz8r8ky8grfwmatlp3fja4nmljn3y6l6h5fl3czn0tfz35mlzxy8hu7wcm9r7vcvjrkrwlr4sz8lfyzyndswwmsq0w6z77&p1=cp13nscqrztv4pwlf6gjewfzzpsz9sm8jx4cjenn3mtz4wdhudzc9qq88m6c9",
+        "response": {
+          "status": "ERROR",
+          "reason": "pending"
+        }
+      },
+      {
+        "request": "GET <verify>",
+        "response": {
+          "status": "OK",
+          "settled": false,
+          "preimage": null,
+          "pr": "<pr>"
+        }
+      },
+      {
+        "event": "the payment settles"
+      },
+      {
+        "request": "GET <verify>",
+        "response": {
+          "status": "OK",
+          "settled": true,
+          "preimage": "<preimage>",
+          "pr": "<pr>"
         }
       },
       {
         "request": "GET https://mint.example/w/cb?k1=ck1rj8xfzye0uaeg2c67vh9mzeus93ey4ujgk4qtdryh2pkw7w3z59jetzmzm4469nhghpz8r8ky8grfwmatlp3fja4nmljn3y6l6h5fl3czn0tfz35mlzxy8hu7wcm9r7vcvjrkrwlr4sz8lfyzyndswwmsq0w6z77&pr=<pr>",
         "response": {
-          "status": "OK"
+          "status": "OK",
+          "verify": "<verify>"
         }
       },
       {
